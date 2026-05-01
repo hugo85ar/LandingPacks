@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <base target="_top">
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Hugo Alvigini — Cursos y Packs</title>
+
+  <!-- ✅ META PIXEL DE FACEBOOK -->
+  <script>
+    !function(f,b,e,v,n,t,s)
+    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+    n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t,s)}(window,document,'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', '2189151328193841');
+    fbq('track', 'PageView');
+  </script>
+  <noscript>
+    <img height="1" width="1" style="display:none"
+    src="https://www.facebook.com/tr?id=2189151328193841&ev=PageView&noscript=1"/>
+  </noscript>
+  <!-- ✅ FIN PIXEL -->
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --primary-blue: #5974ff;
+      --action-green: #4CAF50;
+      --innovation-purple: #5726B8;
+      --dark-background: #0a0a1e;
+      --text-light: #ffffff;
+      --text-dark: #cccccc;
+      --border-radius: 12px;
+    }
+
+    body {
+      font-family: "Open Sans", sans-serif;
+      margin: 0;
+      background-color: var(--dark-background);
+      color: var(--text-light);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    .logo-hero {
+      width: 560px;
+      max-width: 95%;
+      height: auto;
+      display: block;
+      margin: -30px auto -40px auto;
+      filter: drop-shadow(0 0 25px rgba(0, 229, 255, 0.5));
+      image-rendering: -webkit-optimize-contrast;
+      transition: transform 0.3s ease;
+    }
+
+    .logo-hero:hover { transform: scale(1.02); }
+
+    .hero-text-impact {
+      text-align: center;
+      padding: 0 5%;
+    }
+
+    header.hero-main {
+      padding: 50px 0 30px 0;
+      background: linear-gradient(135deg, var(--primary-blue), var(--innovation-purple));
+      text-align: center;
+      border-bottom-left-radius: var(--border-radius);
+      border-bottom-right-radius: var(--border-radius);
+    }
+
+    .hero-text-impact h2 {
+      font-family: "Montserrat", sans-serif;
+      font-size: clamp(1.4rem, 4vw, 2.6rem);
+      margin-top: 10px;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+    }
+
+    .hero-description {
+      font-size: clamp(0.95rem, 2vw, 1.2rem);
+      color: #e0e0e0;
+      max-width: 700px;
+      margin: 10px auto 0;
+      opacity: 0.9;
+    }
+
+    .logo-container-central {
+      display: block;
+      padding: 0;
+      margin: 0;
+    }
+
+    #courses-container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    .main-layout {
+      display: flex;
+      gap: 40px;
+      justify-content: center;
+      align-items: flex-start;
+    }
+
+    .column { flex: 1; min-width: 350px; }
+
+    .section-header h2 {
+      font-family: "Montserrat", sans-serif;
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--primary-blue);
+      border-bottom: 1px solid rgba(89,116,255,0.3);
+      padding-bottom: 8px;
+      margin-bottom: 20px;
+    }
+
+    .course-card {
+      background: rgba(26, 26, 58, 0.8);
+      border: 1px solid rgba(89, 116, 255, 0.3);
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 25px;
+      transition: all 0.3s ease;
+    }
+
+    .course-card:hover {
+      transform: translateY(-3px);
+      border-color: rgba(89,116,255,0.6);
+      box-shadow: 0 8px 24px rgba(89,116,255,0.15);
+    }
+
+    .course-card h3 {
+      font-family: "Montserrat", sans-serif;
+      color: var(--primary-blue);
+      margin-top: 0;
+      margin-bottom: 8px;
+      font-size: 1.05rem;
+    }
+
+    .course-card .desc {
+      font-size: 0.88rem;
+      color: var(--text-dark);
+      margin-bottom: 16px;
+      line-height: 1.55;
+    }
+
+    .price-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 8px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      font-size: 0.9rem;
+    }
+
+    .price-row:last-child { border-bottom: none; }
+
+    .price-row.highlight {
+      color: #7fffb0;
+      font-weight: bold;
+    }
+
+    .price-row .label { color: var(--text-dark); }
+    .price-row.highlight .label { color: #7fffb0; }
+
+    .loader {
+      text-align: center;
+      padding: 60px;
+      font-size: 1rem;
+      color: var(--text-dark);
+      animation: pulse 1.5s ease infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.4; }
+    }
+
+    .error-message {
+      text-align: center;
+      padding: 40px;
+      color: #ff6b6b;
+    }
+
+    footer {
+      text-align: center;
+      padding: 30px 5%;
+      background-color: #11112b;
+      margin-top: 40px;
+      border-top: 1px solid rgba(89,116,255,0.15);
+    }
+
+    .payment-info {
+      display: inline-block;
+      text-align: center;
+      margin-top: 30px;
+      padding: 20px 32px;
+      background-color: rgba(87, 38, 184, 0.1);
+      border-radius: var(--border-radius);
+      border: 1px solid rgba(87, 38, 184, 0.4);
+      margin-bottom: 16px;
+    }
+
+    .payment-info h2 {
+      font-family: "Montserrat", sans-serif;
+      color: var(--text-light);
+      font-size: 1.3em;
+      margin-bottom: 15px;
+    }
+
+    .flags img {
+      width: 60px;
+      height: 40px;
+      object-fit: cover;
+      object-position: center;
+      margin: 0 10px;
+      border: 1px solid var(--text-light);
+      border-radius: 5px;
+      background-color: white;
+      display: inline-block;
+    }
+
+    .cta-final { text-align: center; margin-top: 32px; }
+
+    .btn-whatsapp {
+      background: linear-gradient(135deg, #25D366, #128C7E);
+      color: var(--text-light);
+      padding: 15px 36px;
+      border: none;
+      border-radius: var(--border-radius);
+      font-family: "Montserrat", sans-serif;
+      font-weight: 700;
+      font-size: 1.2em;
+      cursor: pointer;
+      box-shadow: 0 5px 20px rgba(37,211,102,0.4);
+      min-width: 300px;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .btn-whatsapp:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 28px rgba(37,211,102,0.5);
+    }
+
+    footer > p {
+      margin-top: 24px;
+      font-size: 0.82rem;
+      color: var(--text-dark);
+    }
+
+    @media (max-width: 900px) {
+      .main-layout {
+        flex-direction: column;
+        align-items: center;
+      }
+      .column {
+        width: 100%;
+        min-width: unset;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="hero-main">
+    <div class="logo-container-central">
+      <img src="https://res.cloudinary.com/dlnrsadbc/image/upload/v1773428757/logo_hugo_alvigini_transparente_jodgue.png"
+           alt="HA - Hugo Alvigini" class="logo-hero">
+    </div>
+    <div class="hero-text-impact">
+      <h2>Transformo el caos operativo en libertad</h2>
+      <p class="hero-description">Especialista en sistemas y automatización para emprendedores que buscan escalar sin perder el control.</p>
+    </div>
+  </header>
+
+  <main id="courses-container">
+    <div class="loader">Cargando cursos...</div>
+  </main>
+
+  <footer>
+    <div class="payment-info">
+      <h2>Pagá en tu moneda local</h2>
+      <div class="flags">
+        <img src="https://res.cloudinary.com/dlnrsadbc/image/upload/v1773414010/Bandera_Arg_knq9nr.png" alt="Bandera Argentina">
+        <img src="https://res.cloudinary.com/dlnrsadbc/image/upload/v1773414002/Bandera_Paraguay_z0hbvs.png" alt="Bandera Paraguay">
+      </div>
+    </div>
+
+    <div class="cta-final">
+      <!-- ✅ EVENTO LEAD AL HACER CLIC EN WHATSAPP -->
+      <a href="https://wa.me/5491176529179?text=Hola%20Hugo!%20Me%20interesa%20inscribirme%20en%20uno%20de%20tus%20cursos"
+         target="_blank"
+         style="text-decoration: none;"
+         onclick="if(typeof fbq!=='undefined') fbq('track','Lead');">
+        <button class="btn-whatsapp">¡Inscríbete por WhatsApp!</button>
+      </a>
+    </div>
+
+    <p>&copy; 2026 Huguito Bot. Todos los derechos reservados.</p>
+  </footer>
+
+  <script>
+    // ✅ URL pública de tu AppScript — actúa como API que devuelve JSON
+    const APPSCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyxlO60asW5Jc8tHtjtSqk8-tUTSxJwwDZ-i0oN-Jgqn5wsmg7l0a70jFD7rZssUD4IOw/exec';
+                          
+    async function loadCourses() {
+      const container = document.getElementById('courses-container');
+      try {
+        const res = await fetch(APPSCRIPT_URL);
+        const text = await res.text();
+        const courses = JSON.parse(text);
+
+        if (courses.error) {
+          container.innerHTML = `<div class="error-message">Error: ${courses.error}</div>`;
+          return;
+        }
+
+        renderCourses(courses, container);
+
+      } catch (err) {
+        container.innerHTML = `<div class="error-message">No se pudieron cargar los cursos. Por favor recargá la página.</div>`;
+        console.error(err);
+      }
+    }
+
+    function renderCourses(courses, container) {
+      if (!Array.isArray(courses) || courses.length === 0) {
+        container.innerHTML = `<div class="error-message">No hay cursos disponibles por el momento.</div>`;
+        return;
+      }
+
+      container.innerHTML = `
+        <div class="main-layout">
+          <div class="column">
+            <div class="section-header"><h2>Cursos Individuales</h2></div>
+            <div id="individual-list"></div>
+          </div>
+          <div class="column">
+            <div class="section-header"><h2>Packs de Cursos</h2></div>
+            <div id="pack-list"></div>
+          </div>
+        </div>
+      `;
+
+      const individualList = document.getElementById('individual-list');
+      const packList = document.getElementById('pack-list');
+
+      courses.forEach(course => {
+        const nombre  = course['Producto / Pack'] || '';
+        const desc    = course['Que cursos incluye?'] || 'Consultá los detalles.';
+        const contado = course['Precio Total (50% por pago unico)'] || '-';
+        const cuota3  = course['Opción 3 Cuotas (Mensual)'] || '-';
+        const cuota6  = course['Opción 6 Cuotas (Mensual)'] || '-';
+        const esPack  = course['Pack'] && course['Pack'].toString().toLowerCase().includes('pack');
+
+        const card = document.createElement('div');
+        card.className = 'course-card';
+        card.innerHTML = `
+          <h3>${nombre}</h3>
+          <p class="desc">${desc}</p>
+          <div class="price-section">
+            <div class="price-row highlight">
+              <span class="label">💥 Contado (50% OFF)</span>
+              <span class="value">${contado}</span>
+            </div>
+            <div class="price-row">
+              <span class="label">3 Cuotas de</span>
+              <span class="value">${cuota3}</span>
+            </div>
+            <div class="price-row">
+              <span class="label">6 Cuotas de</span>
+              <span class="value">${cuota6}</span>
+            </div>
+          </div>
+        `;
+
+        (esPack ? packList : individualList).appendChild(card);
+      });
+    }
+
+    loadCourses();
+  </script>
+
+</body>
+</html>
