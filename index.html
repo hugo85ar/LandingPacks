@@ -1,5 +1,4 @@
 
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -7,7 +6,7 @@
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Hugo Alvigini — Cursos y Packs</title>
- 
+
   <!-- ✅ META PIXEL DE FACEBOOK -->
   <script>
     !function(f,b,e,v,n,t,s)
@@ -25,11 +24,10 @@
     <img height="1" width="1" style="display:none"
     src="https://www.facebook.com/tr?id=2189151328193841&ev=PageView&noscript=1"/>
   </noscript>
-  <!-- ✅ FIN PIXEL -->
- 
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
- 
+
   <style>
     :root {
       --primary-blue: #5974ff;
@@ -40,7 +38,7 @@
       --text-dark: #cccccc;
       --border-radius: 12px;
     }
- 
+
     body {
       font-family: "Open Sans", sans-serif;
       margin: 0;
@@ -49,7 +47,7 @@
       line-height: 1.6;
       overflow-x: hidden;
     }
- 
+
     .logo-hero {
       width: 560px;
       max-width: 95%;
@@ -57,17 +55,12 @@
       display: block;
       margin: -30px auto -40px auto;
       filter: drop-shadow(0 0 25px rgba(0, 229, 255, 0.5));
-      image-rendering: -webkit-optimize-contrast;
       transition: transform 0.3s ease;
     }
- 
     .logo-hero:hover { transform: scale(1.02); }
- 
-    .hero-text-impact {
-      text-align: center;
-      padding: 0 5%;
-    }
- 
+
+    .hero-text-impact { text-align: center; padding: 0 5%; }
+
     header.hero-main {
       padding: 50px 0 30px 0;
       background: linear-gradient(135deg, var(--primary-blue), var(--innovation-purple));
@@ -75,7 +68,7 @@
       border-bottom-left-radius: var(--border-radius);
       border-bottom-right-radius: var(--border-radius);
     }
- 
+
     .hero-text-impact h2 {
       font-family: "Montserrat", sans-serif;
       font-size: clamp(1.4rem, 4vw, 2.6rem);
@@ -83,7 +76,7 @@
       font-weight: 700;
       letter-spacing: -0.5px;
     }
- 
+
     .hero-description {
       font-size: clamp(0.95rem, 2vw, 1.2rem);
       color: #e0e0e0;
@@ -91,28 +84,33 @@
       margin: 10px auto 0;
       opacity: 0.9;
     }
- 
-    .logo-container-central {
-      display: block;
-      padding: 0;
-      margin: 0;
+
+    .logo-container-central { display: block; padding: 0; margin: 0; }
+
+    /* instrucción */
+    .instruction {
+      text-align: center;
+      padding: 28px 20px 8px;
+      font-size: 1rem;
+      color: var(--text-dark);
     }
- 
+    .instruction strong { color: var(--text-light); }
+
     #courses-container {
       max-width: 1400px;
       margin: 0 auto;
-      padding: 20px;
+      padding: 10px 20px 20px;
     }
- 
+
     .main-layout {
       display: flex;
       gap: 40px;
       justify-content: center;
       align-items: flex-start;
     }
- 
+
     .column { flex: 1; min-width: 350px; }
- 
+
     .section-header h2 {
       font-family: "Montserrat", sans-serif;
       font-size: 1.3rem;
@@ -122,22 +120,48 @@
       padding-bottom: 8px;
       margin-bottom: 20px;
     }
- 
+
+    /* ── CARDS ── */
     .course-card {
       background: rgba(26, 26, 58, 0.8);
-      border: 1px solid rgba(89, 116, 255, 0.3);
+      border: 2px solid rgba(89, 116, 255, 0.2);
       border-radius: 12px;
       padding: 20px;
-      margin-bottom: 25px;
-      transition: all 0.3s ease;
+      margin-bottom: 20px;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      position: relative;
     }
- 
+
     .course-card:hover {
       transform: translateY(-3px);
-      border-color: rgba(89,116,255,0.6);
+      border-color: rgba(89,116,255,0.5);
       box-shadow: 0 8px 24px rgba(89,116,255,0.15);
     }
- 
+
+    .course-card.selected {
+      border-color: #7fffb0;
+      box-shadow: 0 0 0 3px rgba(127,255,176,0.2), 0 8px 28px rgba(127,255,176,0.15);
+      background: rgba(26, 50, 38, 0.85);
+    }
+
+    .selected-badge {
+      display: none;
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      background: #7fffb0;
+      color: #0a1e10;
+      font-size: 0.7rem;
+      font-weight: 700;
+      font-family: "Montserrat", sans-serif;
+      padding: 3px 9px;
+      border-radius: 20px;
+      letter-spacing: 0.05em;
+    }
+
+    .course-card.selected .selected-badge { display: inline-block; }
+
     .course-card h3 {
       font-family: "Montserrat", sans-serif;
       color: var(--primary-blue);
@@ -145,14 +169,16 @@
       margin-bottom: 8px;
       font-size: 1.05rem;
     }
- 
+
+    .course-card.selected h3 { color: #7fffb0; }
+
     .course-card .desc {
       font-size: 0.88rem;
       color: var(--text-dark);
       margin-bottom: 16px;
       line-height: 1.55;
     }
- 
+
     .price-row {
       display: flex;
       justify-content: space-between;
@@ -161,17 +187,75 @@
       border-bottom: 1px solid rgba(255,255,255,0.05);
       font-size: 0.9rem;
     }
- 
+
     .price-row:last-child { border-bottom: none; }
- 
-    .price-row.highlight {
-      color: #7fffb0;
-      font-weight: bold;
-    }
- 
+
+    .price-row.highlight { color: #7fffb0; font-weight: bold; }
     .price-row .label { color: var(--text-dark); }
     .price-row.highlight .label { color: #7fffb0; }
- 
+
+    /* ── BARRA FIJA INFERIOR ── */
+    .sticky-bar {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      z-index: 100;
+      padding: 14px 20px;
+      background: rgba(10, 10, 30, 0.95);
+      backdrop-filter: blur(12px);
+      border-top: 1px solid rgba(89,116,255,0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      flex-wrap: wrap;
+      transition: all 0.3s ease;
+    }
+
+    .sticky-bar .selected-label {
+      font-size: 0.9rem;
+      color: var(--text-dark);
+      font-style: italic;
+    }
+
+    .sticky-bar .selected-label span {
+      color: #7fffb0;
+      font-style: normal;
+      font-weight: 600;
+    }
+
+    .btn-whatsapp {
+      background: linear-gradient(135deg, #25D366, #128C7E);
+      color: var(--text-light);
+      padding: 14px 32px;
+      border: none;
+      border-radius: var(--border-radius);
+      font-family: "Montserrat", sans-serif;
+      font-weight: 700;
+      font-size: 1rem;
+      cursor: pointer;
+      box-shadow: 0 5px 20px rgba(37,211,102,0.4);
+      transition: transform 0.2s, box-shadow 0.2s, opacity 0.2s;
+      white-space: nowrap;
+    }
+
+    .btn-whatsapp:hover:not(:disabled) {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 28px rgba(37,211,102,0.5);
+    }
+
+    .btn-whatsapp:disabled {
+      background: linear-gradient(135deg, #3a3a3a, #222);
+      box-shadow: none;
+      cursor: not-allowed;
+      opacity: 0.6;
+    }
+
+    /* espacio para que el contenido no quede tapado por la barra */
+    body { padding-bottom: 90px; }
+
+    /* ── LOADER / ERROR ── */
     .loader {
       text-align: center;
       padding: 60px;
@@ -179,98 +263,67 @@
       color: var(--text-dark);
       animation: pulse 1.5s ease infinite;
     }
- 
+
     @keyframes pulse {
       0%, 100% { opacity: 1; }
       50% { opacity: 0.4; }
     }
- 
-    .error-message {
-      text-align: center;
-      padding: 40px;
-      color: #ff6b6b;
-    }
- 
+
+    .error-message { text-align: center; padding: 40px; color: #ff6b6b; }
+
+    /* ── FOOTER ── */
     footer {
       text-align: center;
       padding: 30px 5%;
       background-color: #11112b;
-      margin-top: 40px;
+      margin-top: 20px;
       border-top: 1px solid rgba(89,116,255,0.15);
     }
- 
+
     .payment-info {
       display: inline-block;
       text-align: center;
-      margin-top: 30px;
       padding: 20px 32px;
       background-color: rgba(87, 38, 184, 0.1);
       border-radius: var(--border-radius);
       border: 1px solid rgba(87, 38, 184, 0.4);
       margin-bottom: 16px;
     }
- 
+
     .payment-info h2 {
       font-family: "Montserrat", sans-serif;
       color: var(--text-light);
-      font-size: 1.3em;
-      margin-bottom: 15px;
+      font-size: 1.1em;
+      margin-bottom: 12px;
     }
- 
+
     .flags img {
-      width: 60px;
-      height: 40px;
+      width: 56px;
+      height: 38px;
       object-fit: cover;
       object-position: center;
-      margin: 0 10px;
+      margin: 0 8px;
       border: 1px solid var(--text-light);
       border-radius: 5px;
       background-color: white;
       display: inline-block;
     }
- 
-    .cta-final { text-align: center; margin-top: 32px; }
- 
-    .btn-whatsapp {
-      background: linear-gradient(135deg, #25D366, #128C7E);
-      color: var(--text-light);
-      padding: 15px 36px;
-      border: none;
-      border-radius: var(--border-radius);
-      font-family: "Montserrat", sans-serif;
-      font-weight: 700;
-      font-size: 1.2em;
-      cursor: pointer;
-      box-shadow: 0 5px 20px rgba(37,211,102,0.4);
-      min-width: 300px;
-      transition: transform 0.2s, box-shadow 0.2s;
-    }
- 
-    .btn-whatsapp:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 28px rgba(37,211,102,0.5);
-    }
- 
+
     footer > p {
-      margin-top: 24px;
+      margin-top: 20px;
       font-size: 0.82rem;
       color: var(--text-dark);
     }
- 
+
     @media (max-width: 900px) {
-      .main-layout {
-        flex-direction: column;
-        align-items: center;
-      }
-      .column {
-        width: 100%;
-        min-width: unset;
-      }
+      .main-layout { flex-direction: column; align-items: center; }
+      .column { width: 100%; min-width: unset; }
+      .sticky-bar { flex-direction: column; gap: 8px; padding: 12px 16px; }
     }
   </style>
 </head>
 <body>
- 
+
   <header class="hero-main">
     <div class="logo-container-central">
       <img src="https://res.cloudinary.com/dlnrsadbc/image/upload/v1773428757/logo_hugo_alvigini_transparente_jodgue.png"
@@ -281,11 +334,13 @@
       <p class="hero-description">Especialista en sistemas y automatización para emprendedores que buscan escalar sin perder el control.</p>
     </div>
   </header>
- 
+
+  <p class="instruction">👇 <strong>Seleccioná el curso o pack que te interesa</strong> y consultame por WhatsApp</p>
+
   <main id="courses-container">
     <div class="loader">Cargando cursos...</div>
   </main>
- 
+
   <footer>
     <div class="payment-info">
       <h2>Pagá en tu moneda local</h2>
@@ -294,24 +349,71 @@
         <img src="https://res.cloudinary.com/dlnrsadbc/image/upload/v1773414002/Bandera_Paraguay_z0hbvs.png" alt="Bandera Paraguay">
       </div>
     </div>
- 
-    <div class="cta-final">
-      <a href="https://wa.me/5491176529179?text=Hola%20Hugo!%20Me%20interesa%20inscribirme%20en%20uno%20de%20tus%20cursos"
-         target="_blank"
-         style="text-decoration: none;"
-         onclick="if(typeof fbq!=='undefined') fbq('track','Lead');">
-        <button class="btn-whatsapp">¡Inscríbete por WhatsApp!</button>
-      </a>
-    </div>
- 
     <p>&copy; 2026 Huguito Bot. Todos los derechos reservados.</p>
   </footer>
- 
+
+  <!-- ✅ BARRA FIJA INFERIOR -->
+  <div class="sticky-bar">
+    <span class="selected-label" id="selected-label">Ningún curso seleccionado</span>
+    <button class="btn-whatsapp" id="btn-whatsapp" disabled>
+      📲 Consultá por WhatsApp
+    </button>
+  </div>
+
   <script>
-    // ✅ JSONP — evita el bloqueo CORS de Google AppScript
     const APPSCRIPT_BASE = 'https://script.google.com/macros/s/AKfycbyxlO60asW5Jc8tHtjtSqk8-tUTSxJwwDZ-i0oN-Jgqn5wsmg7l0a70jFD7rZssUD4IOw/exec';
- 
-    // Esta función es llamada automáticamente por el AppScript como callback
+    const WA_NUMBER = '5491176529179';
+
+    let selectedCourse = null;
+
+    // ── SELECCIÓN DE CURSO ──
+    function selectCourse(nombre) {
+      // deseleccionar anterior
+      document.querySelectorAll('.course-card').forEach(c => c.classList.remove('selected'));
+
+      // si clic en el mismo, deseleccionar
+      if (selectedCourse === nombre) {
+        selectedCourse = null;
+        updateStickyBar();
+        return;
+      }
+
+      selectedCourse = nombre;
+
+      // resaltar card clickeada
+      document.querySelectorAll('.course-card').forEach(c => {
+        if (c.dataset.nombre === nombre) c.classList.add('selected');
+      });
+
+      updateStickyBar();
+    }
+
+    function updateStickyBar() {
+      const label = document.getElementById('selected-label');
+      const btn   = document.getElementById('btn-whatsapp');
+
+      if (!selectedCourse) {
+        label.innerHTML = 'Ningún curso seleccionado';
+        btn.disabled = true;
+        btn.onclick = null;
+        return;
+      }
+
+      label.innerHTML = `Seleccionado: <span>${selectedCourse}</span>`;
+      btn.disabled = false;
+
+      const msg = encodeURIComponent(
+        `Hola Hugo! Me interesa inscribirme en "${selectedCourse}". ¿Podés darme más información?`
+      );
+      const waUrl = `https://wa.me/${WA_NUMBER}?text=${msg}`;
+
+      btn.onclick = () => {
+        if (typeof fbq !== 'undefined') fbq('track', 'Lead');
+        window.open(waUrl, '_blank');
+      };
+    }
+
+    // ── RENDER ──
     function handleCourses(courses) {
       const container = document.getElementById('courses-container');
       if (!courses || courses.error) {
@@ -320,23 +422,13 @@
       }
       renderCourses(courses, container);
     }
- 
-    function loadCourses() {
-      const script = document.createElement('script');
-      script.src = APPSCRIPT_BASE + '?callback=handleCourses';
-      script.onerror = () => {
-        document.getElementById('courses-container').innerHTML =
-          '<div class="error-message">No se pudieron cargar los cursos. Por favor recargá la página.</div>';
-      };
-      document.body.appendChild(script);
-    }
- 
+
     function renderCourses(courses, container) {
       if (!Array.isArray(courses) || courses.length === 0) {
         container.innerHTML = `<div class="error-message">No hay cursos disponibles por el momento.</div>`;
         return;
       }
- 
+
       container.innerHTML = `
         <div class="main-layout">
           <div class="column">
@@ -349,10 +441,10 @@
           </div>
         </div>
       `;
- 
+
       const individualList = document.getElementById('individual-list');
-      const packList = document.getElementById('pack-list');
- 
+      const packList       = document.getElementById('pack-list');
+
       courses.forEach(course => {
         const nombre  = course['Producto / Pack'] || '';
         const desc    = course['Que cursos incluye?'] || 'Consultá los detalles.';
@@ -360,10 +452,14 @@
         const cuota3  = course['Opción 3 Cuotas (Mensual)'] || '-';
         const cuota6  = course['Opción 6 Cuotas (Mensual)'] || '-';
         const esPack  = course['Pack'] && course['Pack'].toString().toLowerCase().includes('pack');
- 
+
         const card = document.createElement('div');
         card.className = 'course-card';
+        card.dataset.nombre = nombre;
+        card.onclick = () => selectCourse(nombre);
+
         card.innerHTML = `
+          <span class="selected-badge">✓ SELECCIONADO</span>
           <h3>${nombre}</h3>
           <p class="desc">${desc}</p>
           <div class="price-section">
@@ -381,14 +477,24 @@
             </div>
           </div>
         `;
- 
+
         (esPack ? packList : individualList).appendChild(card);
       });
     }
- 
-    // Arranca la carga
+
+    // ── JSONP ──
+    function loadCourses() {
+      const script = document.createElement('script');
+      script.src = APPSCRIPT_BASE + '?callback=handleCourses';
+      script.onerror = () => {
+        document.getElementById('courses-container').innerHTML =
+          '<div class="error-message">No se pudieron cargar los cursos. Por favor recargá la página.</div>';
+      };
+      document.body.appendChild(script);
+    }
+
     loadCourses();
   </script>
- 
+
 </body>
 </html>
