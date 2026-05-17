@@ -42,7 +42,7 @@
       --border-radius: 12px;
     }
     
-body {
+    body {
       font-family: "Open Sans", sans-serif;
       margin: 0;
       background-color: var(--dark-background);
@@ -52,30 +52,29 @@ body {
       padding-bottom: 90px;
     }
 
-    /* 📱 CORRECCIÓN CRÍTICA DE CLS: El contenedor fuerza el espacio de la imagen */
- .logo-container-central { 
+    /* 💎 CONTENEDOR DEL LOGO: Limpio y sin márgenes negativos destructivos */
+    .logo-container-central { 
       display: flex;
       justify-content: center;
       align-items: center;
       width: 100%;
-      padding: 0;
-      margin: -20px auto -30px auto; /* Compensa los espacios transparentes nativos del PNG */
+      padding: 10px 0;
+      margin: 0 auto;
     }
 
- .logo-hero {
-      width: 390px; /* Bajamos de 480px a 390px para darle aire al texto */
-      max-width: 85%; /* Ajuste ideal para pantallas de celulares */
-      height: auto; /* Mantiene la proporción perfecta, cero aplastado */
+    /* 🔥 LOGO CALIBRADO: Proporciones nativas cuidadas */
+    .logo-hero {
+      width: 380px; 
+      max-width: 85%; 
+      height: auto; 
       display: block;
-      filter: drop-shadow(0 0 25px rgba(0, 229, 255, 0.4)); /* Destaca con sutileza */
+      filter: drop-shadow(0 0 25px rgba(0, 229, 255, 0.4)); 
       transition: transform 0.3s ease;
     }
     .logo-hero:hover { transform: scale(1.02); }
     
-    .hero-text-impact { text-align: center; padding: 0 5%; }
-
     header.hero-main {
-      padding: 45px 0 25px 0;
+      padding: 35px 0 30px 0;
       background: linear-gradient(135deg, var(--primary-blue), var(--innovation-purple));
       text-align: center;
       border-bottom-left-radius: var(--border-radius);
@@ -83,10 +82,11 @@ body {
     }
     
     .hero-text-impact { text-align: center; padding: 0 5%; }
+    
     .hero-text-impact h2 {
       font-family: "Montserrat", sans-serif;
       font-size: clamp(1.4rem, 4vw, 2.6rem);
-      margin-top: 5px;
+      margin-top: 20px;
       font-weight: 700;
       letter-spacing: -0.5px;
     }
@@ -132,7 +132,7 @@ body {
       margin-bottom: 20px;
     }
 
-    /* ── CARDS (Hardware accelerated) ── */
+    /* ── CARDS ── */
     .course-card {
       background: rgba(26, 26, 58, 0.8);
       border: 2px solid rgba(89, 116, 255, 0.2);
@@ -278,6 +278,7 @@ body {
 
     .error-message { text-align: center; padding: 40px; color: #ff6b6b; }
 
+    /* ── FOOTER Y ELEMENTOS DE PAGO ── */
     footer {
       text-align: center;
       padding: 30px 5%;
@@ -289,34 +290,25 @@ body {
     .payment-info {
       display: inline-block;
       text-align: center;
-      padding: 20px 32px;
-      background-color: rgba(87, 38, 184, 0.1);
-      border-radius: var(--border-radius);
-      border: 1px solid rgba(87, 38, 184, 0.4);
-      margin-bottom: 16px;
+      padding: 15px 25px;
+      background-color: transparent;
+      border: none;
+      margin-bottom: 10px;
     }
 
-    .payment-info h2 {
-      font-family: "Montserrat", sans-serif;
-      color: var(--text-light);
-      font-size: 1.1em;
-      margin-bottom: 12px;
-    }
-
-    .flags img {
-      width: 56px;
-      height: 38px;
-      object-fit: cover;
-      object-position: center;
-      margin: 0 8px;
-      border: 1px solid var(--text-light);
-      border-radius: 5px;
-      background-color: white;
-      display: inline-block;
+    /* 🚀 SE CORRIGIERON LAS REGLAS VIEJAS: Ahora el banner escala perfectamente sin forzarse a 56px */
+    .banner-pagos {
+      width: 290px; 
+      max-width: 95%; 
+      height: auto; 
+      display: block;
+      margin: 0 auto; 
+      border: none;
+      background: transparent;
     }
 
     footer > p {
-      margin-top: 20px;
+      margin-top: 15px;
       font-size: 0.82rem;
       color: var(--text-dark);
     }
@@ -326,30 +318,11 @@ body {
       .column { width: 100%; min-width: unset; }
       .sticky-bar { flex-direction: column; gap: 8px; padding: 12px 16px; }
     }
-
-    .banner-pagos {
-      width: 300px; /* Ancho ideal para que se lea perfecto */
-      max-width: 90%; /* Responsivo para celulares */
-      height: auto; /* Mantiene la proporción sin deformar */
-      display: block;
-      margin: 10px auto; /* Lo centra en el footer */
-      padding: 0;
-      border: none; /* Quitamos bordes si quedaron de las banderas viejas */
-      background: transparent; /* Quitamos fondos si quedaron de las banderas viejas */
-    }
-
-
-    /* Limpieza de clases antiguas si es necesario */
-    .payment-info, .flags {
-      border: none;
-      background: transparent;
-      padding: 0;
-    }
   </style>
 </head>
 <body>
 
-<header class="hero-main">
+  <header class="hero-main">
     <div class="logo-container-central">
       <img src="https://res.cloudinary.com/dlnrsadbc/image/upload/q_auto,f_auto,w_400/v1778980849/logo_hugo_alvigini_transparente_jodgue_z1tldp.webp"
            alt="HA - Hugo Alvigini" class="logo-hero" fetchpriority="high">
