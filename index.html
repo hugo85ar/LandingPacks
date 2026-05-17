@@ -53,30 +53,30 @@ body {
     }
 
     /* 📱 CORRECCIÓN CRÍTICA DE CLS: El contenedor fuerza el espacio de la imagen */
-  .logo-container-central { 
+ .logo-container-central { 
       display: flex;
       justify-content: center;
       align-items: center;
       width: 100%;
-      padding: 20px 0 10px 0;
+      padding: 0;
+      margin: -20px auto -30px auto; /* Compensa los espacios transparentes nativos del PNG */
     }
 
-  .logo-hero {
-      width: 280px; /* Tamaño ideal y elegante para tu marca en pantalla */
-      max-width: 80%; /* Para que en celulares chicos reduzca su tamaño sin desbordar */
-      height: auto;
-      aspect-ratio: 280 / 112; /* Medida matemática exacta para reservar el espacio antes de cargar */
+ .logo-hero {
+      width: 480px; /* Ancho imponente para computadoras */
+      max-width: 90%; /* Se adapta perfectamente en pantallas de celulares sin romperse */
+      height: auto; /* Evita CUALQUIER tipo de efecto aplastado */
       display: block;
-      filter: drop-shadow(0 0 20px rgba(0, 229, 255, 0.3));
+      filter: drop-shadow(0 0 30px rgba(0, 229, 255, 0.45)); /* Destaca sobre el fondo degradado */
       transition: transform 0.3s ease;
     }
     
-   logo-hero:hover { transform: scale(1.03); }
-
+    .logo-hero:hover { transform: scale(1.02); }
+    
     .hero-text-impact { text-align: center; padding: 0 5%; }
 
     header.hero-main {
-      padding: 40px 0 30px 0;
+      padding: 45px 0 25px 0;
       background: linear-gradient(135deg, var(--primary-blue), var(--innovation-purple));
       text-align: center;
       border-bottom-left-radius: var(--border-radius);
@@ -87,7 +87,7 @@ body {
     .hero-text-impact h2 {
       font-family: "Montserrat", sans-serif;
       font-size: clamp(1.4rem, 4vw, 2.6rem);
-      margin-top: 15px;
+      margin-top: 5px;
       font-weight: 700;
       letter-spacing: -0.5px;
     }
@@ -331,10 +331,10 @@ body {
 </head>
 <body>
 
-  <header class="hero-main">
+<header class="hero-main">
     <div class="logo-container-central">
-      <img src="https://res.cloudinary.com/dlnrsadbc/image/upload/q_auto,f_auto,w_500/v1773428757/logo_hugo_alvigini_transparente_jodgue.png"
-           alt="HA - Hugo Alvigini" class="logo-hero" width="280" height="112" fetchpriority="high">
+      <img src="https://res.cloudinary.com/dlnrsadbc/image/upload/q_auto,f_auto,w_600/v1773428757/logo_hugo_alvigini_transparente_jodgue.png"
+           alt="HA - Hugo Alvigini" class="logo-hero" fetchpriority="high">
     </div>
     <div class="hero-text-impact">
       <h2>Transformo el caos operativo en libertad</h2>
