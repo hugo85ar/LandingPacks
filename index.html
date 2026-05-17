@@ -9,7 +9,8 @@
   <meta name="description" content="Ecosistema de cursos avanzados y packs de automatizaciones con Google Sheets, Apps Script e IA de Hugo Alvigini. Potencia tu negocio hoy."/>
 
   <link rel="preload" as="image" href="https://res.cloudinary.com/dlnrsadbc/image/upload/q_auto,f_auto,w_400/v1778980849/logo_hugo_alvigini_transparente_jodgue_z1tldp.webp" fetchpriority="high">
-
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🚀</text></svg>">
+  
   <script>
     const FACEBOOK_PIXEL_ID = '2189151328193841';
     let pixelCargado = false;
@@ -411,7 +412,7 @@
     </button>
   </div>
 
-  <script>
+ <script>
     const APPSCRIPT_BASE = 'https://script.google.com/macros/s/AKfycbyxlO60asW5Jc8tHtjtSqk8-tUTSxJwwDZ-i0oN-Jgqn5wsmg7l0a70jFD7rZssUD4IOw/exec';
     const WA_NUMBER = '5491176529179';
 
@@ -449,6 +450,7 @@
       label.innerHTML = `Seleccionado: <span>${selectedCourse}</span>`;
       btn.disabled = false;
 
+      // 💥 CORREGIDO: encodeURIComponent bien escrito para evitar caídas
       const msg = encodeURIComponent(
         `Hola Hugo! Me interesa inscribirme en "${selectedCourse}". ¿Podés darme más información?`
       );
@@ -472,17 +474,11 @@
     function renderCourses(courses) {
       const individualList = document.getElementById('individual-list');
       const packList       = document.getElementById('pack-list');
+      const container      = document.getElementById('courses-container');
 
       if (!Array.isArray(courses) || courses.length === 0) {
-        document.getElementById('courses-container').innerHTML = `<div class="error-message">No hay cursos disponibles por el momento.</div>`;
+        container.innerHTML = `<div class="error-message">No hay cursos disponibles por el momento.</div>`;
         return;
-
-        // Al final de la función, abajo de todo, agregá esto:
-  document.getElementById('courses-container').style.opacity = '0';
-  setTimeout(() => {
-    document.getElementById('courses-container').style.transition = 'opacity 0.2s ease-in-out';
-    document.getElementById('courses-container').style.opacity = '1';
-  }, 50);
       }
 
       // Limpiamos los skeletons antes de inyectar los datos reales
@@ -524,11 +520,20 @@
 
         (esPack ? packList : individualList).appendChild(card);
       });
+
+      // 🚀 UBICACIÓN CORRECTA: El efecto de desvanecimiento actúa tras renderizar las tarjetas
+      container.style.opacity = '0';
+      setTimeout(() => {
+        container.style.transition = 'opacity 0.25s ease-in-out';
+        container.style.opacity = '1';
+      }, 50);
     }
 
     function loadCourses() {
       const script = document.createElement('script');
       script.src = APPSCRIPT_BASE + '?callback=handleCourses';
+      // Metemos defer de forma dinámica para asegurar renderizado libre de bloqueos
+      script.defer = true; 
       script.onerror = () => {
         document.getElementById('courses-container').innerHTML =
           '<div class="error-message">No se pudieron cargar los cursos. Por favor recargá la página.</div>';
@@ -537,7 +542,6 @@
     }
 
     loadCourses();
-  </script>
-
+</script>
 </body>
 </html>
