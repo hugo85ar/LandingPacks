@@ -13,16 +13,23 @@
   <link rel="icon" href="data:,">
   
   <script>
-    const FACEBOOK_PIXEL_ID = '2189151328193841';
+  const FACEBOOK_PIXEL_ID = '2189151328193841';
     let pixelCargado = false;
+    let tiempoPermitido = false;
+
+    // Activamos una bandera a los 2 segundos (después del renderizado crítico de Google)
+    setTimeout(() => {
+      tiempoPermitido = true;
+    }, 2000);
 
     function cargarPixelFacebook() {
-      if (pixelCargado) return;
+      // Si ya se cargó, o si todavía no pasaron los 2 segundos de gracia, abortamos
+      if (pixelCargado || !tiempoPermitido) return;
       pixelCargado = true;
 
-      window.removeEventListener('scroll', cargarPixelFacebook);
-      window.removeEventListener('mousemove', cargarPixelFacebook);
-      window.removeEventListener('touchstart', cargarPixelFacebook);
+      window.removeEventListener('scroll', controlarInteraccion);
+      window.removeEventListener('mousemove', controlarInteraccion);
+      window.removeEventListener('touchstart', controlarInteraccion);
 
       !function(f,b,e,v,n,t,s)
       {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
@@ -37,10 +44,20 @@
       fbq('track', 'PageView');
     }
 
-    window.addEventListener('scroll', cargarPixelFacebook, { passive: true });
-    window.addEventListener('mousemove', cargarPixelFacebook, { passive: true });
-    window.addEventListener('touchstart', cargarPixelFacebook, { passive: true });
-    setTimeout(cargarPixelFacebook, 3500);
+    // Función intermedia para filtrar los ataques tempranos del bot de Google
+    function controlarInteraccion() {
+      if (tiempoPermitido) {
+        cargarPixelFacebook();
+      }
+    }
+
+    // Escuchamos las interacciones de forma pasiva
+    window.addEventListener('scroll', controlarInteraccion, { passive: true });
+    window.addEventListener('mousemove', controlarInteraccion, { passive: true });
+    window.addEventListener('touchstart', controlarInteraccion, { passive: true });
+    
+    // Si el usuario no tocó nada, se termina cargando solo a los 4 segundos
+    setTimeout(cargarPixelFacebook, 4000);
   </script>
   <noscript>
     <img height="1" width="1" style="display:none"
