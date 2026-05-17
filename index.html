@@ -326,6 +326,25 @@ body {
       .column { width: 100%; min-width: unset; }
       .sticky-bar { flex-direction: column; gap: 8px; padding: 12px 16px; }
     }
+
+    .banner-pagos {
+      width: 300px; /* Ancho ideal para que se lea perfecto */
+      max-width: 90%; /* Responsivo para celulares */
+      height: auto; /* Mantiene la proporción sin deformar */
+      display: block;
+      margin: 10px auto; /* Lo centra en el footer */
+      padding: 0;
+      border: none; /* Quitamos bordes si quedaron de las banderas viejas */
+      background: transparent; /* Quitamos fondos si quedaron de las banderas viejas */
+    }
+
+
+    /* Limpieza de clases antiguas si es necesario */
+    .payment-info, .flags {
+      border: none;
+      background: transparent;
+      padding: 0;
+    }
   </style>
 </head>
 <body>
