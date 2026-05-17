@@ -61,16 +61,23 @@
       --border-radius: 12px;
     }
     
-    body {
+body {
   font-family: "Open Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   margin: 0;
-  background-color: var(--dark-background);
-  color: var(--text-light);
+  background-color: #0b0b1e; /* Tu color de fondo de la app */
+  color: #ffffff;
   line-height: 1.6;
   overflow-x: hidden;
-  padding-bottom: 90px;
-  /* 🛡️ Evita saltos de caja cuando la fuente del sistema cambia a Open Sans */
-  size-adjust: 100%; 
+}
+
+    h1, h2, h3 {
+  font-family: "Montserrat", sans-serif;
+  font-display: swap;
+}
+
+    /* Garantizamos estabilidad visual en textos largos del container */
+#courses-container p {
+  min-height: 48px; /* Asegura un bloque mínimo por si la descripción tiene 2 o 3 líneas */
 }
 
     /* 💎 CONTENEDOR DEL LOGO */
@@ -245,16 +252,35 @@
       flex-direction: column;
       gap: 12px;
     }
+    
     .skeleton-line {
-      background: linear-gradient(90deg, rgba(255,255,255,0.05) 25%, rgba(255,255,255,0.12) 50%, rgba(255,255,255,0.05) 75%);
-      background-size: 200% 100%;
-      animation: loading-shimmer 1.4s infinite linear;
-      border-radius: 4px;
-    }
-    @keyframes loading-shimmer {
-      0% { background-position: 200% 0; }
-      100% { background-position: -200% 0; }
-    }
+  background: #1a1a3a;
+  position: relative;
+  overflow: hidden;
+  border-radius: 4px;
+}
+
+    /* El brillo se genera sobre el eje X usando la placa de video del celular */
+.skeleton-line::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.06) 50%,
+    rgba(255, 255, 255, 0) 100
+  );
+  animation: shimmerCompuesto 1.5s infinite;
+}
+    
+    @keyframes shimmerCompuesto {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
 
     /* ── BARRA FIJA INFERIOR ── */
     .sticky-bar {
