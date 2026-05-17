@@ -5,6 +5,8 @@
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Hugo Alvigini — Cursos y Packs</title>
+  
+  <meta name="description" content="Ecosistema de cursos avanzados y packs de automatizaciones con Google Sheets, Apps Script e IA de Hugo Alvigini. Potencia tu negocio hoy."/>
 
   <link rel="preload" as="image" href="https://res.cloudinary.com/dlnrsadbc/image/upload/q_auto,f_auto,w_500/v1773428757/logo_hugo_alvigini_transparente_jodgue.png" fetchpriority="high">
 
@@ -50,16 +52,24 @@
       padding-bottom: 90px;
     }
 
-    /* 📱 OPTIMIZACIÓN DE LOGO HERO */
+    /* 📱 CORRECCIÓN CRÍTICA DE CLS: El contenedor fuerza el espacio de la imagen */
+    .logo-container-central { 
+      display: block; 
+      padding: 0; 
+      margin: 0;
+      min-height: 140px; /* Evita que el texto colapse hacia arriba en la carga inicial */
+    }
+
     .logo-hero {
       width: 560px;
       max-width: 95%;
       height: auto;
+      aspect-ratio: 560 / 140; /* Le dice al navegador las proporciones exactas del archivo */
       display: block;
       margin: -30px auto -40px auto;
       filter: drop-shadow(0 0 25px rgba(0, 229, 255, 0.4));
       transition: transform 0.3s ease;
-      content-visibility: auto; /* Indica al navegador procesar cuando sea necesario */
+      content-visibility: auto;
     }
     .logo-hero:hover { transform: scale(1.02); }
 
@@ -88,8 +98,6 @@
       margin: 10px auto 0;
       opacity: 0.9;
     }
-
-    .logo-container-central { display: block; padding: 0; margin: 0; }
 
     .instruction {
       text-align: center;
@@ -134,7 +142,7 @@
       cursor: pointer;
       transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
       position: relative;
-      will-change: transform; /* Prepara al móvil para animaciones fluidas */
+      will-change: transform;
     }
 
     .course-card:hover {
@@ -325,7 +333,7 @@
   <header class="hero-main">
     <div class="logo-container-central">
       <img src="https://res.cloudinary.com/dlnrsadbc/image/upload/q_auto,f_auto,w_500/v1773428757/logo_hugo_alvigini_transparente_jodgue.png"
-           alt="HA - Hugo Alvigini" class="logo-hero" fetchpriority="high">
+           alt="HA - Hugo Alvigini" class="logo-hero" width="560" height="140" fetchpriority="high">
     </div>
     <div class="hero-text-impact">
       <h2>Transformo el caos operativo en libertad</h2>
@@ -343,8 +351,8 @@
     <div class="payment-info">
       <h2>Pagá en tu moneda local</h2>
       <div class="flags">
-        <img src="https://res.cloudinary.com/dlnrsadbc/image/upload/q_auto,f_auto,w_60/v1773414010/Bandera_Arg_knq9nr.png" alt="Bandera Argentina" loading="lazy">
-        <img src="https://res.cloudinary.com/dlnrsadbc/image/upload/q_auto,f_auto,w_60/v1773414002/Bandera_Paraguay_z0hbvs.png" alt="Bandera Paraguay" loading="lazy">
+        <img src="https://res.cloudinary.com/dlnrsadbc/image/upload/q_auto,f_auto,w_60/v1773414010/Bandera_Arg_knq9nr.png" alt="Bandera Argentina" width="56" height="38" loading="lazy">
+        <img src="https://res.cloudinary.com/dlnrsadbc/image/upload/q_auto,f_auto,w_60/v1773414002/Bandera_Paraguay_z0hbvs.png" alt="Bandera Paraguay" width="56" height="38" loading="lazy">
       </div>
     </div>
     <p>&copy; 2026 Huguito Bot. Todos los derechos reservados.</p>
