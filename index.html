@@ -41,8 +41,8 @@
       --text-dark: #cccccc;
       --border-radius: 12px;
     }
-
-    body {
+    
+body {
       font-family: "Open Sans", sans-serif;
       margin: 0;
       background-color: var(--dark-background);
@@ -53,40 +53,41 @@
     }
 
     /* 📱 CORRECCIÓN CRÍTICA DE CLS: El contenedor fuerza el espacio de la imagen */
-    .logo-container-central { 
-      display: block; 
-      padding: 0; 
-      margin: 0;
-      min-height: 140px; /* Evita que el texto colapse hacia arriba en la carga inicial */
+  .logo-container-central { 
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      padding: 20px 0 10px 0;
     }
 
-    .logo-hero {
-      width: 560px;
-      max-width: 95%;
+  .logo-hero {
+      width: 280px; /* Tamaño ideal y elegante para tu marca en pantalla */
+      max-width: 80%; /* Para que en celulares chicos reduzca su tamaño sin desbordar */
       height: auto;
-      aspect-ratio: 560 / 140; /* Le dice al navegador las proporciones exactas del archivo */
+      aspect-ratio: 280 / 112; /* Medida matemática exacta para reservar el espacio antes de cargar */
       display: block;
-      margin: -30px auto -40px auto;
-      filter: drop-shadow(0 0 25px rgba(0, 229, 255, 0.4));
+      filter: drop-shadow(0 0 20px rgba(0, 229, 255, 0.3));
       transition: transform 0.3s ease;
-      content-visibility: auto;
     }
-    .logo-hero:hover { transform: scale(1.02); }
+    
+   logo-hero:hover { transform: scale(1.03); }
 
     .hero-text-impact { text-align: center; padding: 0 5%; }
 
     header.hero-main {
-      padding: 50px 0 30px 0;
+      padding: 40px 0 30px 0;
       background: linear-gradient(135deg, var(--primary-blue), var(--innovation-purple));
       text-align: center;
       border-bottom-left-radius: var(--border-radius);
       border-bottom-right-radius: var(--border-radius);
     }
-
+    
+    .hero-text-impact { text-align: center; padding: 0 5%; }
     .hero-text-impact h2 {
       font-family: "Montserrat", sans-serif;
       font-size: clamp(1.4rem, 4vw, 2.6rem);
-      margin-top: 10px;
+      margin-top: 15px;
       font-weight: 700;
       letter-spacing: -0.5px;
     }
@@ -333,7 +334,7 @@
   <header class="hero-main">
     <div class="logo-container-central">
       <img src="https://res.cloudinary.com/dlnrsadbc/image/upload/q_auto,f_auto,w_500/v1773428757/logo_hugo_alvigini_transparente_jodgue.png"
-           alt="HA - Hugo Alvigini" class="logo-hero" width="560" height="140" fetchpriority="high">
+           alt="HA - Hugo Alvigini" class="logo-hero" width="280" height="112" fetchpriority="high">
     </div>
     <div class="hero-text-impact">
       <h2>Transformo el caos operativo en libertad</h2>
