@@ -248,16 +248,21 @@ body {
 
     /* 💀 ANIMACIÓN DEL SKELETON LOADER PRO */
     .skeleton-card {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-    }
+  background: rgba(26, 26, 58, 0.8);
+  border: 2px solid rgba(89, 116, 255, 0.2);
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 20px;
+  box-sizing: border-box;
+  min-height: 280px; /* Mantiene la altura calibrada para mobile */
+}
     
-    .skeleton-line {
+.skeleton-line {
   background: #1a1a3a;
   position: relative;
   overflow: hidden;
   border-radius: 4px;
+  margin-bottom: 12px;
 }
 
     /* El brillo se genera sobre el eje X usando la placa de video del celular */
@@ -272,12 +277,11 @@ body {
     90deg,
     rgba(255, 255, 255, 0) 0%,
     rgba(255, 255, 255, 0.06) 50%,
-    rgba(255, 255, 255, 0) 100
+    rgba(255, 255, 255, 0) 100%
   );
-  animation: shimmerCompuesto 1.5s infinite;
+  animation: shimmerGPU 1.5s infinite;
 }
-    
-    @keyframes shimmerCompuesto {
+    @keyframes shimmerGPU {
   0% { transform: translateX(-100%); }
   100% { transform: translateX(100%); }
 }
