@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -7,7 +6,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Hugo Alvigini — Cursos y Packs</title>
 
-  <!-- ✅ META PIXEL DE FACEBOOK -->
+  <link rel="preload" as="image" href="https://res.cloudinary.com/dlnrsadbc/image/upload/q_auto,f_auto,w_500/v1773428757/logo_hugo_alvigini_transparente_jodgue.png" fetchpriority="high">
+
   <script>
     !function(f,b,e,v,n,t,s)
     {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
@@ -26,7 +26,8 @@
   </noscript>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
 
   <style>
     :root {
@@ -46,16 +47,19 @@
       color: var(--text-light);
       line-height: 1.6;
       overflow-x: hidden;
+      padding-bottom: 90px;
     }
 
+    /* 📱 OPTIMIZACIÓN DE LOGO HERO */
     .logo-hero {
       width: 560px;
       max-width: 95%;
       height: auto;
       display: block;
       margin: -30px auto -40px auto;
-      filter: drop-shadow(0 0 25px rgba(0, 229, 255, 0.5));
+      filter: drop-shadow(0 0 25px rgba(0, 229, 255, 0.4));
       transition: transform 0.3s ease;
+      content-visibility: auto; /* Indica al navegador procesar cuando sea necesario */
     }
     .logo-hero:hover { transform: scale(1.02); }
 
@@ -87,7 +91,6 @@
 
     .logo-container-central { display: block; padding: 0; margin: 0; }
 
-    /* instrucción */
     .instruction {
       text-align: center;
       padding: 28px 20px 8px;
@@ -121,7 +124,7 @@
       margin-bottom: 20px;
     }
 
-    /* ── CARDS ── */
+    /* ── CARDS (Hardware accelerated) ── */
     .course-card {
       background: rgba(26, 26, 58, 0.8);
       border: 2px solid rgba(89, 116, 255, 0.2);
@@ -129,8 +132,9 @@
       padding: 20px;
       margin-bottom: 20px;
       cursor: pointer;
-      transition: all 0.25s ease;
+      transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
       position: relative;
+      will-change: transform; /* Prepara al móvil para animaciones fluidas */
     }
 
     .course-card:hover {
@@ -189,7 +193,6 @@
     }
 
     .price-row:last-child { border-bottom: none; }
-
     .price-row.highlight { color: #7fffb0; font-weight: bold; }
     .price-row .label { color: var(--text-dark); }
     .price-row.highlight .label { color: #7fffb0; }
@@ -204,13 +207,13 @@
       padding: 14px 20px;
       background: rgba(10, 10, 30, 0.95);
       backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
       border-top: 1px solid rgba(89,116,255,0.2);
       display: flex;
       align-items: center;
       justify-content: center;
       gap: 16px;
       flex-wrap: wrap;
-      transition: all 0.3s ease;
     }
 
     .sticky-bar .selected-label {
@@ -236,7 +239,7 @@
       font-size: 1rem;
       cursor: pointer;
       box-shadow: 0 5px 20px rgba(37,211,102,0.4);
-      transition: transform 0.2s, box-shadow 0.2s, opacity 0.2s;
+      transition: transform 0.2s, box-shadow 0.2s;
       white-space: nowrap;
     }
 
@@ -252,10 +255,6 @@
       opacity: 0.6;
     }
 
-    /* espacio para que el contenido no quede tapado por la barra */
-    body { padding-bottom: 90px; }
-
-    /* ── LOADER / ERROR ── */
     .loader {
       text-align: center;
       padding: 60px;
@@ -271,7 +270,6 @@
 
     .error-message { text-align: center; padding: 40px; color: #ff6b6b; }
 
-    /* ── FOOTER ── */
     footer {
       text-align: center;
       padding: 30px 5%;
@@ -326,8 +324,8 @@
 
   <header class="hero-main">
     <div class="logo-container-central">
-      <img src="https://res.cloudinary.com/dlnrsadbc/image/upload/v1773428757/logo_hugo_alvigini_transparente_jodgue.png"
-           alt="HA - Hugo Alvigini" class="logo-hero">
+      <img src="https://res.cloudinary.com/dlnrsadbc/image/upload/q_auto,f_auto,w_500/v1773428757/logo_hugo_alvigini_transparente_jodgue.png"
+           alt="HA - Hugo Alvigini" class="logo-hero" fetchpriority="high">
     </div>
     <div class="hero-text-impact">
       <h2>Transformo el caos operativo en libertad</h2>
@@ -345,14 +343,13 @@
     <div class="payment-info">
       <h2>Pagá en tu moneda local</h2>
       <div class="flags">
-        <img src="https://res.cloudinary.com/dlnrsadbc/image/upload/v1773414010/Bandera_Arg_knq9nr.png" alt="Bandera Argentina">
-        <img src="https://res.cloudinary.com/dlnrsadbc/image/upload/v1773414002/Bandera_Paraguay_z0hbvs.png" alt="Bandera Paraguay">
+        <img src="https://res.cloudinary.com/dlnrsadbc/image/upload/q_auto,f_auto,w_60/v1773414010/Bandera_Arg_knq9nr.png" alt="Bandera Argentina" loading="lazy">
+        <img src="https://res.cloudinary.com/dlnrsadbc/image/upload/q_auto,f_auto,w_60/v1773414002/Bandera_Paraguay_z0hbvs.png" alt="Bandera Paraguay" loading="lazy">
       </div>
     </div>
     <p>&copy; 2026 Huguito Bot. Todos los derechos reservados.</p>
   </footer>
 
-  <!-- ✅ BARRA FIJA INFERIOR -->
   <div class="sticky-bar">
     <span class="selected-label" id="selected-label">Ningún curso seleccionado</span>
     <button class="btn-whatsapp" id="btn-whatsapp" disabled>
@@ -366,12 +363,9 @@
 
     let selectedCourse = null;
 
-    // ── SELECCIÓN DE CURSO ──
     function selectCourse(nombre) {
-      // deseleccionar anterior
       document.querySelectorAll('.course-card').forEach(c => c.classList.remove('selected'));
 
-      // si clic en el mismo, deseleccionar
       if (selectedCourse === nombre) {
         selectedCourse = null;
         updateStickyBar();
@@ -380,7 +374,6 @@
 
       selectedCourse = nombre;
 
-      // resaltar card clickeada
       document.querySelectorAll('.course-card').forEach(c => {
         if (c.dataset.nombre === nombre) c.classList.add('selected');
       });
@@ -413,7 +406,6 @@
       };
     }
 
-    // ── RENDER ──
     function handleCourses(courses) {
       const container = document.getElementById('courses-container');
       if (!courses || courses.error) {
@@ -482,7 +474,6 @@
       });
     }
 
-    // ── JSONP ──
     function loadCourses() {
       const script = document.createElement('script');
       script.src = APPSCRIPT_BASE + '?callback=handleCourses';
