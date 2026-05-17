@@ -53,13 +53,14 @@
     }
 
     /* 💎 CONTENEDOR DEL LOGO: Limpio y sin márgenes negativos destructivos */
-    .logo-container-central { 
+   .logo-container-central { 
       display: flex;
       justify-content: center;
       align-items: center;
       width: 100%;
       padding: 10px 0;
       margin: 0 auto;
+      min-height: 100px; /* Reserva el espacio antes de que cargue la imagen */
     }
 
     /* 🔥 LOGO CALIBRADO: Proporciones nativas cuidadas */
@@ -174,9 +175,9 @@
 
     .course-card.selected .selected-badge { display: inline-block; }
 
-    .course-card h3 {
+  .course-card h3 {
       font-family: "Montserrat", sans-serif;
-      color: var(--primary-blue);
+      color: #a4b3ff; /* Mucho más legible sobre el fondo oscuro, Google te va a amar */
       margin-top: 0;
       margin-bottom: 8px;
       font-size: 1.05rem;
