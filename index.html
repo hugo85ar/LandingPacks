@@ -7,7 +7,6 @@
   <title>Hugo Alvigini — Packs & Programas Integrales</title>
   
   <meta name="description" content="Ecosistema de cursos avanzados y packs de automatizaciones con Google Sheets, Apps Script e IA de Hugo Alvigini. Potencia tu negocio hoy."/>
-  
   <link rel="icon" href="data:,">
   
   <script>
@@ -432,7 +431,7 @@
 
     footer {
       margin-top: auto;
-      padding: 30px 0 140px 0; /* Espacio extra abajo para que la barra flotante no tape nada */
+      padding: 30px 0 140px 0;
       text-align: center;
     }
 
@@ -639,7 +638,11 @@
         const incluye  = course['Que cursos incluye?'] || '';
         const subtitulo = course['Subtítulo'] || '';
         const beneficiosCrudos = course['Beneficios Principales'] || '';
-        const imgUrl   = course['Imagen'] || 'https://res.cloudinary.com/dlnrsadbc/image/upload/q_auto,f_auto,w_400/v1778980849/logo_hugo_alvigini_transparente_jodgue_z1tldp.webp';
+        
+        // CORRECCIÓN AQUÍ: Tomando la columna de imagen/carátula correspondiente y respaldando con fallback si está vacía
+        const imgUrl   = (course['Imagen'] && course['Imagen'].trim() !== '') 
+                         ? course['Imagen'] 
+                         : 'https://res.cloudinary.com/dlnrsadbc/image/upload/q_auto,f_auto,w_400/v1778980849/logo_hugo_alvigini_transparente_jodgue_z1tldp.webp';
         
         let beneficiosHTML = '';
         if (beneficiosCrudos) {
