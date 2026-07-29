@@ -4,7 +4,7 @@
   <base target="_top">
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Hugo Alvigini — Cursos y Packs</title>
+  <title>Hugo Alvigini — Packs & Programas Integrales</title>
   
   <meta name="description" content="Ecosistema de cursos avanzados y packs de automatizaciones con Google Sheets, Apps Script e IA de Hugo Alvigini. Potencia tu negocio hoy."/>
   
@@ -17,13 +17,11 @@
     let pixelCargado = false;
     let tiempoPermitido = false;
 
-    // Activamos una bandera a los 2 segundos (después del renderizado crítico de Google)
     setTimeout(() => {
       tiempoPermitido = true;
     }, 2000);
 
     function cargarPixelFacebook() {
-      // Si ya se cargó, o si todavía no pasaron los 2 segundos de gracia, abortamos
       if (pixelCargado || !tiempoPermitido) return;
       pixelCargado = true;
 
@@ -44,19 +42,16 @@
       fbq('track', 'PageView');
     }
 
-    // Función intermedia para filtrar los ataques tempranos del bot de Google
     function controlarInteraccion() {
       if (tiempoPermitido) {
         cargarPixelFacebook();
       }
     }
 
-    // Escuchamos las interacciones de forma pasiva
     window.addEventListener('scroll', controlarInteraccion, { passive: true });
     window.addEventListener('mousemove', controlarInteraccion, { passive: true });
     window.addEventListener('touchstart', controlarInteraccion, { passive: true });
     
-    // Si el usuario no tocó nada, se termina cargando solo a los 4 segundos
     setTimeout(cargarPixelFacebook, 4000);
   </script>
   <noscript>
@@ -73,32 +68,76 @@
       --primary-blue: #5974ff;
       --action-green: #4CAF50;
       --innovation-purple: #5726B8;
-      --dark-background: #0a0a1e;
+      --dark-background: #0b0b1e;
       --text-light: #ffffff;
       --text-dark: #cccccc;
       --border-radius: 12px;
     }
     
-body {
-  font-family: "Open Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-  margin: 0;
-  background-color: #0b0b1e; /* Tu color de fondo de la app */
-  color: #ffffff;
-  line-height: 1.6;
-  overflow-x: hidden;
-}
+    body {
+      font-family: "Open Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      margin: 0;
+      background-color: var(--dark-background);
+      color: #ffffff;
+      line-height: 1.6;
+      overflow-x: hidden;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
 
     h1, h2, h3 {
-  font-family: "Montserrat", sans-serif;
-  font-display: swap;
-}
+      font-family: "Montserrat", sans-serif;
+      font-display: swap;
+    }
 
-    /* Garantizamos estabilidad visual en textos largos del container */
-#courses-container p {
-  min-height: 48px; /* Asegura un bloque mínimo por si la descripción tiene 2 o 3 líneas */
-}
+    /* 🔙 BOTÓN VOLVER Y CABECERA DE SECCIÓN */
+    .top-bar-container {
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 25px 20px 10px 20px;
+      box-sizing: border-box;
+    }
 
-    /* 💎 CONTENEDOR DEL LOGO */
+    .btn-volver {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: transparent;
+      color: var(--text-light);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      padding: 8px 16px;
+      border-radius: 8px;
+      font-family: "Montserrat", sans-serif;
+      font-size: 0.9rem;
+      font-weight: 600;
+      text-decoration: none;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      margin-bottom: 20px;
+    }
+
+    .btn-volver:hover {
+      background: rgba(255, 255, 255, 0.05);
+      border-color: var(--primary-blue);
+      color: var(--primary-blue);
+    }
+
+    .section-title-area h1 {
+      font-size: clamp(1.8rem, 4vw, 2.4rem);
+      font-weight: 700;
+      margin: 0 0 8px 0;
+      color: var(--text-light);
+    }
+
+    .section-title-area p {
+      color: var(--text-dark);
+      font-size: 1rem;
+      margin: 0;
+    }
+
+    /* 💎 LOGO CENTRAL */
     .logo-container-central { 
       display: flex;
       justify-content: center;
@@ -106,10 +145,8 @@ body {
       width: 100%;
       padding: 10px 0;
       margin: 0 auto;
-      min-height: 100px;
     }
 
-    /* 🔥 LOGO CALIBRADO */
     .logo-hero {
       width: 380px; 
       max-width: 85%; 
@@ -121,48 +158,21 @@ body {
     .logo-hero:hover { transform: scale(1.02); }
     
     header.hero-main {
-      padding: 35px 0 30px 0;
+      padding: 25px 0 20px 0;
       background: linear-gradient(135deg, var(--primary-blue), var(--innovation-purple));
       text-align: center;
       border-bottom-left-radius: var(--border-radius);
       border-bottom-right-radius: var(--border-radius);
-    }
-    
-    .hero-text-impact { text-align: center; padding: 0 5%; }
-    
-    .hero-text-impact h2 {
-      font-family: "Montserrat", sans-serif;
-      font-size: clamp(1.4rem, 4vw, 2.6rem);
-      margin-top: 20px;
-      font-weight: 700;
-      letter-spacing: -0.5px;
-      line-height: 1.3;
+      margin-bottom: 10px;
     }
 
-    .hero-description {
-      font-size: clamp(0.95rem, 2vw, 1.2rem);
-      color: #e0e0e0;
-      max-width: 700px;
-      margin: 10px auto 0;
-      opacity: 0.9;
-      line-height: 1.4;
-    }
-
-    .instruction {
-      text-align: center;
-      padding: 28px 20px 8px;
-      font-size: 1rem;
-      color: var(--text-dark);
-    }
-    .instruction strong { color: var(--text-light); }
-
-    /* 🛡️ CONTENEDOR ESTABLE CON DOS COLUMNAS NATIVAS DESDE EL PRINCIPIO */
     #courses-container {
       width: 100%;
       box-sizing: border-box;
-      padding: 0 20px;
+      padding: 20px;
       max-width: 1200px;
       margin: 0 auto;
+      flex: 1;
     }
 
     .main-layout {
@@ -185,23 +195,20 @@ body {
       margin-bottom: 20px;
     }
 
-    /* ── CARDS Y SKELETON CARDS ── */
-  .course-card, .skeleton-card {
-  background: rgba(26, 26, 58, 0.8);
-  border: 2px solid rgba(89, 116, 255, 0.2);
-  border-radius: 12px;
-  padding: 20px;
-  margin-bottom: 20px;
-  box-sizing: border-box;
-  /* Aumentamos aquí para que el esqueleto ocupe casi lo mismo que la card final */
-  min-height: 280px; 
-}
+    .course-card, .skeleton-card {
+      background: rgba(26, 26, 58, 0.8);
+      border: 2px solid rgba(89, 116, 255, 0.2);
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 20px;
+      box-sizing: border-box;
+      min-height: 280px; 
+    }
 
     .course-card {
       cursor: pointer;
       transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
       position: relative;
-      will-change: transform;
     }
 
     .course-card:hover {
@@ -264,47 +271,34 @@ body {
     .price-row .label { color: var(--text-dark); }
     .price-row.highlight .label { color: #7fffb0; }
 
-    /* 💀 ANIMACIÓN DEL SKELETON LOADER PRO */
-    .skeleton-card {
-  background: rgba(26, 26, 58, 0.8);
-  border: 2px solid rgba(89, 116, 255, 0.2);
-  border-radius: 12px;
-  padding: 20px;
-  margin-bottom: 20px;
-  box-sizing: border-box;
-  min-height: 280px; /* Mantiene la altura calibrada para mobile */
-}
-    
-.skeleton-line {
-  background: #1a1a3a;
-  position: relative;
-  overflow: hidden;
-  border-radius: 4px;
-  margin-bottom: 12px;
-}
+    .skeleton-line {
+      background: #1a1a3a;
+      position: relative;
+      overflow: hidden;
+      border-radius: 4px;
+      margin-bottom: 12px;
+    }
 
-    /* El brillo se genera sobre el eje X usando la placa de video del celular */
-.skeleton-line::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(
-    90deg,
-    rgba(255, 255, 255, 0) 0%,
-    rgba(255, 255, 255, 0.06) 50%,
-    rgba(255, 255, 255, 0) 100%
-  );
-  animation: shimmerGPU 1.5s infinite;
-}
+    .skeleton-line::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(
+        90deg,
+        rgba(255, 255, 255, 0) 0%,
+        rgba(255, 255, 255, 0.06) 50%,
+        rgba(255, 255, 255, 0) 100%
+      );
+      animation: shimmerGPU 1.5s infinite;
+    }
     @keyframes shimmerGPU {
-  0% { transform: translateX(-100%); }
-  100% { transform: translateX(100%); }
-}
+      0% { transform: translateX(-100%); }
+      100% { transform: translateX(100%); }
+    }
 
-    /* ── BARRA FIJA INFERIOR ── */
     .sticky-bar {
       position: fixed;
       bottom: 0;
@@ -312,7 +306,7 @@ body {
       width: 100%;
       z-index: 100;
       padding: 14px 20px;
-      background: rgba(10, 10, 30, 0.95);
+      background: rgba(11, 11, 30, 0.95);
       backdrop-filter: blur(12px);
       -webkit-backdrop-filter: blur(12px);
       border-top: 1px solid rgba(89,116,255,0.2);
@@ -365,12 +359,11 @@ body {
 
     .error-message { text-align: center; padding: 40px; color: #ff6b6b; }
 
-    /* ── FOOTER Y ELEMENTOS DE PAGO ── */
     footer {
-  margin-top: auto; /* Se acopla al fondo de manera elástica */
-  padding: 20px 0;
-  text-align: center;
-}
+      margin-top: auto;
+      padding: 30px 0 90px 0; /* Padding extra abajo para que la barra sticky no tape el footer */
+      text-align: center;
+    }
 
     .payment-info {
       display: inline-block;
@@ -401,20 +394,8 @@ body {
       .main-layout { flex-direction: column; align-items: center; gap: 20px; }
       .column { width: 100%; min-width: unset; }
       .sticky-bar { flex-direction: column; gap: 8px; padding: 12px 16px; }
+      footer { padding-bottom: 120px; }
     }
-
-    @font-face {
-  font-family: 'Montserrat';
-  font-style: normal;
-  font-weight: 400;
-  font-display: swap;
-  size-adjust: 104%; /* Calibra el tamaño del sistema para que ocupe lo mismo que Montserrat */
-}
-
-    /* Reserva un espacio mínimo en pantallas móviles para que el footer no suba y baje de golpe */
-#courses-container {
-  min-height: 80vh; /* Ocupa el 80% de la pantalla de entrada, manteniendo el footer abajo */
-}
   </style>
 </head>
 <body>
@@ -424,27 +405,26 @@ body {
       <img src="https://res.cloudinary.com/dlnrsadbc/image/upload/q_auto,f_auto,w_400/v1778980849/logo_hugo_alvigini_transparente_jodgue_z1tldp.webp"
            alt="HA - Hugo Alvigini" class="logo-hero" fetchpriority="high" width="400" height="100">
     </div>
-    <div class="hero-text-impact">
-      <h2>Transformá tu caos operativo en libertad</h2>
-      <p class="hero-description">Especialista en sistemas y automatización para emprendedores que buscan escalar sin perder el control.</p>
-    </div>
   </header>
 
-  <p class="instruction">👇 <strong>Seleccioná el curso o pack que te interesa</strong> y consultame por WhatsApp</p>
+  <!-- 🔙 BARRA DE RETORNO Y TÍTULO DE SECCIÓN -->
+  <div class="top-bar-container">
+    <a href="../catalogo-promociones/" class="btn-volver">
+      ← Volver
+    </a>
+    <div class="section-title-area">
+      <h1>Packs & Programas Integrales</h1>
+      <p>Explora los recursos disponibles en esta sección.</p>
+    </div>
+  </div>
 
   <main id="courses-container">
     <div class="main-layout">
       <div class="column">
-        <div class="section-header"><h2>Cursos Individuales</h2></div>
-        <div id="individual-list">
-          <div class="skeleton-card"><div class="skeleton-line" style="height:24px; width:60%"></div><div class="skeleton-line" style="height:40px; width:90%"></div><div class="skeleton-line" style="height:20px; width:40%"></div></div>
-          <div class="skeleton-card"><div class="skeleton-line" style="height:24px; width:50%"></div><div class="skeleton-line" style="height:40px; width:85%"></div><div class="skeleton-line" style="height:20px; width:40%"></div></div>
-        </div>
-      </div>
-      <div class="column">
-        <div class="section-header"><h2>Packs de Cursos</h2></div>
+        <div class="section-header"><h2>Programas y Packs Destacados</h2></div>
         <div id="pack-list">
           <div class="skeleton-card"><div class="skeleton-line" style="height:24px; width:70%"></div><div class="skeleton-line" style="height:40px; width:90%"></div><div class="skeleton-line" style="height:20px; width:40%"></div></div>
+          <div class="skeleton-card"><div class="skeleton-line" style="height:24px; width:60%"></div><div class="skeleton-line" style="height:40px; width:85%"></div><div class="skeleton-line" style="height:20px; width:40%"></div></div>
         </div>
       </div>
     </div>
@@ -465,7 +445,7 @@ body {
   </footer>
 
   <div class="sticky-bar">
-    <span class="selected-label" id="selected-label">Ningún curso seleccionado</span>
+    <span class="selected-label" id="selected-label">Ningún pack seleccionado</span>
     <button class="btn-whatsapp" id="btn-whatsapp" disabled>
       📲 Consultá por WhatsApp
     </button>
@@ -500,7 +480,7 @@ body {
       const btn   = document.getElementById('btn-whatsapp');
 
       if (!selectedCourse) {
-        label.innerHTML = 'Ningún curso seleccionado';
+        label.innerHTML = 'Ningún pack seleccionado';
         btn.disabled = true;
         btn.onclick = null;
         return;
@@ -509,7 +489,6 @@ body {
       label.innerHTML = `Seleccionado: <span>${selectedCourse}</span>`;
       btn.disabled = false;
 
-      // 💥 CORREGIDO: encodeURIComponent bien escrito para evitar caídas
       const msg = encodeURIComponent(
         `Hola Hugo! Me interesa inscribirme en "${selectedCourse}". ¿Podés darme más información?`
       );
@@ -524,33 +503,37 @@ body {
     function handleCourses(courses) {
       const container = document.getElementById('courses-container');
       if (!courses || courses.error) {
-        container.innerHTML = `<div class="error-message">Error al cargar los cursos.</div>`;
+        container.innerHTML = `<div class="error-message">Error al cargar los packs.</div>`;
         return;
       }
       renderCourses(courses);
     }
 
     function renderCourses(courses) {
-      const individualList = document.getElementById('individual-list');
-      const packList       = document.getElementById('pack-list');
-      const container      = document.getElementById('courses-container');
+      const packList = document.getElementById('pack-list');
+      const container = document.getElementById('courses-container');
 
       if (!Array.isArray(courses) || courses.length === 0) {
-        container.innerHTML = `<div class="error-message">No hay cursos disponibles por el momento.</div>`;
+        container.innerHTML = `<div class="error-message">No hay packs disponibles por el momento.</div>`;
         return;
       }
 
-      // Limpiamos los skeletons antes de inyectar los datos reales
-      individualList.innerHTML = '';
       packList.innerHTML = '';
 
-      courses.forEach(course => {
+      // Filtramos exclusivamente los que sean packs o programas integrales para esta landing
+      const packsFiltrados = courses.filter(course => {
+        const esPack = course['Pack'] && course['Pack'].toString().toLowerCase().includes('pack');
+        return esPack;
+      });
+
+      const itemsARenderizar = packsFiltrados.length > 0 ? packsFiltrados : courses;
+
+      itemsARenderizar.forEach(course => {
         const nombre  = course['Producto / Pack'] || '';
         const desc    = course['Que cursos incluye?'] || 'Consultá los detalles.';
         const contado = course['Precio Total (50% por pago unico)'] || '-';
         const cuota3  = course['Opción 3 Cuotas (Mensual)'] || '-';
         const cuota6  = course['Opción 6 Cuotas (Mensual)'] || '-';
-        const esPack  = course['Pack'] && course['Pack'].toString().toLowerCase().includes('pack');
 
         const card = document.createElement('div');
         card.className = 'course-card';
@@ -577,10 +560,9 @@ body {
           </div>
         `;
 
-        (esPack ? packList : individualList).appendChild(card);
+        packList.appendChild(card);
       });
 
-      // 🚀 UBICACIÓN CORRECTA: El efecto de desvanecimiento actúa tras renderizar las tarjetas
       container.style.opacity = '0';
       setTimeout(() => {
         container.style.transition = 'opacity 0.25s ease-in-out';
@@ -591,11 +573,10 @@ body {
     function loadCourses() {
       const script = document.createElement('script');
       script.src = APPSCRIPT_BASE + '?callback=handleCourses';
-      // Metemos defer de forma dinámica para asegurar renderizado libre de bloqueos
       script.defer = true; 
       script.onerror = () => {
         document.getElementById('courses-container').innerHTML =
-          '<div class="error-message">No se pudieron cargar los cursos. Por favor recargá la página.</div>';
+          '<div class="error-message">No se pudieron cargar los datos. Por favor recargá la página.</div>';
       };
       document.body.appendChild(script);
     }
