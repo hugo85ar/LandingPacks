@@ -464,7 +464,7 @@
   <header class="hero-main">
     <div class="hero-content-wrapper">
       <div class="top-nav-row">
-        <a href="../" class="btn-volver">
+        <a href="./" class="btn-volver">
           ← Volver al Inicio
         </a>
       </div>
@@ -509,6 +509,7 @@
 
     let selectedCourse = null;
     let selectedModalidad = null;
+    let selectedLinkContado = '';
     let selectedLink3Cuotas = '';
     let selectedLink6Cuotas = '';
 
@@ -523,6 +524,7 @@
       if (selectedCourse === nombre) {
         selectedCourse = null;
         selectedModalidad = null;
+        selectedLinkContado = '';
         selectedLink3Cuotas = '';
         selectedLink6Cuotas = '';
         document.querySelectorAll('.course-card').forEach(c => {
@@ -532,13 +534,30 @@
         updateStickyBar();
         return;
       }
+
+      selectedCourse = nombre;
+      selectedModalidad = null;
+      selectedLinkContado = '';
+      selectedLink3Cuotas = '';
+      selectedLink6Cuotas = '';
+
+      document.querySelectorAll('.course-card').forEach(c => {
+        c.classList.remove('selected');
+        c.querySelectorAll('.pay-option-btn').forEach(b => b.classList.remove('active'));
+        if (c.dataset.nombre === nombre) {
+          c.classList.add('selected');
+        }
+      });
+
+      updateStickyBar();
     }
 
-    function selectModalidad(nombre, modalidad, link3, link6, event) {
+    function selectModalidad(nombre, modalidad, linkContado, link3, link6, event) {
       event.stopPropagation();
       
       selectedCourse = nombre;
       selectedModalidad = modalidad;
+      selectedLinkContado = linkContado || '';
       selectedLink3Cuotas = link3 || '';
       selectedLink6Cuotas = link6 || '';
 
@@ -578,7 +597,7 @@
       btnWa.disabled = false;
       btnLemon.disabled = false;
 
-      // Configurar WhatsApp (para Pago Contado u otras consultas)
+      // Configurar WhatsApp (para consultas generales o respaldo)
       const msg = encodeURIComponent(
         `Hola Hugo! Me interesa el pack "${selectedCourse}" abonando en modalidad de *${selectedModalidad}*. ¿Cómo seguimos?`
       );
@@ -589,24 +608,33 @@
         window.open(waUrl, '_blank');
       };
 
-      // Configurar Botón de Pago (Lemon para cuotas, o WhatsApp si es contado)
-      if (selectedModalidad.includes('3 Cuotas') && selectedLink3Cuotas.trim() !== '') {
-        btnLemon.style.display = 'inline-flex';
+      // Configurar Botón de Pago (según la modalidad elegida y los links de las columnas L, M, N)
+      if (selectedModalidad.includes('Pago Contado')) {
         btnLemon.onclick = () => {
           if (typeof fbq !== 'undefined') fbq('track', 'InitiateCheckout');
-          window.open(selectedLink3Cuotas.trim(), '_blank');
+          if (selectedLinkContado.trim() !== '') {
+            window.open(selectedLinkContado.trim(), '_blank');
+          } else {
+            window.open(waUrl, '_blank');
+          }
         };
-      } else if (selectedModalidad.includes('6 Cuotas') && selectedLink6Cuotas.trim() !== '') {
-        btnLemon.style.display = 'inline-flex';
+      } else if (selectedModalidad.includes('3 Cuotas')) {
         btnLemon.onclick = () => {
           if (typeof fbq !== 'undefined') fbq('track', 'InitiateCheckout');
-          window.open(selectedLink6Cuotas.trim(), '_blank');
+          if (selectedLink3Cuotas.trim() !== '') {
+            window.open(selectedLink3Cuotas.trim(), '_blank');
+          } else {
+            window.open(waUrl, '_blank');
+          }
         };
-      } else {
-        // Si es pago contado u otro medio que vaya directo a WhatsApp
+      } else if (selectedModalidad.includes('6 Cuotas')) {
         btnLemon.onclick = () => {
           if (typeof fbq !== 'undefined') fbq('track', 'InitiateCheckout');
-          window.open(waUrl, '_blank');
+          if (selectedLink6Cuotas.trim() !== '') {
+            window.open(selectedLink6Cuotas.trim(), '_blank');
+          } else {
+            window.open(waUrl, '_blank');
+          }
         };
       }
     }
@@ -653,8 +681,10 @@
                          ? rawImg.trim() 
                          : 'https://res.cloudinary.com/dlnrsadbc/image/upload/q_auto,f_auto,w_400/v1778980849/logo_hugo_alvigini_transparente_jodgue_z1tldp.webp';
         
-        const link3    = course['Link de Pago en 3 Cuotas'] || '';
-        const link6    = course['Link de Pago en 6 Cuotas'] || '';
+        // Mapeo de columnas L, M, N
+        const linkContado = course['Link de Pago Contado'] || '';
+        const link3       = course['Link de Pago en 3 Cuotas'] || '';
+        const link6       = course['Link de Pago en 6 Cuotas'] || '';
 
         let beneficiosHTML = '';
         if (beneficiosCrudos) {
@@ -674,6 +704,7 @@
         card.onclick = () => selectCourse(nombre);
 
         const escapedName = nombre.replace(/'/g, "\\'");
+        const escapedLinkContado = linkContado.replace(/'/g, "\\'");
         const escapedLink3 = link3.replace(/'/g, "\\'");
         const escapedLink6 = link6.replace(/'/g, "\\'");
 
@@ -692,17 +723,17 @@
           <div class="payment-options-container">
             <div class="payment-options-title">Elegí tu forma de pago:</div>
             
-            <button class="pay-option-btn" onclick="selectModalidad('${escapedName}', 'Pago Contado (50% OFF)', '${escapedLink3}', '${escapedLink6}', event)">
+            <button class="pay-option-btn" onclick="selectModalidad('${escapedName}', 'Pago Contado (50% OFF)', '${escapedLinkContado}', '${escapedLink3}', '${escapedLink6}', event)">
               <span>💥 Pago Contado</span>
               <strong>$${contado}</strong>
             </button>
             
-            <button class="pay-option-btn" onclick="selectModalidad('${escapedName}', '3 Cuotas', '${escapedLink3}', '${escapedLink6}', event)">
+            <button class="pay-option-btn" onclick="selectModalidad('${escapedName}', '3 Cuotas', '${escapedLinkContado}', '${escapedLink3}', '${escapedLink6}', event)">
               <span>📅 En 3 Cuotas</span>
               <strong>$${cuota3}</strong>
             </button>
             
-            <button class="pay-option-btn" onclick="selectModalidad('${escapedName}', '6 Cuotas', '${escapedLink3}', '${escapedLink6}', event)">
+            <button class="pay-option-btn" onclick="selectModalidad('${escapedName}', '6 Cuotas', '${escapedLinkContado}', '${escapedLink3}', '${escapedLink6}', event)">
               <span>📅 En 6 Cuotas</span>
               <strong>$${cuota6}</strong>
             </button>
