@@ -509,6 +509,8 @@
 
     let selectedCourse = null;
     let selectedModalidad = null;
+    let selectedLink3Cuotas = '';
+    let selectedLink6Cuotas = '';
 
     function formatPrice(val) {
       if (!val || val === '-') return '-';
@@ -521,6 +523,8 @@
       if (selectedCourse === nombre) {
         selectedCourse = null;
         selectedModalidad = null;
+        selectedLink3Cuotas = '';
+        selectedLink6Cuotas = '';
         document.querySelectorAll('.course-card').forEach(c => {
           c.classList.remove('selected');
           c.querySelectorAll('.pay-option-btn').forEach(b => b.classList.remove('active'));
@@ -528,26 +532,15 @@
         updateStickyBar();
         return;
       }
-
-      selectedCourse = nombre;
-      selectedModalidad = null;
-
-      document.querySelectorAll('.course-card').forEach(c => {
-        c.classList.remove('selected');
-        c.querySelectorAll('.pay-option-btn').forEach(b => b.classList.remove('active'));
-        if (c.dataset.nombre === nombre) {
-          c.classList.add('selected');
-        }
-      });
-
-      updateStickyBar();
     }
 
-    function selectModalidad(nombre, modalidad, event) {
+    function selectModalidad(nombre, modalidad, link3, link6, event) {
       event.stopPropagation();
       
       selectedCourse = nombre;
       selectedModalidad = modalidad;
+      selectedLink3Cuotas = link3 || '';
+      selectedLink6Cuotas = link6 || '';
 
       document.querySelectorAll('.course-card').forEach(c => {
         if (c.dataset.nombre === nombre) {
@@ -585,6 +578,7 @@
       btnWa.disabled = false;
       btnLemon.disabled = false;
 
+      // Configurar WhatsApp (para Pago Contado u otras consultas)
       const msg = encodeURIComponent(
         `Hola Hugo! Me interesa el pack "${selectedCourse}" abonando en modalidad de *${selectedModalidad}*. ¿Cómo seguimos?`
       );
@@ -595,11 +589,26 @@
         window.open(waUrl, '_blank');
       };
 
-      btnLemon.onclick = () => {
-        if (typeof fbq !== 'undefined') fbq('track', 'InitiateCheckout');
-        let lemonLink = "https://pay.lemon.me/tu-link-general"; 
-        window.open(lemonLink, '_blank');
-      };
+      // Configurar Botón de Pago (Lemon para cuotas, o WhatsApp si es contado)
+      if (selectedModalidad.includes('3 Cuotas') && selectedLink3Cuotas.trim() !== '') {
+        btnLemon.style.display = 'inline-flex';
+        btnLemon.onclick = () => {
+          if (typeof fbq !== 'undefined') fbq('track', 'InitiateCheckout');
+          window.open(selectedLink3Cuotas.trim(), '_blank');
+        };
+      } else if (selectedModalidad.includes('6 Cuotas') && selectedLink6Cuotas.trim() !== '') {
+        btnLemon.style.display = 'inline-flex';
+        btnLemon.onclick = () => {
+          if (typeof fbq !== 'undefined') fbq('track', 'InitiateCheckout');
+          window.open(selectedLink6Cuotas.trim(), '_blank');
+        };
+      } else {
+        // Si es pago contado u otro medio que vaya directo a WhatsApp
+        btnLemon.onclick = () => {
+          if (typeof fbq !== 'undefined') fbq('track', 'InitiateCheckout');
+          window.open(waUrl, '_blank');
+        };
+      }
     }
 
     function handleCourses(courses) {
@@ -639,12 +648,14 @@
         const subtitulo = course['Subtítulo'] || '';
         const beneficiosCrudos = course['Beneficios Principales'] || '';
         
-        // CORRECCIÓN AQUÍ: Apuntando exactamente a la columna 'Caratula url' de tu Google Sheet
         const rawImg   = course['Caratula url'] || course['Imagen'] || '';
         const imgUrl   = (rawImg.trim() !== '') 
                          ? rawImg.trim() 
                          : 'https://res.cloudinary.com/dlnrsadbc/image/upload/q_auto,f_auto,w_400/v1778980849/logo_hugo_alvigini_transparente_jodgue_z1tldp.webp';
         
+        const link3    = course['Link de Pago en 3 Cuotas'] || '';
+        const link6    = course['Link de Pago en 6 Cuotas'] || '';
+
         let beneficiosHTML = '';
         if (beneficiosCrudos) {
           const listaBeneficios = beneficiosCrudos.split('\n').filter(b => b.trim() !== '');
@@ -662,6 +673,10 @@
         card.dataset.nombre = nombre;
         card.onclick = () => selectCourse(nombre);
 
+        const escapedName = nombre.replace(/'/g, "\\'");
+        const escapedLink3 = link3.replace(/'/g, "\\'");
+        const escapedLink6 = link6.replace(/'/g, "\\'");
+
         card.innerHTML = `
           <span class="selected-badge">✓ SELECCIONADO</span>
           <div class="card-content-grid">
@@ -677,17 +692,17 @@
           <div class="payment-options-container">
             <div class="payment-options-title">Elegí tu forma de pago:</div>
             
-            <button class="pay-option-btn" onclick="selectModalidad('${nombre.replace(/'/g, "\\'")}', 'Pago Contado (50% OFF)', event)">
+            <button class="pay-option-btn" onclick="selectModalidad('${escapedName}', 'Pago Contado (50% OFF)', '${escapedLink3}', '${escapedLink6}', event)">
               <span>💥 Pago Contado</span>
               <strong>$${contado}</strong>
             </button>
             
-            <button class="pay-option-btn" onclick="selectModalidad('${nombre.replace(/'/g, "\\'")}', '3 Cuotas', event)">
+            <button class="pay-option-btn" onclick="selectModalidad('${escapedName}', '3 Cuotas', '${escapedLink3}', '${escapedLink6}', event)">
               <span>📅 En 3 Cuotas</span>
               <strong>$${cuota3}</strong>
             </button>
             
-            <button class="pay-option-btn" onclick="selectModalidad('${nombre.replace(/'/g, "\\'")}', '6 Cuotas', event)">
+            <button class="pay-option-btn" onclick="selectModalidad('${escapedName}', '6 Cuotas', '${escapedLink3}', '${escapedLink6}', event)">
               <span>📅 En 6 Cuotas</span>
               <strong>$${cuota6}</strong>
             </button>
