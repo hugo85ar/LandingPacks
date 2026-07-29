@@ -57,12 +57,12 @@
 
   <style>
     :root {
-      --primary-blue: #5974ff;
+      --primary-blue: #00e5ff;
       --action-green: #4CAF50;
-      --innovation-purple: #5726B8;
-      --dark-background: #0b0b1e;
+      --innovation-purple: #101026;
+      --dark-background: #070714;
       --text-light: #ffffff;
-      --text-dark: #cccccc;
+      --text-dark: #a0a0b2;
       --border-radius: 12px;
     }
     
@@ -76,6 +76,7 @@
       min-height: 100vh;
       display: flex;
       flex-direction: column;
+      background-image: radial-gradient(circle at 50% 0%, #131336 0%, var(--dark-background) 70%);
     }
 
     h1, h2, h3 {
@@ -83,21 +84,39 @@
       font-display: swap;
     }
 
-    .top-bar-container {
-      width: 100%;
+    /* Estilo de Carátula / Hero unificado con tu portada */
+    header.hero-main {
+      padding: 35px 20px 25px 20px;
+      background: linear-gradient(180deg, rgba(16, 16, 38, 0.95) 0%, rgba(7, 7, 20, 0.8) 100%);
+      text-align: center;
+      border-bottom: 1px solid rgba(0, 229, 255, 0.2);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+      position: relative;
+    }
+
+    .hero-content-wrapper {
       max-width: 900px;
       margin: 0 auto;
-      padding: 25px 20px 10px 20px;
-      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .top-nav-row {
+      width: 100%;
+      display: flex;
+      justify-content: flex-start;
+      margin-bottom: 5px;
     }
 
     .btn-volver {
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      background: transparent;
+      background: rgba(255, 255, 255, 0.05);
       color: var(--text-light);
-      border: 1px solid rgba(255, 255, 255, 0.2);
+      border: 1px solid rgba(0, 229, 255, 0.3);
       padding: 8px 16px;
       border-radius: 8px;
       font-family: "Montserrat", sans-serif;
@@ -106,58 +125,44 @@
       text-decoration: none;
       cursor: pointer;
       transition: all 0.2s ease;
-      margin-bottom: 20px;
     }
 
     .btn-volver:hover {
-      background: rgba(255, 255, 255, 0.05);
+      background: rgba(0, 229, 255, 0.1);
       border-color: var(--primary-blue);
       color: var(--primary-blue);
-    }
-
-    .section-title-area h1 {
-      font-size: clamp(1.8rem, 4vw, 2.4rem);
-      font-weight: 700;
-      margin: 0 0 8px 0;
-      color: var(--text-light);
-    }
-
-    .section-title-area p {
-      color: var(--text-dark);
-      font-size: 1rem;
-      margin: 0;
-    }
-
-    .logo-container-central { 
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      width: 100%;
-      padding: 10px 0;
-      margin: 0 auto;
+      box-shadow: 0 0 15px rgba(0, 229, 255, 0.2);
     }
 
     .logo-hero {
-      width: 380px; 
-      max-width: 85%; 
+      width: 220px; 
+      max-width: 70%; 
       height: auto; 
       display: block;
-      filter: drop-shadow(0 0 25px rgba(0, 229, 255, 0.4)); 
+      filter: drop-shadow(0 0 20px rgba(0, 229, 255, 0.4)); 
     }
-    
-    header.hero-main {
-      padding: 25px 0 20px 0;
-      background: linear-gradient(135deg, var(--primary-blue), var(--innovation-purple));
-      text-align: center;
-      border-bottom-left-radius: var(--border-radius);
-      border-bottom-right-radius: var(--border-radius);
-      margin-bottom: 10px;
+
+    .hero-main h1 {
+      font-size: clamp(1.8rem, 4vw, 2.6rem);
+      font-weight: 700;
+      margin: 0;
+      color: var(--text-light);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      text-shadow: 0 0 20px rgba(0, 229, 255, 0.3);
+    }
+
+    .hero-main p {
+      color: var(--text-dark);
+      font-size: 1.05rem;
+      margin: 0;
+      letter-spacing: 0.02em;
     }
 
     #courses-container {
       width: 100%;
       box-sizing: border-box;
-      padding: 20px;
+      padding: 30px 20px;
       max-width: 900px;
       margin: 0 auto;
       flex: 1;
@@ -165,35 +170,39 @@
 
     .section-header h2 {
       font-family: "Montserrat", sans-serif;
-      font-size: 1.3rem;
+      font-size: 1.2rem;
       font-weight: 700;
       color: var(--primary-blue);
-      border-bottom: 1px solid rgba(89,116,255,0.3);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      border-bottom: 1px solid rgba(0, 229, 255, 0.2);
       padding-bottom: 8px;
-      margin-bottom: 20px;
+      margin-bottom: 24px;
     }
 
     .course-card {
-      background: rgba(26, 26, 58, 0.8);
-      border: 2px solid rgba(89, 116, 255, 0.2);
+      background: rgba(16, 16, 38, 0.7);
+      border: 1px solid rgba(0, 229, 255, 0.2);
       border-radius: 12px;
       padding: 24px;
       margin-bottom: 24px;
       box-sizing: border-box;
       cursor: pointer;
-      transition: all 0.2s ease;
+      transition: all 0.25s ease;
       position: relative;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
     }
 
     .course-card:hover {
-      border-color: rgba(89,116,255,0.5);
-      box-shadow: 0 8px 24px rgba(89,116,255,0.15);
+      border-color: rgba(0, 229, 255, 0.6);
+      box-shadow: 0 8px 30px rgba(0, 229, 255, 0.15);
+      transform: translateY(-2px);
     }
 
     .course-card.selected {
-      border-color: #7fffb0;
-      box-shadow: 0 0 0 3px rgba(127,255,176,0.2), 0 8px 28px rgba(127,255,176,0.15);
-      background: rgba(26, 50, 38, 0.85);
+      border-color: #00e5ff;
+      box-shadow: 0 0 0 2px rgba(0,229,255,0.3), 0 8px 30px rgba(0,229,255,0.2);
+      background: rgba(16, 30, 50, 0.9);
     }
 
     .selected-badge {
@@ -201,14 +210,15 @@
       position: absolute;
       top: 16px;
       right: 16px;
-      background: #7fffb0;
-      color: #0a1e10;
+      background: #00e5ff;
+      color: #070714;
       font-size: 0.75rem;
       font-weight: 700;
       font-family: "Montserrat", sans-serif;
-      padding: 4px 10px;
+      padding: 4px 12px;
       border-radius: 20px;
       letter-spacing: 0.05em;
+      box-shadow: 0 0 10px rgba(0, 229, 255, 0.5);
     }
 
     .course-card.selected .selected-badge { display: inline-block; }
@@ -226,7 +236,7 @@
       border-radius: 8px;
       border: 1px solid rgba(255,255,255,0.1);
       flex-shrink: 0;
-      background: #151530;
+      background: #0b0b1e;
       padding: 4px;
     }
 
@@ -236,19 +246,20 @@
 
     .course-card h3 {
       font-family: "Montserrat", sans-serif;
-      color: #a4b3ff;
+      color: #ffffff;
       margin-top: 0;
-      margin-bottom: 4px;
-      font-size: 1.15rem;
+      margin-bottom: 6px;
+      font-size: 1.2rem;
+      letter-spacing: 0.03em;
     }
 
-    .course-card.selected h3 { color: #7fffb0; }
+    .course-card.selected h3 { color: #00e5ff; }
 
     .course-subtitle {
-      font-size: 0.92rem;
-      color: #e2e8f0;
+      font-size: 0.95rem;
+      color: #00e5ff;
       font-weight: 600;
-      margin-bottom: 8px;
+      margin-bottom: 10px;
       line-height: 1.4;
     }
 
@@ -278,7 +289,7 @@
       content: "✔";
       position: absolute;
       left: 0;
-      color: #7fffb0;
+      color: #00e5ff;
       font-size: 0.8rem;
     }
 
@@ -301,38 +312,41 @@
 
     .payment-options-title {
       font-size: 0.85rem;
-      color: #7fffb0;
+      color: #00e5ff;
       font-weight: 600;
       margin-bottom: 10px;
       font-family: "Montserrat", sans-serif;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
     }
 
     .pay-option-btn {
       width: 100%;
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.15);
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.12);
       color: #fff;
-      padding: 10px 14px;
+      padding: 12px 16px;
       border-radius: 8px;
       margin-bottom: 8px;
       display: flex;
       justify-content: space-between;
       align-items: center;
       cursor: pointer;
-      font-size: 0.88rem;
+      font-size: 0.9rem;
       transition: all 0.2s;
     }
 
     .pay-option-btn:hover {
-      background: rgba(127, 255, 176, 0.1);
-      border-color: #7fffb0;
+      background: rgba(0, 229, 255, 0.08);
+      border-color: rgba(0, 229, 255, 0.5);
     }
 
     .pay-option-btn.active {
-      background: rgba(127, 255, 176, 0.2);
-      border-color: #7fffb0;
+      background: rgba(0, 229, 255, 0.15);
+      border-color: #00e5ff;
       font-weight: bold;
-      color: #7fffb0;
+      color: #00e5ff;
+      box-shadow: 0 0 10px rgba(0, 229, 255, 0.2);
     }
 
     .sticky-bar {
@@ -340,16 +354,17 @@
       bottom: 0; left: 0; width: 100%;
       z-index: 100;
       padding: 14px 20px;
-      background: rgba(11, 11, 30, 0.96);
+      background: rgba(7, 7, 20, 0.95);
       backdrop-filter: blur(12px);
       -webkit-backdrop-filter: blur(12px);
-      border-top: 1px solid rgba(89,116,255,0.2);
+      border-top: 1px solid rgba(0, 229, 255, 0.3);
       display: flex;
       align-items: center;
       justify-content: center;
       gap: 12px;
       flex-wrap: wrap;
       box-sizing: border-box;
+      box-shadow: 0 -5px 25px rgba(0,0,0,0.8);
     }
 
     .sticky-bar .selected-label {
@@ -361,7 +376,7 @@
     }
 
     .sticky-bar .selected-label span {
-      color: #7fffb0;
+      color: #00e5ff;
       font-weight: 600;
     }
 
@@ -408,11 +423,11 @@
     .btn-lemon:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,230,118,0.4); }
 
     .btn-action:disabled {
-      background: linear-gradient(135deg, #3a3a3a, #222);
-      color: #777;
+      background: linear-gradient(135deg, #222, #151515);
+      color: #666;
       box-shadow: none;
       cursor: not-allowed;
-      opacity: 0.6;
+      opacity: 0.5;
     }
 
     .error-message { text-align: center; padding: 40px; color: #ff6b6b; }
@@ -449,27 +464,25 @@
 </head>
 <body>
 
+  <!-- Carátula / Header conector de marca idéntico a la portada -->
   <header class="hero-main">
-    <div class="logo-container-central">
+    <div class="hero-content-wrapper">
+      <div class="top-nav-row">
+        <a href="../" class="btn-volver">
+          ← Volver al Inicio
+        </a>
+      </div>
       <img src="https://res.cloudinary.com/dlnrsadbc/image/upload/q_auto,f_auto,w_400/v1778980849/logo_hugo_alvigini_transparente_jodgue_z1tldp.webp"
-           alt="HA - Hugo Alvigini" class="logo-hero" fetchpriority="high" width="400" height="100">
+           alt="Hugo Alvigini" class="logo-hero" fetchpriority="high" width="400" height="100">
+      <h1>Packs & Programas Integrales</h1>
+      <p>Sistemas para escalar tu negocio digital al siguiente nivel</p>
     </div>
   </header>
 
-  <div class="top-bar-container">
-    <a href="../catalogo-promociones/" class="btn-volver">
-      ← Volver
-    </a>
-    <div class="section-title-area">
-      <h1>Packs & Programas Integrales</h1>
-      <p>Seleccioná tu pack, mirá los beneficios y elegí la forma de pago.</p>
-    </div>
-  </div>
-
   <main id="courses-container">
-    <div class="section-header"><h2>Programas y Packs Destacados</h2></div>
+    <div class="section-header"><h2>Elegí tu Pack de Cursos</h2></div>
     <div id="pack-list">
-      <div class="skeleton-card" style="padding:20px; background:rgba(26,26,58,0.8); border-radius:12px; min-height:150px;"></div>
+      <div class="skeleton-card" style="padding:20px; background:rgba(16,16,38,0.7); border-radius:12px; min-height:150px;"></div>
     </div>
   </main>
 
@@ -479,7 +492,7 @@
            alt="Pagar en Moneda Local Argentina y Paraguay" 
            class="banner-pagos" loading="lazy" width="350" height="70">
     </div>
-    <p>&copy; 2026 Huguito Bot. Todos los derechos reservados.</p>
+    <p>&copy; 2026 Hugo Alvigini. Todos los derechos reservados.</p>
   </footer>
 
   <div class="sticky-bar">
@@ -494,7 +507,7 @@
     </div>
   </div>
 
-<script>
+ <script>
     const APPSCRIPT_BASE = 'https://script.google.com/macros/s/AKfycbyxlO60asW5Jc8tHtjtSqk8-tUTSxJwwDZ-i0oN-Jgqn5wsmg7l0a70jFD7rZssUD4IOw/exec';
     const WA_NUMBER = '5491176529179';
 
@@ -509,7 +522,6 @@
     }
 
     function selectCourse(nombre) {
-      // Si el usuario hace click en el mismo pack que ya estaba seleccionado, lo deseleccionamos todo
       if (selectedCourse === nombre) {
         selectedCourse = null;
         selectedModalidad = null;
@@ -521,7 +533,6 @@
         return;
       }
 
-      // Si selecciona uno nuevo, limpiamos TODAS las tarjetas primero (elimina selección múltiple)
       selectedCourse = nombre;
       selectedModalidad = null;
 
@@ -539,7 +550,6 @@
     function selectModalidad(nombre, modalidad, event) {
       event.stopPropagation();
       
-      // Asegurarnos de que el pack esté correctamente seleccionado
       selectedCourse = nombre;
       selectedModalidad = modalidad;
 
@@ -565,7 +575,7 @@
 
       if (!selectedCourse || !selectedModalidad) {
         label.innerHTML = selectedCourse 
-          ? `Pack: <span>${selectedCourse}</span> — <span style="color:#ffcc00">Elegí la forma de pago arriba 👇</span>`
+          ? `Pack: <span>${selectedCourse}</span> — <span style="color:#00e5ff">Elegí la forma de pago arriba 👇</span>`
           : 'Seleccioná un pack y modalidad de pago';
         
         btnWa.disabled = true;
@@ -706,6 +716,5 @@
 
     loadCourses();
 </script>
-  
 </body>
 </html>
