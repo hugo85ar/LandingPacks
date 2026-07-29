@@ -9,22 +9,18 @@
   <meta name="description" content="Ecosistema de cursos avanzados y packs de automatizaciones con Google Sheets, Apps Script e IA de Hugo Alvigini. Potencia tu negocio hoy."/>
   
   <link rel="preload" as="image" href="https://res.cloudinary.com/dlnrsadbc/image/upload/q_auto,f_auto,w_400/v1778980849/logo_hugo_alvigini_transparente_jodgue_z1tldp.webp" fetchpriority="high">
-  
   <link rel="icon" href="data:,">
   
   <script>
-  const FACEBOOK_PIXEL_ID = '2189151328193841';
+    const FACEBOOK_PIXEL_ID = '2189151328193841';
     let pixelCargado = false;
     let tiempoPermitido = false;
 
-    setTimeout(() => {
-      tiempoPermitido = true;
-    }, 2000);
+    setTimeout(() => { tiempoPermitido = true; }, 2000);
 
     function cargarPixelFacebook() {
       if (pixelCargado || !tiempoPermitido) return;
       pixelCargado = true;
-
       window.removeEventListener('scroll', controlarInteraccion);
       window.removeEventListener('mousemove', controlarInteraccion);
       window.removeEventListener('touchstart', controlarInteraccion);
@@ -43,20 +39,16 @@
     }
 
     function controlarInteraccion() {
-      if (tiempoPermitido) {
-        cargarPixelFacebook();
-      }
+      if (tiempoPermitido) { cargarPixelFacebook(); }
     }
 
     window.addEventListener('scroll', controlarInteraccion, { passive: true });
     window.addEventListener('mousemove', controlarInteraccion, { passive: true });
     window.addEventListener('touchstart', controlarInteraccion, { passive: true });
-    
     setTimeout(cargarPixelFacebook, 4000);
   </script>
   <noscript>
-    <img height="1" width="1" style="display:none"
-    src="https://www.facebook.com/tr?id=2189151328193841&ev=PageView&noscript=1"/>
+    <img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=2189151328193841&ev=PageView&noscript=1"/>
   </noscript>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -67,7 +59,6 @@
     :root {
       --primary-blue: #5974ff;
       --action-green: #4CAF50;
-      --lemon-yellow: #00E676; /* O tono institucional de Lemon/Pagos */
       --innovation-purple: #5726B8;
       --dark-background: #0b0b1e;
       --text-light: #ffffff;
@@ -94,7 +85,7 @@
 
     .top-bar-container {
       width: 100%;
-      max-width: 1200px;
+      max-width: 900px;
       margin: 0 auto;
       padding: 25px 20px 10px 20px;
       box-sizing: border-box;
@@ -152,9 +143,7 @@
       height: auto; 
       display: block;
       filter: drop-shadow(0 0 25px rgba(0, 229, 255, 0.4)); 
-      transition: transform 0.3s ease;
     }
-    .logo-hero:hover { transform: scale(1.02); }
     
     header.hero-main {
       padding: 25px 0 20px 0;
@@ -169,20 +158,10 @@
       width: 100%;
       box-sizing: border-box;
       padding: 20px;
-      max-width: 1200px;
+      max-width: 900px;
       margin: 0 auto;
       flex: 1;
     }
-
-    .main-layout {
-      display: flex;
-      gap: 40px;
-      justify-content: center;
-      align-items: flex-start;
-      width: 100%;
-    }
-
-    .column { flex: 1; min-width: 350px; }
 
     .section-header h2 {
       font-family: "Montserrat", sans-serif;
@@ -194,16 +173,13 @@
       margin-bottom: 20px;
     }
 
-    .course-card, .skeleton-card {
+    .course-card {
       background: rgba(26, 26, 58, 0.8);
       border: 2px solid rgba(89, 116, 255, 0.2);
       border-radius: 12px;
-      padding: 20px;
-      margin-bottom: 20px;
+      padding: 24px;
+      margin-bottom: 24px;
       box-sizing: border-box;
-    }
-
-    .course-card {
       cursor: pointer;
       transition: all 0.2s ease;
       position: relative;
@@ -223,43 +199,94 @@
     .selected-badge {
       display: none;
       position: absolute;
-      top: 12px;
-      right: 12px;
+      top: 16px;
+      right: 16px;
       background: #7fffb0;
       color: #0a1e10;
-      font-size: 0.7rem;
+      font-size: 0.75rem;
       font-weight: 700;
       font-family: "Montserrat", sans-serif;
-      padding: 3px 9px;
+      padding: 4px 10px;
       border-radius: 20px;
       letter-spacing: 0.05em;
     }
 
     .course-card.selected .selected-badge { display: inline-block; }
 
+    .card-content-grid {
+      display: flex;
+      gap: 20px;
+      align-items: flex-start;
+    }
+
+    .card-img {
+      width: 130px;
+      height: 130px;
+      object-fit: contain;
+      border-radius: 8px;
+      border: 1px solid rgba(255,255,255,0.1);
+      flex-shrink: 0;
+      background: #151530;
+      padding: 4px;
+    }
+
+    .card-info {
+      flex: 1;
+    }
+
     .course-card h3 {
       font-family: "Montserrat", sans-serif;
       color: #a4b3ff;
       margin-top: 0;
-      margin-bottom: 8px;
-      font-size: 1.05rem;
+      margin-bottom: 4px;
+      font-size: 1.15rem;
     }
 
     .course-card.selected h3 { color: #7fffb0; }
 
-    .course-card .desc {
-      font-size: 0.88rem;
-      color: var(--text-dark);
-      margin-bottom: 16px;
-      line-height: 1.55;
+    .course-subtitle {
+      font-size: 0.92rem;
+      color: #e2e8f0;
+      font-weight: 600;
+      margin-bottom: 8px;
+      line-height: 1.4;
     }
 
-    /* 🔘 BOTONES DE SELECCIÓN DE PAGO DENTRO DE LA TARJETA */
+    .course-card .desc {
+      font-size: 0.85rem;
+      color: var(--text-dark);
+      margin-bottom: 12px;
+      line-height: 1.4;
+    }
+
+    .benefits-list {
+      list-style: none;
+      padding: 0;
+      margin: 10px 0 0 0;
+      font-size: 0.84rem;
+      color: var(--text-light);
+    }
+
+    .benefits-list li {
+      position: relative;
+      padding-left: 18px;
+      margin-bottom: 6px;
+      line-height: 1.4;
+    }
+
+    .benefits-list li::before {
+      content: "✔";
+      position: absolute;
+      left: 0;
+      color: #7fffb0;
+      font-size: 0.8rem;
+    }
+
     .payment-options-container {
       display: none;
-      margin-top: 16px;
+      margin-top: 20px;
       padding-top: 16px;
-      border-top: 1px solid rgba(255,255,255,0.1);
+      border-top: 1px solid rgba(255,255,255,0.15);
       animation: fadeIn 0.3s ease;
     }
 
@@ -308,37 +335,6 @@
       color: #7fffb0;
     }
 
-    .price-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 6px 0;
-      font-size: 0.88rem;
-      color: var(--text-dark);
-    }
-    .price-row.highlight { color: #7fffb0; font-weight: bold; }
-
-    .skeleton-line {
-      background: #1a1a3a;
-      position: relative;
-      overflow: hidden;
-      border-radius: 4px;
-      margin-bottom: 12px;
-    }
-
-    .skeleton-line::after {
-      content: "";
-      position: absolute;
-      top: 0; left: 0; width: 100%; height: 100%;
-      background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.06) 50%, rgba(255,255,255,0) 100%);
-      animation: shimmerGPU 1.5s infinite;
-    }
-    @keyframes shimmerGPU {
-      0% { transform: translateX(-100%); }
-      100% { transform: translateX(100%); }
-    }
-
-    /* ── BARRA FIJA INFERIOR DINÁMICA ── */
     .sticky-bar {
       position: fixed;
       bottom: 0; left: 0; width: 100%;
@@ -405,7 +401,7 @@
     .btn-whatsapp:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(37,211,102,0.4); }
 
     .btn-lemon {
-      background: linear-gradient(135deg, #00E676, #00A859); /* Ajustable al color brand de Lemon */
+      background: linear-gradient(135deg, #00E676, #00A859);
       color: #0a1e10;
       box-shadow: 0 4px 15px rgba(0,230,118,0.3);
     }
@@ -427,12 +423,6 @@
       text-align: center;
     }
 
-    .payment-info {
-      display: inline-block;
-      text-align: center;
-      padding: 15px 25px;
-    }
-
     .banner-pagos {
       width: 100% !important;
       max-width: 350px !important;
@@ -448,8 +438,9 @@
     }
 
     @media (max-width: 768px) {
-      .main-layout { flex-direction: column; align-items: center; gap: 20px; }
-      .column { width: 100%; min-width: unset; }
+      .card-content-grid { flex-direction: column; align-items: center; text-align: center; }
+      .card-img { width: 120px; height: 120px; margin-bottom: 10px; }
+      .benefits-list li { padding-left: 0; list-style-position: inside; }
       .action-btn-group { flex-direction: column; }
       .btn-action { width: 100%; }
       footer { padding-bottom: 140px; }
@@ -471,36 +462,26 @@
     </a>
     <div class="section-title-area">
       <h1>Packs & Programas Integrales</h1>
-      <p>Selecciona tu pack y elegí la forma de pago.</p>
+      <p>Seleccioná tu pack, mirá los beneficios y elegí la forma de pago.</p>
     </div>
   </div>
 
   <main id="courses-container">
-    <div class="main-layout">
-      <div class="column">
-        <div class="section-header"><h2>Programas y Packs Destacados</h2></div>
-        <div id="pack-list">
-          <div class="skeleton-card"><div class="skeleton-line" style="height:24px; width:70%"></div><div class="skeleton-line" style="height:40px; width:90%"></div><div class="skeleton-line" style="height:20px; width:40%"></div></div>
-        </div>
-      </div>
+    <div class="section-header"><h2>Programas y Packs Destacados</h2></div>
+    <div id="pack-list">
+      <div class="skeleton-card" style="padding:20px; background:rgba(26,26,58,0.8); border-radius:12px; min-height:150px;"></div>
     </div>
   </main>
 
   <footer>
     <div class="payment-info">
-      <div class="flags">
-        <img src="https://res.cloudinary.com/dlnrsadbc/image/upload/q_auto,f_auto,w_350/v1778980376/pago_moneda_local_ms2q3z.webp" 
-             alt="Pagar en Moneda Local Argentina y Paraguay" 
-             class="banner-pagos"
-             loading="lazy"
-             width="350"
-             height="70">
-      </div>
+      <img src="https://res.cloudinary.com/dlnrsadbc/image/upload/q_auto,f_auto,w_350/v1778980376/pago_moneda_local_ms2q3z.webp" 
+           alt="Pagar en Moneda Local Argentina y Paraguay" 
+           class="banner-pagos" loading="lazy" width="350" height="70">
     </div>
     <p>&copy; 2026 Huguito Bot. Todos los derechos reservados.</p>
   </footer>
 
-  <!-- BARRA INFERIOR CON LOS DOS BOTONES -->
   <div class="sticky-bar">
     <div class="selected-label" id="selected-label">Seleccioná un pack y modalidad de pago</div>
     <div class="action-btn-group">
@@ -519,7 +500,13 @@
 
     let selectedCourse = null;
     let selectedModalidad = null;
-    let currentCoursesData = [];
+
+    function formatPrice(val) {
+      if (!val || val === '-') return '-';
+      const num = parseFloat(val);
+      if (isNaN(num)) return val;
+      return num.toLocaleString('es-AR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    }
 
     function selectCourse(nombre) {
       document.querySelectorAll('.course-card').forEach(c => c.classList.remove('selected'));
@@ -532,7 +519,7 @@
       }
 
       selectedCourse = nombre;
-      selectedModalidad = null; // Reseteamos modalidad al cambiar de tarjeta
+      selectedModalidad = null;
 
       document.querySelectorAll('.course-card').forEach(c => {
         if (c.dataset.nombre === nombre) c.classList.add('selected');
@@ -542,11 +529,10 @@
     }
 
     function selectModalidad(nombre, modalidad, event) {
-      event.stopPropagation(); // Evita que se deseleccione la card
+      event.stopPropagation();
       selectedCourse = nombre;
       selectedModalidad = modalidad;
 
-      // Actualizamos estado visual de los botones internos
       document.querySelectorAll(`.card-${CSS.escape(nombre)} .pay-option-btn`).forEach(btn => {
         btn.classList.remove('active');
       });
@@ -572,11 +558,10 @@
         return;
       }
 
-      label.innerHTML = `Seleccionado: <span>${selectedCourse}</span> (${selectedModalidad})`;
+      label.innerHTML = `Seleccionado: <span>${selectedCourse}</span> (<span>${selectedModalidad}</span>)`;
       btnWa.disabled = false;
       btnLemon.disabled = false;
 
-      // Mensaje 100% personalizado para WhatsApp
       const msg = encodeURIComponent(
         `Hola Hugo! Me interesa el pack "${selectedCourse}" abonando en modalidad de *${selectedModalidad}*. ¿Cómo seguimos?`
       );
@@ -587,15 +572,9 @@
         window.open(waUrl, '_blank');
       };
 
-      // Configuración del enlace de Lemon según el producto y modalidad elegida
-      // (Aquí podés mapear tus links reales de Lemon o recibirlos también desde Apps Script)
       btnLemon.onclick = () => {
         if (typeof fbq !== 'undefined') fbq('track', 'InitiateCheckout');
-        
-        // Ejemplo de redirección a tu link de Lemon (puedes reemplazarlo por los enlaces reales)
         let lemonLink = "https://pay.lemon.me/tu-link-general"; 
-        
-        // Opcional: si guardás los links en tu Sheet, podés enlazarlos dinámicamente aquí
         window.open(lemonLink, '_blank');
       };
     }
@@ -606,7 +585,6 @@
         container.innerHTML = `<div class="error-message">Error al cargar los packs.</div>`;
         return;
       }
-      currentCoursesData = courses;
       renderCourses(courses);
     }
 
@@ -629,13 +607,28 @@
       const itemsARenderizar = packsFiltrados.length > 0 ? packsFiltrados : courses;
 
       itemsARenderizar.forEach(course => {
-        const nombre  = course['Producto / Pack'] || '';
-        const desc    = course['Que cursos incluye?'] || 'Consultá los detalles.';
-        const contado = course['Precio Total (50% por pago unico)'] || '-';
-        const cuota3  = course['Opción 3 Cuotas (Mensual)'] || '-';
-        const cuota6  = course['Opción 6 Cuotas (Mensual)'] || '-';
+        const nombre   = course['Producto / Pack'] || '';
+        const contado  = formatPrice(course['Precio Total (50% por pago unico)']);
+        const cuota3   = formatPrice(course['Opción 3 Cuotas (Mensual)']);
+        const cuota6   = formatPrice(course['Opción 6 Cuotas (Mensual)']);
+        
+        // Nuevos campos leídos directamente de las columnas de tu Sheet
+        const incluye  = course['Que cursos incluye?'] || '';
+        const subtitulo = course['Subtítulo'] || '';
+        const beneficiosCrudos = course['Beneficios Principales'] || '';
+        const imgUrl   = course['Imagen'] || 'https://res.cloudinary.com/dlnrsadbc/image/upload/q_auto,f_auto,w_400/v1778980849/logo_hugo_alvigini_transparente_jodgue_z1tldp.webp';
+        
+        // Convertir los saltos de línea de los beneficios en un listado <ul> profesional
+        let beneficiosHTML = '';
+        if (beneficiosCrudos) {
+          const listaBeneficios = beneficiosCrudos.split('\n').filter(b => b.trim() !== '');
+          if (listaBeneficios.length > 0) {
+            beneficiosHTML = '<ul class="benefits-list">' + 
+              listaBeneficios.map(b => `<li>${b.trim()}</li>`).join('') + 
+              '</ul>';
+          }
+        }
 
-        // Creamos una clase única limpia para manejar los botones internos
         const safeClass = 'card-' + nombre.replace(/[^a-zA-Z0-9]/g, '_');
 
         const card = document.createElement('div');
@@ -645,26 +638,32 @@
 
         card.innerHTML = `
           <span class="selected-badge">✓ SELECCIONADO</span>
-          <h3>${nombre}</h3>
-          <p class="desc">${desc}</p>
+          <div class="card-content-grid">
+            <img src="${imgUrl}" alt="${nombre}" class="card-img" loading="lazy">
+            <div class="card-info">
+              <h3>${nombre}</h3>
+              ${subtitulo ? `<div class="course-subtitle">${subtitulo}</div>` : ''}
+              ${incluye ? `<div class="desc"><strong>Incluye:</strong> ${incluye}</div>` : ''}
+              ${beneficiosHTML}
+            </div>
+          </div>
           
-          <!-- Botones de selección de pago internos -->
           <div class="payment-options-container">
             <div class="payment-options-title">Elegí tu forma de pago:</div>
             
             <button class="pay-option-btn" onclick="selectModalidad('${nombre.replace(/'/g, "\\'")}', 'Pago Contado (50% OFF)', event)">
               <span>💥 Pago Contado</span>
-              <strong>${contado}</strong>
+              <strong>$${contado}</strong>
             </button>
             
             <button class="pay-option-btn" onclick="selectModalidad('${nombre.replace(/'/g, "\\'")}', '3 Cuotas', event)">
               <span>📅 En 3 Cuotas</span>
-              <strong>${cuota3}</strong>
+              <strong>$${cuota3}</strong>
             </button>
             
             <button class="pay-option-btn" onclick="selectModalidad('${nombre.replace(/'/g, "\\'")}', '6 Cuotas', event)">
               <span>📅 En 6 Cuotas</span>
-              <strong>${cuota6}</strong>
+              <strong>$${cuota6}</strong>
             </button>
           </div>
         `;
