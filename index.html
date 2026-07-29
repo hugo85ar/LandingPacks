@@ -494,7 +494,7 @@
     </div>
   </div>
 
- <script>
+<script>
     const APPSCRIPT_BASE = 'https://script.google.com/macros/s/AKfycbyxlO60asW5Jc8tHtjtSqk8-tUTSxJwwDZ-i0oN-Jgqn5wsmg7l0a70jFD7rZssUD4IOw/exec';
     const WA_NUMBER = '5491176529179';
 
@@ -509,20 +509,28 @@
     }
 
     function selectCourse(nombre) {
-      document.querySelectorAll('.course-card').forEach(c => c.classList.remove('selected'));
-
+      // Si el usuario hace click en el mismo pack que ya estaba seleccionado, lo deseleccionamos todo
       if (selectedCourse === nombre) {
         selectedCourse = null;
         selectedModalidad = null;
+        document.querySelectorAll('.course-card').forEach(c => {
+          c.classList.remove('selected');
+          c.querySelectorAll('.pay-option-btn').forEach(b => b.classList.remove('active'));
+        });
         updateStickyBar();
         return;
       }
 
+      // Si selecciona uno nuevo, limpiamos TODAS las tarjetas primero (elimina selección múltiple)
       selectedCourse = nombre;
       selectedModalidad = null;
 
       document.querySelectorAll('.course-card').forEach(c => {
-        if (c.dataset.nombre === nombre) c.classList.add('selected');
+        c.classList.remove('selected');
+        c.querySelectorAll('.pay-option-btn').forEach(b => b.classList.remove('active'));
+        if (c.dataset.nombre === nombre) {
+          c.classList.add('selected');
+        }
       });
 
       updateStickyBar();
@@ -530,14 +538,23 @@
 
     function selectModalidad(nombre, modalidad, event) {
       event.stopPropagation();
+      
+      // Asegurarnos de que el pack esté correctamente seleccionado
       selectedCourse = nombre;
       selectedModalidad = modalidad;
 
-      document.querySelectorAll(`.card-${CSS.escape(nombre)} .pay-option-btn`).forEach(btn => {
-        btn.classList.remove('active');
+      document.querySelectorAll('.course-card').forEach(c => {
+        if (c.dataset.nombre === nombre) {
+          c.classList.add('selected');
+          c.querySelectorAll('.pay-option-btn').forEach(btn => {
+            btn.classList.remove('active');
+          });
+        } else {
+          c.classList.remove('selected');
+        }
       });
-      event.currentTarget.classList.add('active');
 
+      event.currentTarget.classList.add('active');
       updateStickyBar();
     }
 
@@ -612,13 +629,11 @@
         const cuota3   = formatPrice(course['Opción 3 Cuotas (Mensual)']);
         const cuota6   = formatPrice(course['Opción 6 Cuotas (Mensual)']);
         
-        // Nuevos campos leídos directamente de las columnas de tu Sheet
         const incluye  = course['Que cursos incluye?'] || '';
         const subtitulo = course['Subtítulo'] || '';
         const beneficiosCrudos = course['Beneficios Principales'] || '';
         const imgUrl   = course['Imagen'] || 'https://res.cloudinary.com/dlnrsadbc/image/upload/q_auto,f_auto,w_400/v1778980849/logo_hugo_alvigini_transparente_jodgue_z1tldp.webp';
         
-        // Convertir los saltos de línea de los beneficios en un listado <ul> profesional
         let beneficiosHTML = '';
         if (beneficiosCrudos) {
           const listaBeneficios = beneficiosCrudos.split('\n').filter(b => b.trim() !== '');
@@ -691,5 +706,6 @@
 
     loadCourses();
 </script>
+  
 </body>
 </html>
