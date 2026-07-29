@@ -67,6 +67,7 @@
     :root {
       --primary-blue: #5974ff;
       --action-green: #4CAF50;
+      --lemon-yellow: #00E676; /* O tono institucional de Lemon/Pagos */
       --innovation-purple: #5726B8;
       --dark-background: #0b0b1e;
       --text-light: #ffffff;
@@ -91,7 +92,6 @@
       font-display: swap;
     }
 
-    /* 🔙 BOTÓN VOLVER Y CABECERA DE SECCIÓN */
     .top-bar-container {
       width: 100%;
       max-width: 1200px;
@@ -137,7 +137,6 @@
       margin: 0;
     }
 
-    /* 💎 LOGO CENTRAL */
     .logo-container-central { 
       display: flex;
       justify-content: center;
@@ -202,17 +201,15 @@
       padding: 20px;
       margin-bottom: 20px;
       box-sizing: border-box;
-      min-height: 280px; 
     }
 
     .course-card {
       cursor: pointer;
-      transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+      transition: all 0.2s ease;
       position: relative;
     }
 
     .course-card:hover {
-      transform: translateY(-3px);
       border-color: rgba(89,116,255,0.5);
       box-shadow: 0 8px 24px rgba(89,116,255,0.15);
     }
@@ -257,19 +254,69 @@
       line-height: 1.55;
     }
 
+    /* 🔘 BOTONES DE SELECCIÓN DE PAGO DENTRO DE LA TARJETA */
+    .payment-options-container {
+      display: none;
+      margin-top: 16px;
+      padding-top: 16px;
+      border-top: 1px solid rgba(255,255,255,0.1);
+      animation: fadeIn 0.3s ease;
+    }
+
+    .course-card.selected .payment-options-container {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-5px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .payment-options-title {
+      font-size: 0.85rem;
+      color: #7fffb0;
+      font-weight: 600;
+      margin-bottom: 10px;
+      font-family: "Montserrat", sans-serif;
+    }
+
+    .pay-option-btn {
+      width: 100%;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: #fff;
+      padding: 10px 14px;
+      border-radius: 8px;
+      margin-bottom: 8px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+      font-size: 0.88rem;
+      transition: all 0.2s;
+    }
+
+    .pay-option-btn:hover {
+      background: rgba(127, 255, 176, 0.1);
+      border-color: #7fffb0;
+    }
+
+    .pay-option-btn.active {
+      background: rgba(127, 255, 176, 0.2);
+      border-color: #7fffb0;
+      font-weight: bold;
+      color: #7fffb0;
+    }
+
     .price-row {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 8px 0;
-      border-bottom: 1px solid rgba(255,255,255,0.05);
-      font-size: 0.9rem;
+      padding: 6px 0;
+      font-size: 0.88rem;
+      color: var(--text-dark);
     }
-
-    .price-row:last-child { border-bottom: none; }
     .price-row.highlight { color: #7fffb0; font-weight: bold; }
-    .price-row .label { color: var(--text-dark); }
-    .price-row.highlight .label { color: #7fffb0; }
 
     .skeleton-line {
       background: #1a1a3a;
@@ -282,16 +329,8 @@
     .skeleton-line::after {
       content: "";
       position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(
-        90deg,
-        rgba(255, 255, 255, 0) 0%,
-        rgba(255, 255, 255, 0.06) 50%,
-        rgba(255, 255, 255, 0) 100%
-      );
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.06) 50%, rgba(255,255,255,0) 100%);
       animation: shimmerGPU 1.5s infinite;
     }
     @keyframes shimmerGPU {
@@ -299,59 +338,82 @@
       100% { transform: translateX(100%); }
     }
 
+    /* ── BARRA FIJA INFERIOR DINÁMICA ── */
     .sticky-bar {
       position: fixed;
-      bottom: 0;
-      left: 0;
-      width: 100%;
+      bottom: 0; left: 0; width: 100%;
       z-index: 100;
       padding: 14px 20px;
-      background: rgba(11, 11, 30, 0.95);
+      background: rgba(11, 11, 30, 0.96);
       backdrop-filter: blur(12px);
       -webkit-backdrop-filter: blur(12px);
       border-top: 1px solid rgba(89,116,255,0.2);
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 16px;
+      gap: 12px;
       flex-wrap: wrap;
       box-sizing: border-box;
     }
 
     .sticky-bar .selected-label {
-      font-size: 0.9rem;
+      font-size: 0.85rem;
       color: var(--text-dark);
-      font-style: italic;
+      width: 100%;
+      text-align: center;
+      margin-bottom: 2px;
     }
 
     .sticky-bar .selected-label span {
       color: #7fffb0;
-      font-style: normal;
       font-weight: 600;
+    }
+
+    .action-btn-group {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: center;
+      width: 100%;
+      max-width: 600px;
+    }
+
+    .btn-action {
+      flex: 1;
+      min-width: 220px;
+      padding: 12px 20px;
+      border: none;
+      border-radius: var(--border-radius);
+      font-family: "Montserrat", sans-serif;
+      font-weight: 700;
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      text-decoration: none;
+      white-space: nowrap;
     }
 
     .btn-whatsapp {
       background: linear-gradient(135deg, #25D366, #128C7E);
       color: var(--text-light);
-      padding: 14px 32px;
-      border: none;
-      border-radius: var(--border-radius);
-      font-family: "Montserrat", sans-serif;
-      font-weight: 700;
-      font-size: 1rem;
-      cursor: pointer;
-      box-shadow: 0 5px 20px rgba(37,211,102,0.4);
-      transition: transform 0.2s, box-shadow 0.2s;
-      white-space: nowrap;
+      box-shadow: 0 4px 15px rgba(37,211,102,0.3);
     }
+    .btn-whatsapp:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(37,211,102,0.4); }
 
-    .btn-whatsapp:hover:not(:disabled) {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 28px rgba(37,211,102,0.5);
+    .btn-lemon {
+      background: linear-gradient(135deg, #00E676, #00A859); /* Ajustable al color brand de Lemon */
+      color: #0a1e10;
+      box-shadow: 0 4px 15px rgba(0,230,118,0.3);
     }
+    .btn-lemon:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,230,118,0.4); }
 
-    .btn-whatsapp:disabled {
+    .btn-action:disabled {
       background: linear-gradient(135deg, #3a3a3a, #222);
+      color: #777;
       box-shadow: none;
       cursor: not-allowed;
       opacity: 0.6;
@@ -361,7 +423,7 @@
 
     footer {
       margin-top: auto;
-      padding: 30px 0 90px 0; /* Padding extra abajo para que la barra sticky no tape el footer */
+      padding: 30px 0 110px 0;
       text-align: center;
     }
 
@@ -369,9 +431,6 @@
       display: inline-block;
       text-align: center;
       padding: 15px 25px;
-      background-color: transparent;
-      border: none;
-      margin-bottom: 10px;
     }
 
     .banner-pagos {
@@ -380,8 +439,6 @@
       height: auto !important;
       display: block;
       margin: 0 auto; 
-      border: none;
-      background: transparent;
     }
 
     footer > p {
@@ -393,8 +450,9 @@
     @media (max-width: 768px) {
       .main-layout { flex-direction: column; align-items: center; gap: 20px; }
       .column { width: 100%; min-width: unset; }
-      .sticky-bar { flex-direction: column; gap: 8px; padding: 12px 16px; }
-      footer { padding-bottom: 120px; }
+      .action-btn-group { flex-direction: column; }
+      .btn-action { width: 100%; }
+      footer { padding-bottom: 140px; }
     }
   </style>
 </head>
@@ -407,14 +465,13 @@
     </div>
   </header>
 
-  <!-- 🔙 BARRA DE RETORNO Y TÍTULO DE SECCIÓN -->
   <div class="top-bar-container">
     <a href="../catalogo-promociones/" class="btn-volver">
       ← Volver
     </a>
     <div class="section-title-area">
       <h1>Packs & Programas Integrales</h1>
-      <p>Explora los recursos disponibles en esta sección.</p>
+      <p>Selecciona tu pack y elegí la forma de pago.</p>
     </div>
   </div>
 
@@ -424,7 +481,6 @@
         <div class="section-header"><h2>Programas y Packs Destacados</h2></div>
         <div id="pack-list">
           <div class="skeleton-card"><div class="skeleton-line" style="height:24px; width:70%"></div><div class="skeleton-line" style="height:40px; width:90%"></div><div class="skeleton-line" style="height:20px; width:40%"></div></div>
-          <div class="skeleton-card"><div class="skeleton-line" style="height:24px; width:60%"></div><div class="skeleton-line" style="height:40px; width:85%"></div><div class="skeleton-line" style="height:20px; width:40%"></div></div>
         </div>
       </div>
     </div>
@@ -444,11 +500,17 @@
     <p>&copy; 2026 Huguito Bot. Todos los derechos reservados.</p>
   </footer>
 
+  <!-- BARRA INFERIOR CON LOS DOS BOTONES -->
   <div class="sticky-bar">
-    <span class="selected-label" id="selected-label">Ningún pack seleccionado</span>
-    <button class="btn-whatsapp" id="btn-whatsapp" disabled>
-      📲 Consultá por WhatsApp
-    </button>
+    <div class="selected-label" id="selected-label">Seleccioná un pack y modalidad de pago</div>
+    <div class="action-btn-group">
+      <button class="btn-action btn-whatsapp" id="btn-whatsapp" disabled>
+        📲 Consultar por WhatsApp
+      </button>
+      <button class="btn-action btn-lemon" id="btn-lemon" disabled>
+        💳 Pagar con Lemon
+      </button>
+    </div>
   </div>
 
  <script>
@@ -456,17 +518,21 @@
     const WA_NUMBER = '5491176529179';
 
     let selectedCourse = null;
+    let selectedModalidad = null;
+    let currentCoursesData = [];
 
     function selectCourse(nombre) {
       document.querySelectorAll('.course-card').forEach(c => c.classList.remove('selected'));
 
       if (selectedCourse === nombre) {
         selectedCourse = null;
+        selectedModalidad = null;
         updateStickyBar();
         return;
       }
 
       selectedCourse = nombre;
+      selectedModalidad = null; // Reseteamos modalidad al cambiar de tarjeta
 
       document.querySelectorAll('.course-card').forEach(c => {
         if (c.dataset.nombre === nombre) c.classList.add('selected');
@@ -475,28 +541,62 @@
       updateStickyBar();
     }
 
+    function selectModalidad(nombre, modalidad, event) {
+      event.stopPropagation(); // Evita que se deseleccione la card
+      selectedCourse = nombre;
+      selectedModalidad = modalidad;
+
+      // Actualizamos estado visual de los botones internos
+      document.querySelectorAll(`.card-${CSS.escape(nombre)} .pay-option-btn`).forEach(btn => {
+        btn.classList.remove('active');
+      });
+      event.currentTarget.classList.add('active');
+
+      updateStickyBar();
+    }
+
     function updateStickyBar() {
       const label = document.getElementById('selected-label');
-      const btn   = document.getElementById('btn-whatsapp');
+      const btnWa  = document.getElementById('btn-whatsapp');
+      const btnLemon = document.getElementById('btn-lemon');
 
-      if (!selectedCourse) {
-        label.innerHTML = 'Ningún pack seleccionado';
-        btn.disabled = true;
-        btn.onclick = null;
+      if (!selectedCourse || !selectedModalidad) {
+        label.innerHTML = selectedCourse 
+          ? `Pack: <span>${selectedCourse}</span> — <span style="color:#ffcc00">Elegí la forma de pago arriba 👇</span>`
+          : 'Seleccioná un pack y modalidad de pago';
+        
+        btnWa.disabled = true;
+        btnLemon.disabled = true;
+        btnWa.onclick = null;
+        btnLemon.onclick = null;
         return;
       }
 
-      label.innerHTML = `Seleccionado: <span>${selectedCourse}</span>`;
-      btn.disabled = false;
+      label.innerHTML = `Seleccionado: <span>${selectedCourse}</span> (${selectedModalidad})`;
+      btnWa.disabled = false;
+      btnLemon.disabled = false;
 
+      // Mensaje 100% personalizado para WhatsApp
       const msg = encodeURIComponent(
-        `Hola Hugo! Me interesa inscribirme en "${selectedCourse}". ¿Podés darme más información?`
+        `Hola Hugo! Me interesa el pack "${selectedCourse}" abonando en modalidad de *${selectedModalidad}*. ¿Cómo seguimos?`
       );
       const waUrl = `https://wa.me/${WA_NUMBER}?text=${msg}`;
 
-      btn.onclick = () => {
+      btnWa.onclick = () => {
         if (typeof fbq !== 'undefined') fbq('track', 'Lead');
         window.open(waUrl, '_blank');
+      };
+
+      // Configuración del enlace de Lemon según el producto y modalidad elegida
+      // (Aquí podés mapear tus links reales de Lemon o recibirlos también desde Apps Script)
+      btnLemon.onclick = () => {
+        if (typeof fbq !== 'undefined') fbq('track', 'InitiateCheckout');
+        
+        // Ejemplo de redirección a tu link de Lemon (puedes reemplazarlo por los enlaces reales)
+        let lemonLink = "https://pay.lemon.me/tu-link-general"; 
+        
+        // Opcional: si guardás los links en tu Sheet, podés enlazarlos dinámicamente aquí
+        window.open(lemonLink, '_blank');
       };
     }
 
@@ -506,6 +606,7 @@
         container.innerHTML = `<div class="error-message">Error al cargar los packs.</div>`;
         return;
       }
+      currentCoursesData = courses;
       renderCourses(courses);
     }
 
@@ -520,7 +621,6 @@
 
       packList.innerHTML = '';
 
-      // Filtramos exclusivamente los que sean packs o programas integrales para esta landing
       const packsFiltrados = courses.filter(course => {
         const esPack = course['Pack'] && course['Pack'].toString().toLowerCase().includes('pack');
         return esPack;
@@ -535,8 +635,11 @@
         const cuota3  = course['Opción 3 Cuotas (Mensual)'] || '-';
         const cuota6  = course['Opción 6 Cuotas (Mensual)'] || '-';
 
+        // Creamos una clase única limpia para manejar los botones internos
+        const safeClass = 'card-' + nombre.replace(/[^a-zA-Z0-9]/g, '_');
+
         const card = document.createElement('div');
-        card.className = 'course-card';
+        card.className = `course-card ${safeClass}`;
         card.dataset.nombre = nombre;
         card.onclick = () => selectCourse(nombre);
 
@@ -544,19 +647,25 @@
           <span class="selected-badge">✓ SELECCIONADO</span>
           <h3>${nombre}</h3>
           <p class="desc">${desc}</p>
-          <div class="price-section">
-            <div class="price-row highlight">
-              <span class="label">💥 Contado (50% OFF)</span>
-              <span class="value">${contado}</span>
-            </div>
-            <div class="price-row">
-              <span class="label">3 Cuotas de</span>
-              <span class="value">${cuota3}</span>
-            </div>
-            <div class="price-row">
-              <span class="label">6 Cuotas de</span>
-              <span class="value">${cuota6}</span>
-            </div>
+          
+          <!-- Botones de selección de pago internos -->
+          <div class="payment-options-container">
+            <div class="payment-options-title">Elegí tu forma de pago:</div>
+            
+            <button class="pay-option-btn" onclick="selectModalidad('${nombre.replace(/'/g, "\\'")}', 'Pago Contado (50% OFF)', event)">
+              <span>💥 Pago Contado</span>
+              <strong>${contado}</strong>
+            </button>
+            
+            <button class="pay-option-btn" onclick="selectModalidad('${nombre.replace(/'/g, "\\'")}', '3 Cuotas', event)">
+              <span>📅 En 3 Cuotas</span>
+              <strong>${cuota3}</strong>
+            </button>
+            
+            <button class="pay-option-btn" onclick="selectModalidad('${nombre.replace(/'/g, "\\'")}', '6 Cuotas', event)">
+              <span>📅 En 6 Cuotas</span>
+              <strong>${cuota6}</strong>
+            </button>
           </div>
         `;
 
