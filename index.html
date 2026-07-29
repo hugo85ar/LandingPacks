@@ -630,7 +630,7 @@
       const itemsARenderizar = packsFiltrados.length > 0 ? packsFiltrados : courses;
 
       itemsARenderizar.forEach(course => {
-        const nombre   = course['Producto / Pack'] || '';
+        const nombre   = course['PackProducto / Pack'] || course['Producto / Pack'] || '';
         const contado  = formatPrice(course['Precio Total (50% por pago unico)']);
         const cuota3   = formatPrice(course['Opción 3 Cuotas (Mensual)']);
         const cuota6   = formatPrice(course['Opción 6 Cuotas (Mensual)']);
@@ -639,9 +639,10 @@
         const subtitulo = course['Subtítulo'] || '';
         const beneficiosCrudos = course['Beneficios Principales'] || '';
         
-        // CORRECCIÓN AQUÍ: Tomando la columna de imagen/carátula correspondiente y respaldando con fallback si está vacía
-        const imgUrl   = (course['Imagen'] && course['Imagen'].trim() !== '') 
-                         ? course['Imagen'] 
+        // CORRECCIÓN AQUÍ: Apuntando exactamente a la columna 'Caratula url' de tu Google Sheet
+        const rawImg   = course['Caratula url'] || course['Imagen'] || '';
+        const imgUrl   = (rawImg.trim() !== '') 
+                         ? rawImg.trim() 
                          : 'https://res.cloudinary.com/dlnrsadbc/image/upload/q_auto,f_auto,w_400/v1778980849/logo_hugo_alvigini_transparente_jodgue_z1tldp.webp';
         
         let beneficiosHTML = '';
