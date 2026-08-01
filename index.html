@@ -9,45 +9,47 @@
   <meta name="description" content="Ecosistema de cursos avanzados y packs de automatizaciones con Google Sheets, Apps Script e IA de Hugo Alvigini. Potencia tu negocio hoy."/>
   <link rel="icon" href="data:,">
   
-  <script>
-    const FACEBOOK_PIXEL_ID = '2189151328193841';
-    let pixelCargado = false;
-    let tiempoPermitido = false;
+<!-- META PIXEL -->
+<script>
+!function(f,b,e,v,n,t,s)
+{
+if(f.fbq)return;
 
-    setTimeout(() => { tiempoPermitido = true; }, 2000);
+n=f.fbq=function(){
+n.callMethod ?
+n.callMethod.apply(n,arguments) :
+n.queue.push(arguments)
+};
 
-    function cargarPixelFacebook() {
-      if (pixelCargado || !tiempoPermitido) return;
-      pixelCargado = true;
-      window.removeEventListener('scroll', controlarInteraccion);
-      window.removeEventListener('mousemove', controlarInteraccion);
-      window.removeEventListener('touchstart', controlarInteraccion);
+if(!f._fbq)f._fbq=n;
 
-      !function(f,b,e,v,n,t,s)
-      {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-      n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-      if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-      n.queue=[];t=b.createElement(e);t.async=!0;
-      t.src=v;s=b.getElementsByTagName(e)[0];
-      s.parentNode.insertBefore(t,s)}(window,document,'script',
-      'https://connect.facebook.net/en_US/fbevents.js');
+n.push=n;
+n.loaded=!0;
+n.version='2.0';
+n.queue=[];
 
-      fbq('init', FACEBOOK_PIXEL_ID);
-      fbq('track', 'PageView');
-    }
+t=b.createElement(e);
+t.async=!0;
+t.src=v;
 
-    function controlarInteraccion() {
-      if (tiempoPermitido) { cargarPixelFacebook(); }
-    }
+s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s);
 
-    window.addEventListener('scroll', controlarInteraccion, { passive: true });
-    window.addEventListener('mousemove', controlarInteraccion, { passive: true });
-    window.addEventListener('touchstart', controlarInteraccion, { passive: true });
-    setTimeout(cargarPixelFacebook, 4000);
-  </script>
-  <noscript>
-    <img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=2189151328193841&ev=PageView&noscript=1"/>
-  </noscript>
+}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+
+fbq('init', '2189151328193841');
+fbq('track', 'PageView');
+</script>
+
+<noscript>
+<img
+height="1"
+width="1"
+style="display:none"
+src="https://www.facebook.com/tr?id=2189151328193841&ev=PageView&noscript=1"
+/>
+</noscript>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
