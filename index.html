@@ -510,7 +510,7 @@ src="https://www.facebook.com/tr?id=2189151328193841&ev=PageView&noscript=1"
     </div>
   </div>
 
- <script>
+<script>
     const APPSCRIPT_BASE = 'https://script.google.com/macros/s/AKfycbyxlO60asW5Jc8tHtjtSqk8-tUTSxJwwDZ-i0oN-Jgqn5wsmg7l0a70jFD7rZssUD4IOw/exec';
     const WA_NUMBER = '5491176529179';
 
@@ -604,7 +604,6 @@ src="https://www.facebook.com/tr?id=2189151328193841&ev=PageView&noscript=1"
       btnWa.disabled = false;
       btnLemon.disabled = false;
 
-      // Configurar WhatsApp (para consultas generales o respaldo)
       const msg = encodeURIComponent(
         `Hola Hugo! Me interesa el pack "${selectedCourse}" abonando en modalidad de *${selectedModalidad}*. ¿Cómo seguimos?`
       );
@@ -620,7 +619,6 @@ src="https://www.facebook.com/tr?id=2189151328193841&ev=PageView&noscript=1"
         window.open(waUrl, '_blank');
       };
 
-      // Configurar Botón de Pago (según la modalidad elegida y los links de las columnas L, M, N)
       if (selectedModalidad.includes('Pago Contado')) {
         btnLemon.onclick = () => {
           if (typeof fbq !== 'undefined') {
@@ -660,13 +658,14 @@ src="https://www.facebook.com/tr?id=2189151328193841&ev=PageView&noscript=1"
               content_type: 'product'
             });
           }
-          if (selectedLink6Cuotas.trim() !== '__blank') {
+          if (selectedLink6Cuotas.trim() !== '') {
             window.open(selectedLink6Cuotas.trim(), '_blank');
           } else {
             window.open(waUrl, '_blank');
           }
         };
       }
+    }
 
     function handleCourses(courses) {
       const container = document.getElementById('courses-container');
@@ -710,7 +709,6 @@ src="https://www.facebook.com/tr?id=2189151328193841&ev=PageView&noscript=1"
                          ? rawImg.trim() 
                          : 'https://res.cloudinary.com/dlnrsadbc/image/upload/q_auto,f_auto,w_400/v1778980849/logo_hugo_alvigini_transparente_jodgue_z1tldp.webp';
         
-        // Mapeo de columnas L, M, N
         const linkContado = course['Link de Pago Contado'] || '';
         const link3       = course['Link de Pago en 3 Cuotas'] || '';
         const link6       = course['Link de Pago en 6 Cuotas'] || '';
