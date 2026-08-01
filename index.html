@@ -618,7 +618,13 @@ src="https://www.facebook.com/tr?id=2189151328193841&ev=PageView&noscript=1"
       // Configurar Botón de Pago (según la modalidad elegida y los links de las columnas L, M, N)
       if (selectedModalidad.includes('Pago Contado')) {
         btnLemon.onclick = () => {
-          if (typeof fbq !== 'undefined') fbq('track', 'InitiateCheckout');
+          if (typeof fbq !== 'undefined') {
+            fbq('track', 'InitiateCheckout', {
+              content_name: selectedCourse,
+              content_category: 'Pago Contado',
+              content_type: 'product'
+            });
+          }
           if (selectedLinkContado.trim() !== '') {
             window.open(selectedLinkContado.trim(), '_blank');
           } else {
@@ -627,7 +633,13 @@ src="https://www.facebook.com/tr?id=2189151328193841&ev=PageView&noscript=1"
         };
       } else if (selectedModalidad.includes('3 Cuotas')) {
         btnLemon.onclick = () => {
-          if (typeof fbq !== 'undefined') fbq('track', 'InitiateCheckout');
+          if (typeof fbq !== 'undefined') {
+            fbq('track', 'InitiateCheckout', {
+              content_name: selectedCourse,
+              content_category: '3 Cuotas',
+              content_type: 'product'
+            });
+          }
           if (selectedLink3Cuotas.trim() !== '') {
             window.open(selectedLink3Cuotas.trim(), '_blank');
           } else {
@@ -636,15 +648,20 @@ src="https://www.facebook.com/tr?id=2189151328193841&ev=PageView&noscript=1"
         };
       } else if (selectedModalidad.includes('6 Cuotas')) {
         btnLemon.onclick = () => {
-          if (typeof fbq !== 'undefined') fbq('track', 'InitiateCheckout');
-          if (selectedLink6Cuotas.trim() !== '') {
+          if (typeof fbq !== 'undefined') {
+            fbq('track', 'InitiateCheckout', {
+              content_name: selectedCourse,
+              content_category: '6 Cuotas',
+              content_type: 'product'
+            });
+          }
+          if (selectedLink6Cuotas.trim() !== '__blank') {
             window.open(selectedLink6Cuotas.trim(), '_blank');
           } else {
             window.open(waUrl, '_blank');
           }
         };
       }
-    }
 
     function handleCourses(courses) {
       const container = document.getElementById('courses-container');
