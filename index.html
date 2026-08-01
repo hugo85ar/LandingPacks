@@ -611,7 +611,12 @@ src="https://www.facebook.com/tr?id=2189151328193841&ev=PageView&noscript=1"
       const waUrl = `https://wa.me/${WA_NUMBER}?text=${msg}`;
 
       btnWa.onclick = () => {
-        if (typeof fbq !== 'undefined') fbq('track', 'Lead');
+        if (typeof fbq !== 'undefined') {
+          fbq('track', 'Lead', {
+            content_name: selectedCourse,
+            content_category: selectedModalidad
+          });
+        }
         window.open(waUrl, '_blank');
       };
 
