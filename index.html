@@ -10,7 +10,6 @@
   <link rel="icon" href="data:,">
   
 <!-- META PIXEL -->
-<!-- META PIXEL -->
 <script>
 !function(f,b,e,v,n,t,s)
 {
@@ -35,22 +34,14 @@ s.parentNode.insertBefore(t,s);
 
 fbq('init', '2189151328193841');
 fbq('track', 'PageView');
-// 🟢 EVENTO CLAVE: Registra que llegaron a ver los packs de la Ruta del Emprendedor
 fbq('track', 'ViewContent', {
   content_name: 'Landing Packs - Ruta del Emprendedor',
   content_type: 'product_group'
 });
 </script>
-
 <noscript>
-<img
-height="1"
-width="1"
-style="display:none"
-src="https://www.facebook.com/tr?id=2189151328193841&ev=PageView&noscript=1"
-/>
+<img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=2189151328193841&ev=PageView&noscript=1"/>
 </noscript>
-  
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -464,14 +455,10 @@ src="https://www.facebook.com/tr?id=2189151328193841&ev=PageView&noscript=1"
 </head>
 <body>
 
-
-  
-
-  
   <header class="hero-main">
     <div class="hero-content-wrapper">
       <div class="top-nav-row">
-        <a href="https://hugo85ar.github.io/catalogo-promociones/" class="btn-volver" class="btn-volver">
+        <a href="https://hugo85ar.github.io/catalogo-promociones/" class="btn-volver">
           ← Volver al Inicio
         </a>
       </div>
@@ -485,7 +472,7 @@ src="https://www.facebook.com/tr?id=2189151328193841&ev=PageView&noscript=1"
   <main id="courses-container">
     <div class="section-header"><h2>Elegí tu Pack de Cursos</h2></div>
     <div id="pack-list">
-      <div class="skeleton-card" style="padding:20px; background:rgba(16,16,38,0.7); border-radius:12px; min-height:150px;"></div>
+      <div class="skeleton-card" style="padding:20px; background:rgba(16,16,38,0.7); border-radius:12px; min-height:150px;">Cargando packs...</div>
     </div>
   </main>
 
@@ -516,9 +503,8 @@ src="https://www.facebook.com/tr?id=2189151328193841&ev=PageView&noscript=1"
 
     let selectedCourse = null;
     let selectedModalidad = null;
-    let selectedLinkContado = '';
-    let selectedLink3Cuotas = '';
-    let selectedLink6Cuotas = '';
+    let activePaymentLink = '';
+    let coursesDataGlobal = [];
 
     function formatPrice(val) {
       if (!val || val === '-') return '-';
@@ -527,59 +513,61 @@ src="https://www.facebook.com/tr?id=2189151328193841&ev=PageView&noscript=1"
       return num.toLocaleString('es-AR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
     }
 
-    function selectCourse(nombre) {
+    function selectCourse(index) {
+      const course = coursesDataGlobal[index];
+      const nombre = course['PackProducto / Pack'] || course['Producto / Pack'] || '';
+
       if (selectedCourse === nombre) {
-        selectedCourse = null;
-        selectedModalidad = null;
-        selectedLinkContado = '';
-        selectedLink3Cuotas = '';
-        selectedLink6Cuotas = '';
-        document.querySelectorAll('.course-card').forEach(c => {
-          c.classList.remove('selected');
-          c.querySelectorAll('.pay-option-btn').forEach(b => b.classList.remove('active'));
-        });
-        updateStickyBar();
+        resetSelection();
         return;
       }
 
       selectedCourse = nombre;
       selectedModalidad = null;
-      selectedLinkContado = '';
-      selectedLink3Cuotas = '';
-      selectedLink6Cuotas = '';
+      activePaymentLink = '';
 
-      document.querySelectorAll('.course-card').forEach(c => {
-        c.classList.remove('selected');
-        c.querySelectorAll('.pay-option-btn').forEach(b => b.classList.remove('active'));
-        if (c.dataset.nombre === nombre) {
+      document.querySelectorAll('.course-card').forEach((c, idx) => {
+        if (idx === index) {
           c.classList.add('selected');
+        } else {
+          c.classList.remove('selected');
+          c.querySelectorAll('.pay-option-btn').forEach(b => b.classList.remove('active'));
         }
       });
 
       updateStickyBar();
     }
 
-    function selectModalidad(nombre, modalidad, linkContado, link3, link6, event) {
+    function selectModalidad(index, modalidad, link, event) {
       event.stopPropagation();
-      
+      const course = coursesDataGlobal[index];
+      const nombre = course['PackProducto / Pack'] || course['Producto / Pack'] || '';
+
       selectedCourse = nombre;
       selectedModalidad = modalidad;
-      selectedLinkContado = linkContado || '';
-      selectedLink3Cuotas = link3 || '';
-      selectedLink6Cuotas = link6 || '';
+      activePaymentLink = link || '';
 
-      document.querySelectorAll('.course-card').forEach(c => {
-        if (c.dataset.nombre === nombre) {
+      document.querySelectorAll('.course-card').forEach((c, idx) => {
+        if (idx === index) {
           c.classList.add('selected');
-          c.querySelectorAll('.pay-option-btn').forEach(btn => {
-            btn.classList.remove('active');
-          });
+          c.querySelectorAll('.pay-option-btn').forEach(btn => btn.classList.remove('active'));
         } else {
           c.classList.remove('selected');
         }
       });
 
       event.currentTarget.classList.add('active');
+      updateStickyBar();
+    }
+
+    function resetSelection() {
+      selectedCourse = null;
+      selectedModalidad = null;
+      activePaymentLink = '';
+      document.querySelectorAll('.course-card').forEach(c => {
+        c.classList.remove('selected');
+        c.querySelectorAll('.pay-option-btn').forEach(b => b.classList.remove('active'));
+      });
       updateStickyBar();
     }
 
@@ -619,64 +607,33 @@ src="https://www.facebook.com/tr?id=2189151328193841&ev=PageView&noscript=1"
         window.open(waUrl, '_blank');
       };
 
-      if (selectedModalidad.includes('Pago Contado')) {
-        btnLemon.onclick = () => {
-          if (typeof fbq !== 'undefined') {
-            fbq('track', 'InitiateCheckout', {
-              content_name: selectedCourse,
-              content_category: 'Pago Contado',
-              content_type: 'product'
-            });
-          }
-          if (selectedLinkContado.trim() !== '') {
-            window.open(selectedLinkContado.trim(), '_blank');
-          } else {
-            window.open(waUrl, '_blank');
-          }
-        };
-      } else if (selectedModalidad.includes('3 Cuotas')) {
-        btnLemon.onclick = () => {
-          if (typeof fbq !== 'undefined') {
-            fbq('track', 'InitiateCheckout', {
-              content_name: selectedCourse,
-              content_category: '3 Cuotas',
-              content_type: 'product'
-            });
-          }
-          if (selectedLink3Cuotas.trim() !== '') {
-            window.open(selectedLink3Cuotas.trim(), '_blank');
-          } else {
-            window.open(waUrl, '_blank');
-          }
-        };
-      } else if (selectedModalidad.includes('6 Cuotas')) {
-        btnLemon.onclick = () => {
-          if (typeof fbq !== 'undefined') {
-            fbq('track', 'InitiateCheckout', {
-              content_name: selectedCourse,
-              content_category: '6 Cuotas',
-              content_type: 'product'
-            });
-          }
-          if (selectedLink6Cuotas.trim() !== '') {
-            window.open(selectedLink6Cuotas.trim(), '_blank');
-          } else {
-            window.open(waUrl, '_blank');
-          }
-        };
-      }
+      btnLemon.onclick = () => {
+        if (typeof fbq !== 'undefined') {
+          fbq('track', 'InitiateCheckout', {
+            content_name: selectedCourse,
+            content_category: selectedModalidad,
+            content_type: 'product'
+          });
+        }
+        if (activePaymentLink.trim() !== '') {
+          window.open(activePaymentLink.trim(), '_blank');
+        } else {
+          window.open(waUrl, '_blank');
+        }
+      };
     }
 
     function handleCourses(courses) {
       const container = document.getElementById('courses-container');
       if (!courses || courses.error) {
-        container.innerHTML = `<div class="error-message">Error al cargar los packs.</div>`;
+        container.innerHTML = `<div class="error-message">Error al cargar los packs desde Google Sheets.</div>`;
         return;
       }
       renderCourses(courses);
     }
 
     function renderCourses(courses) {
+      coursesDataGlobal = courses;
       const packList = document.getElementById('pack-list');
       const container = document.getElementById('courses-container');
 
@@ -694,13 +651,13 @@ src="https://www.facebook.com/tr?id=2189151328193841&ev=PageView&noscript=1"
 
       const itemsARenderizar = packsFiltrados.length > 0 ? packsFiltrados : courses;
 
-      itemsARenderizar.forEach(course => {
+      itemsARenderizar.forEach((course, index) => {
         const nombre   = course['PackProducto / Pack'] || course['Producto / Pack'] || '';
         const contado  = formatPrice(course['Precio Total (50% por pago unico)']);
         const cuota3   = formatPrice(course['Opción 3 Cuotas (Mensual)']);
         const cuota6   = formatPrice(course['Opción 6 Cuotas (Mensual)']);
         
-        const incluye  = course['Que cursos incluye?'] || '';
+        const incluye   = course['Que cursos incluye?'] || '';
         const subtitulo = course['Subtítulo'] || '';
         const beneficiosCrudos = course['Beneficios Principales'] || '';
         
@@ -723,17 +680,9 @@ src="https://www.facebook.com/tr?id=2189151328193841&ev=PageView&noscript=1"
           }
         }
 
-        const safeClass = 'card-' + nombre.replace(/[^a-zA-Z0-9]/g, '_');
-
         const card = document.createElement('div');
-        card.className = `course-card ${safeClass}`;
-        card.dataset.nombre = nombre;
-        card.onclick = () => selectCourse(nombre);
-
-        const escapedName = nombre.replace(/'/g, "\\'");
-        const escapedLinkContado = linkContado.replace(/'/g, "\\'");
-        const escapedLink3 = link3.replace(/'/g, "\\'");
-        const escapedLink6 = link6.replace(/'/g, "\\'");
+        card.className = `course-card`;
+        card.onclick = () => selectCourse(index);
 
         card.innerHTML = `
           <span class="selected-badge">✓ SELECCIONADO</span>
@@ -750,17 +699,17 @@ src="https://www.facebook.com/tr?id=2189151328193841&ev=PageView&noscript=1"
           <div class="payment-options-container">
             <div class="payment-options-title">Elegí tu forma de pago:</div>
             
-            <button class="pay-option-btn" onclick="selectModalidad('${escapedName}', 'Pago Contado (50% OFF)', '${escapedLinkContado}', '${escapedLink3}', '${escapedLink6}', event)">
+            <button class="pay-option-btn" onclick="selectModalidad(${index}, 'Pago Contado (50% OFF)', '${linkContado}', event)">
               <span>💥 Pago Contado</span>
               <strong>$${contado}</strong>
             </button>
             
-            <button class="pay-option-btn" onclick="selectModalidad('${escapedName}', '3 Cuotas', '${escapedLinkContado}', '${escapedLink3}', '${escapedLink6}', event)">
+            <button class="pay-option-btn" onclick="selectModalidad(${index}, '3 Cuotas', '${link3}', event)">
               <span>📅 En 3 Cuotas</span>
               <strong>$${cuota3}</strong>
             </button>
             
-            <button class="pay-option-btn" onclick="selectModalidad('${escapedName}', '6 Cuotas', '${escapedLinkContado}', '${escapedLink3}', '${escapedLink6}', event)">
+            <button class="pay-option-btn" onclick="selectModalidad(${index}, '6 Cuotas', '${link6}', event)">
               <span>📅 En 6 Cuotas</span>
               <strong>$${cuota6}</strong>
             </button>
