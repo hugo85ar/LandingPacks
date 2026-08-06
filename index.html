@@ -560,7 +560,7 @@
   </div>
 
 <script>
-  const APPSCRIPT_BASE = 'AQUÍ_TU_URL_.EXEC_DE_APPS_SCRIPT';
+  const APPSCRIPT_BASE = 'https://script.google.com/macros/s/AKfycbyxlO60asW5Jc8tHtjtSqk8-tUTSxJwwDZ-i0oN-Jgqn5wsmg7l0a70jFD7rZssUD4IOw/exec';
   const WA_NUMBER = '5491176529179';
 
   let selectedCourse = null;
@@ -569,18 +569,17 @@
   let coursesDataGlobal = [];
 
   function formatPrice(val) {
-    if (!val || val === '-') return '-';
+    if (!val || val === '-' || val === '') return 'Consultar';
     const num = parseFloat(val);
     if (isNaN(num)) return val;
     return num.toLocaleString('es-AR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
   }
 
   function selectModalidad(index, modalidad, link, event) {
-    event.stopPropagation();
+    if (event) event.stopPropagation();
     const course = coursesDataGlobal[index];
     const headers = Object.keys(course);
-    const columnaB = headers[1];
-    const nombre = course['PackProducto / Pack'] || course['Producto / Pack'] || course[columnaB] || 'Pack';
+    const nombre = course[headers[1]] || 'Pack';
     
     selectedCourse = nombre;
     selectedModalidad = modalidad;
@@ -610,6 +609,8 @@
     const btnWa = document.getElementById('btn-whatsapp');
     const btnLemon = document.getElementById('btn-lemon');
 
+    if (!label || !btnWa || !btnLemon) return;
+
     if (!selectedCourse || !selectedModalidad) {
       label.innerHTML = selectedCourse 
         ? `Pack: <span>${selectedCourse}</span> — <span style="color:#00e5ff">Elegí la forma de pago arriba 👇</span>`
@@ -637,9 +638,6 @@
     if (targetUrl.includes('wa.me')) {
       buttonText = '📲 Consultar por WhatsApp';
       buttonBg = 'linear-gradient(135deg, #25D366, #128C7E)';
-    } else if (targetUrl.includes('ko-fi.com')) {
-      buttonText = '☕ Pagar con Ko-fi';
-      buttonBg = 'linear-gradient(135deg, #29abe0, #19587d)';
     } else if (targetUrl.includes('lemonsqueezy.com')) {
       buttonText = '💳 Pagar con Lemon Squeezy';
       buttonBg = 'linear-gradient(135deg, #00E676, #00A859)';
@@ -664,8 +662,13 @@
   }
 
   function renderCourses(courses) {
-    const packList = document.getElementById('pack-list');
-    const container = document.getElementById('courses-container');
+    // Busca de forma segura el contenedor en el HTML (sea pack-list o courses-container)
+    const packList = document.getElementById('pack-list') || document.getElementById('courses-container');
+
+    if (!packList) {
+      console.error("No se encontró el contenedor 'pack-list' ni 'courses-container' en el HTML.");
+      return;
+    }
 
     if (!Array.isArray(courses) || courses.length === 0) {
       packList.innerHTML = `<div class="error-message">No hay elementos disponibles por el momento.</div>`;
@@ -673,20 +676,19 @@
     }
 
     const headers = Object.keys(courses[0]);
-    const columnaB = headers[1];
+    // Columna B (índice 1) y Columna K (índice 10) según tu estructura de tabla
+    const colB = headers[1];
+    const colK = headers[10];
 
-    if (!columnaB) {
-      packList.innerHTML = `<div class="error-message">No se pudo identificar la columna B de Productos.</div>`;
-      return;
-    }
-
+    // Filtro estricto basado en tus indicaciones: Columna B incluye "Pack" o Columna K es "Packs & Programas Integrales"
     const filteredCourses = courses.filter(course => {
-      const valorColumnaB = String(course[columnaB] || '').trim().toLowerCase();
-      return valorColumnaB.includes('pack');
+      const valB = String(course[colB] || '').trim().toLowerCase();
+      const valK = colK ? String(course[colK] || '').trim() : '';
+      return valB.includes('pack') || valK === 'Packs & Programas Integrales';
     });
 
     if (filteredCourses.length === 0) {
-      packList.innerHTML = `<div class="error-message">No se encontraron Packs disponibles en la hoja.</div>`;
+      packList.innerHTML = `<div class="error-message">No se encontraron Packs disponibles con los filtros indicados.</div>`;
       return;
     }
 
@@ -694,20 +696,16 @@
     packList.innerHTML = '';
 
     filteredCourses.forEach((course, index) => {
-      const nombre = course['PackProducto / Pack'] || course['Producto / Pack'] || course[columnaB] || 'Pack';
-      const subtitulo = course['Subtítulo'] || '';
-      const incluye = course['Que cursos incluye?'] || '';
-      const beneficiosCrudos = course['Beneficios Principales'] || '';
-      const rawImg = course['Caratula url'] || course['Imagen'] || '';
-      const imgUrl = rawImg.trim() !== '' ? rawImg.trim() : 'https://res.cloudinary.com/dlnrsadbc/image/upload/q_auto,f_auto,w_400/v1778980849/logo_hugo_alvigini_transparente_jodgue_z1tldp.webp';
+      const nombre = course[colB] || 'Pack';
+      const subtitulo = course['detail'] || course['Subtítulo'] || '';
+      const incluye = course['Curso Gratuito'] || course['Que cursos incluye?'] || '';
+      const imgUrl = course['imageUrl'] || course['Caratula url'] || 'https://res.cloudinary.com/dlnrsadbc/image/upload/q_auto,f_auto,w_400/v1778980849/logo_hugo_alvigini_transparente_jodgue_z1tldp.webp';
+      const offerNote = course['offerNote'] || '50% off pagando al contado';
 
-      let beneficiosHTML = '';
-      if (beneficiosCrudos) {
-        const listaBeneficios = String(beneficiosCrudos).split('\n').filter(b => b.trim() !== '');
-        if (listaBeneficios.length > 0) {
-          beneficiosHTML = '<ul class="benefits-list">' + listaBeneficios.map(b => `<li>${b.trim()}</li>`).join('') + '</ul>';
-        }
-      }
+      // Links directos desde las columnas F, G y H (asumiendo nombres estándar o índices directos)
+      const linkContado = course[headers[5]] || course['buyUrlContado'] || '';
+      const link3 = course[headers[6]] || course['buyUrl3Cuotas'] || '';
+      const link6 = course[headers[7]] || course['buyUrl6Cuotas'] || '';
 
       const card = document.createElement('div');
       card.className = 'course-card';
@@ -718,20 +716,6 @@
         if (firstBtn) firstBtn.click();
       };
 
-      const contadoVal = formatPrice(
-        course['Precio Total (50% por pago unico)'] || course['Precio Contado'] || course['Precio']
-      );
-      const cuota3Val = formatPrice(
-        course['Opción 3 Cuotas (Mensual)'] || course['Cuota 3']
-      );
-      const cuota6Val = formatPrice(
-        course['Opción 6 Cuotas (Mensual)'] || course['Cuota 6']
-      );
-
-      const linkContado = course['buyUrlContado'] || course['Link Pago Contado'] || course['Link de Pago Contado'] || '';
-      const link3 = course['buyUrl3Cuotas'] || course['Link 3 Cuotas'] || course['Link de Pago en 3 Cuotas'] || '';
-      const link6 = course['buyUrl6Cuotas'] || course['Link 6 Cuotas'] || course['Link de Pago en 6 Cuotas'] || '';
-
       card.innerHTML = `
         <span class="selected-badge">✓ SELECCIONADO</span>
         <div class="card-content-grid">
@@ -740,19 +724,19 @@
             <h3>${nombre}</h3>
             ${subtitulo ? `<div class="course-subtitle">${subtitulo}</div>` : ''}
             ${incluye ? `<div class="desc"><strong>Incluye:</strong> ${incluye}</div>` : ''}
-            ${beneficiosHTML}
+            ${offerNote ? `<div class="offer-note" style="color: #00E676; font-size: 0.85rem; margin-top: 6px;">✨ ${offerNote}</div>` : ''}
           </div>
         </div>
         <div class="payment-options-container">
           <div class="payment-options-title">Elegí tu forma de pago:</div>
           <button class="pay-option-btn" data-index="${index}" data-modalidad="Pago Contado (50% OFF)" data-link="${encodeURIComponent(linkContado)}">
-            <span>💥 Pago Contado</span><strong>$${contadoVal}</strong>
+            <span>💥 Pago Contado</span><strong>Acceder</strong>
           </button>
           <button class="pay-option-btn" data-index="${index}" data-modalidad="3 Cuotas" data-link="${encodeURIComponent(link3)}">
-            <span>📅 En 3 Cuotas</span><strong>$${cuota3Val}</strong>
+            <span>📅 En 3 Cuotas</span><strong>Acceder</strong>
           </button>
           <button class="pay-option-btn" data-index="${index}" data-modalidad="6 Cuotas" data-link="${encodeURIComponent(link6)}">
-            <span>📅 En 6 Cuotas</span><strong>$${cuota6Val}</strong>
+            <span>📅 En 6 Cuotas</span><strong>Acceder</strong>
           </button>
         </div>
       `;
@@ -775,16 +759,14 @@
     try {
       const response = await fetch(APPSCRIPT_BASE);
       const data = await response.json();
-      if (data.error) {
-        throw new Error(data.error);
-      }
+      if (data.error) throw new Error(data.error);
       renderCourses(data);
     } catch (err) {
       console.error('Error al cargar datos:', err);
-      document.getElementById('pack-list').innerHTML = `
-        <div class="error-message">
-          No se pudieron cargar los datos de los packs. Verifica la consola.
-        </div>`;
+      const packList = document.getElementById('pack-list') || document.getElementById('courses-container');
+      if (packList) {
+        packList.innerHTML = `<div class="error-message">No se pudieron cargar los datos. Revisa la consola.</div>`;
+      }
     }
   }
 
