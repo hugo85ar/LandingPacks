@@ -643,7 +643,8 @@ fbq('track', 'ViewContent', {
   
 
 
-  function renderCourses(courses) {
+ function renderCourses(courses) {
+   console.log("Datos recibidos de Apps Script:", courses);
       const packList = document.getElementById('pack-list');
       const container = document.getElementById('courses-container');
 
@@ -652,23 +653,20 @@ fbq('track', 'ViewContent', {
         return;
       }
 
-      // Filtro flexible: busca coincidencias parciales sin importar mayúsculas/minúsculas
-      const filteredCourses = courses.filter(course => {
-        const categoria = course['categoryImgCategoryPromocional?'] || course['category'] || course['Categoría'] || '';
-        const catLower = categoria.trim().toLowerCase();
-        
-        // Acepta si pertenece a la categoría de packs integrales o contiene palabras clave
-        return catLower.includes('packs & programas integrales') || 
-               catLower.includes('integrales') || 
-               catLower.includes('pack');
+      // --- FILTRO DESACTIVADO TEMPORALMENTE PARA DIAGNÓSTICO ---
+      // Mostramos todo para ver qué dice la columna de categoría en la consola
+      const filteredCourses = courses; 
+      
+      // Imprimimos en consola las categorías reales que vienen en tu Sheet:
+      courses.forEach((c, i) => {
+        console.log(`Fila ${i}: Producto: "${c['PackProducto / Pack'] || c['Producto / Pack']}" | Categoría: "${c['categoryImgCategoryPromocional?'] || c['category'] || c['Categoría']}"`);
       });
 
       if (filteredCourses.length === 0) {
-        container.innerHTML = `<div class="error-message">No hay packs integrales disponibles en este momento. (Revisá los nombres de categoría en tu Sheet).</div>`;
+        container.innerHTML = `<div class="error-message">No hay elementos en el Sheet.</div>`;
         return;
       }
 
-      // Guardamos la data filtrada globalmente
       coursesDataGlobal = filteredCourses;
       packList.innerHTML = '';
 
