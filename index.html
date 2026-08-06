@@ -574,7 +574,7 @@ fbq('track', 'ViewContent', {
     function updateStickyBar() {
       const label = document.getElementById('selected-label');
       const btnWa  = document.getElementById('btn-whatsapp');
-      const btnLemon = document.getElementById('btn-lemon');
+      const btnLemon = document.getElementById('btn-lemon'); // Usaremos este botón como el botón de acción principal de pago/enlace
 
       if (!selectedCourse || !selectedModalidad) {
         label.innerHTML = selectedCourse 
@@ -585,6 +585,7 @@ fbq('track', 'ViewContent', {
         btnLemon.disabled = true;
         btnWa.onclick = null;
         btnLemon.onclick = null;
+        btnLemon.innerText = '💳 Pagar / Acceder';
         return;
       }
 
@@ -592,34 +593,47 @@ fbq('track', 'ViewContent', {
       btnWa.disabled = false;
       btnLemon.disabled = false;
 
+      // Mensaje por defecto para WhatsApp si el link es de WhatsApp
       const msg = encodeURIComponent(
         `Hola Hugo! Me interesa el pack "${selectedCourse}" abonando en modalidad de *${selectedModalidad}*. ¿Cómo seguimos?`
       );
-      const waUrl = `https://wa.me/${WA_NUMBER}?text=${msg}`;
+      const defaultWaUrl = `https://wa.me/5491176529179?text=${msg}`;
 
+      // Si el link de la sheet es un mensaje de WhatsApp, usamos ese o el armado. Si es otra plataforma, usamos el link exacto.
+      const targetUrl = activePaymentLink && activePaymentLink.trim() !== '' ? activePaymentLink.trim() : defaultWaUrl;
+
+      // Detectamos dinámicamente el tipo de plataforma según la URL para cambiarle el texto al botón
+      let buttonText = '💳 Realizar Pago';
+      let buttonBg = 'linear-gradient(135deg, #00E676, #00A859)'; // Verde estilo Lemon/Pago
+
+      if (targetUrl.includes('wa.me')) {
+        buttonText = '📲 Consultar por WhatsApp';
+        buttonBg = 'linear-gradient(135deg, #25D366, #128C7E)';
+      } else if (targetUrl.includes('ko-fi.com')) {
+        buttonText = '☕ Pagar con Ko-fi';
+        buttonBg = 'linear-gradient(135deg, #29abe0, #19587d)';
+      } else if (targetUrl.includes('lemonsqueezy.com')) {
+        buttonText = '💳 Pagar con Lemon Squeezy';
+        buttonBg = 'linear-gradient(135deg, #00E676, #00A859)';
+      }
+
+      btnLemon.innerText = buttonText;
+      btnLemon.style.background = buttonBg;
+
+      // Configurar acción del botón de WhatsApp secundario
       btnWa.onclick = () => {
         if (typeof fbq !== 'undefined') {
-          fbq('track', 'Lead', {
-            content_name: selectedCourse,
-            content_category: selectedModalidad
-          });
+          fbq('track', 'Lead', { content_name: selectedCourse, content_category: selectedModalidad });
         }
-        window.open(waUrl, '_blank');
+        window.open(defaultWaUrl, '_blank');
       };
 
+      // Configurar acción del botón de pago principal inferior
       btnLemon.onclick = () => {
         if (typeof fbq !== 'undefined') {
-          fbq('track', 'InitiateCheckout', {
-            content_name: selectedCourse,
-            content_category: selectedModalidad,
-            content_type: 'product'
-          });
+          fbq('track', 'InitiateCheckout', { content_name: selectedCourse, content_category: selectedModalidad, content_type: 'product' });
         }
-        if (activePaymentLink.trim() !== '') {
-          window.open(activePaymentLink.trim(), '_blank');
-        } else {
-          window.open(waUrl, '_blank');
-        }
+        window.open(targetUrl, '_blank');
       };
     }
 
