@@ -632,7 +632,9 @@ fbq('track', 'ViewContent', {
       renderCourses(courses);
     }
 
-    function renderCourses(courses) {
+    
+
+  function renderCourses(courses) {
       coursesDataGlobal = courses;
       const packList = document.getElementById('pack-list');
       const container = document.getElementById('courses-container');
@@ -666,19 +668,10 @@ fbq('track', 'ViewContent', {
                          ? rawImg.trim() 
                          : 'https://res.cloudinary.com/dlnrsadbc/image/upload/q_auto,f_auto,w_400/v1778980849/logo_hugo_alvigini_transparente_jodgue_z1tldp.webp';
         
-        // Obtenemos los links de cada columna de forma independiente y segura
-        let linkContado = course['Link de Pago Contado'] || course['Link de Pago'] || '';
-        let link3       = course['Link de Pago en 3 Cuotas'] || '';
-        let link6       = course['Link de Pago en 6 Cuotas'] || '';
-
-        // Si por alguna razón solo hay un link general cargado en la fila (ej. WhatsApp o Lemon),
-        // lo replicamos temporalmente para que las 3 opciones funcionen y no queden vacías.
-        if (!linkContado && !link3 && !link6) {
-          // Si no hay nada, dejamos cadena vacía
-        } else if (linkContado && !link3 && !link6) {
-          link3 = linkContado;
-          link6 = linkContado;
-        }
+        // Capturamos los enlaces directamente de las columnas exactas de tu Google Sheet
+        const linkContado = course['Link de Pago Contado'] || '';
+        const link3       = course['Link de Pago en 3 Cuotas'] || '';
+        const link6       = course['Link de Pago en 6 Cuotas'] || '';
 
         let beneficiosHTML = '';
         if (beneficiosCrudos) {
@@ -735,6 +728,8 @@ fbq('track', 'ViewContent', {
         container.style.opacity = '1';
       }, 50);
     }
+
+  
     function loadCourses() {
       const script = document.createElement('script');
       script.src = APPSCRIPT_BASE + '?callback=handleCourses';
