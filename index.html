@@ -560,7 +560,7 @@
   </div>
 
 <script>
-  const APPSCRIPT_BASE = 'https://script.google.com/macros/s/AKfycbyxlO60asW5Jc8tHtjtSqk8-tUTSxJwwDZ-i0oN-Jgqn5wsmg7l0a70jFD7rZssUD4IOw/exec';
+  const APPSCRIPT_BASE = 'AQUÍ_TU_URL_.EXEC_DE_APPS_SCRIPT';
   const WA_NUMBER = '5491176529179';
 
   let selectedCourse = null;
@@ -663,22 +663,12 @@
     };
   }
 
-  function handleCourses(courses) {
-    const container = document.getElementById('courses-container');
-    if (!courses || courses.error) {
-      console.error('Error recibido desde Apps Script:', courses);
-      container.innerHTML = `<div class="error-message">Error al cargar los packs desde Google Sheets.</div>`;
-      return;
-    }
-    renderCourses(courses);
-  }
-
   function renderCourses(courses) {
     const packList = document.getElementById('pack-list');
     const container = document.getElementById('courses-container');
 
     if (!Array.isArray(courses) || courses.length === 0) {
-      container.innerHTML = `<div class="error-message">No hay elementos disponibles por el momento.</div>`;
+      packList.innerHTML = `<div class="error-message">No hay elementos disponibles por el momento.</div>`;
       return;
     }
 
@@ -686,7 +676,7 @@
     const columnaB = headers[1];
 
     if (!columnaB) {
-      container.innerHTML = `<div class="error-message">No se pudo identificar la columna B de Productos.</div>`;
+      packList.innerHTML = `<div class="error-message">No se pudo identificar la columna B de Productos.</div>`;
       return;
     }
 
@@ -696,7 +686,7 @@
     });
 
     if (filteredCourses.length === 0) {
-      packList.innerHTML = `<div class="error-message">No se encontraron Packs disponibles.</div>`;
+      packList.innerHTML = `<div class="error-message">No se encontraron Packs disponibles en la hoja.</div>`;
       return;
     }
 
@@ -722,9 +712,7 @@
       const card = document.createElement('div');
       card.className = 'course-card';
 
-      // Clic general en la tarjeta para seleccionarla por defecto en contado si no hay otra seleccionada
       card.onclick = (e) => {
-        // Evitamos disparar si hacen clic directo en un botón interno
         if (e.target.closest('.pay-option-btn')) return;
         const firstBtn = card.querySelector('.pay-option-btn');
         if (firstBtn) firstBtn.click();
@@ -740,126 +728,35 @@
         course['Opción 6 Cuotas (Mensual)'] || course['Cuota 6']
       );
 
-      /* =================================================
-         LINKS (Soporta múltiples nombres de columnas posibles)
-         ================================================= */
-      const linkContado =
-        course['buyUrlContado'] ||
-        course['Link Pago Contado'] ||
-        course['Link de Pago Contado'] ||
-        '';
+      const linkContado = course['buyUrlContado'] || course['Link Pago Contado'] || course['Link de Pago Contado'] || '';
+      const link3 = course['buyUrl3Cuotas'] || course['Link 3 Cuotas'] || course['Link de Pago en 3 Cuotas'] || '';
+      const link6 = course['buyUrl6Cuotas'] || course['Link 6 Cuotas'] || course['Link de Pago en 6 Cuotas'] || '';
 
-      const link3 =
-        course['buyUrl3Cuotas'] ||
-        course['Link 3 Cuotas'] ||
-        course['Link de Pago en 3 Cuotas'] ||
-        '';
-
-      const link6 =
-        course['buyUrl6Cuotas'] ||
-        course['Link 6 Cuotas'] ||
-        course['Link de Pago en 6 Cuotas'] ||
-        '';
-
-      /* =================================================
-         HTML DE LA TARJETA
-         ================================================= */
       card.innerHTML = `
-        <span class="selected-badge">
-          ✓ SELECCIONADO
-        </span>
-
+        <span class="selected-badge">✓ SELECCIONADO</span>
         <div class="card-content-grid">
-          <img
-            src="${imgUrl}"
-            alt="${nombre}"
-            class="card-img"
-            loading="lazy"
-            onerror="this.src='https://res.cloudinary.com/dlnrsadbc/image/upload/q_auto,f_auto,w_400/v1778980849/logo_hugo_alvigini_transparente_jodgue_z1tldp.webp'"
-          >
-
+          <img src="${imgUrl}" alt="${nombre}" class="card-img" loading="lazy" onerror="this.src='https://res.cloudinary.com/dlnrsadbc/image/upload/q_auto,f_auto,w_400/v1778980849/logo_hugo_alvigini_transparente_jodgue_z1tldp.webp'">
           <div class="card-info">
-            <h3>
-              ${nombre}
-            </h3>
-
-            ${
-              subtitulo
-                ? `
-                    <div class="course-subtitle">
-                      ${subtitulo}
-                    </div>
-                  `
-                : ''
-            }
-
-            ${
-              incluye
-                ? `
-                    <div class="desc">
-                      <strong>Incluye:</strong>
-                      ${incluye}
-                    </div>
-                  `
-                : ''
-            }
-
+            <h3>${nombre}</h3>
+            ${subtitulo ? `<div class="course-subtitle">${subtitulo}</div>` : ''}
+            ${incluye ? `<div class="desc"><strong>Incluye:</strong> ${incluye}</div>` : ''}
             ${beneficiosHTML}
           </div>
         </div>
-
         <div class="payment-options-container">
-          <div class="payment-options-title">
-            Elegí tu forma de pago:
-          </div>
-
-          <button
-            class="pay-option-btn"
-            data-index="${index}"
-            data-modalidad="Pago Contado (50% OFF)"
-            data-link="${encodeURIComponent(linkContado)}"
-          >
-            <span>
-              💥 Pago Contado
-            </span>
-            <strong>
-              $${contadoVal}
-            </strong>
+          <div class="payment-options-title">Elegí tu forma de pago:</div>
+          <button class="pay-option-btn" data-index="${index}" data-modalidad="Pago Contado (50% OFF)" data-link="${encodeURIComponent(linkContado)}">
+            <span>💥 Pago Contado</span><strong>$${contadoVal}</strong>
           </button>
-
-          <button
-            class="pay-option-btn"
-            data-index="${index}"
-            data-modalidad="3 Cuotas"
-            data-link="${encodeURIComponent(link3)}"
-          >
-            <span>
-              📅 En 3 Cuotas
-            </span>
-            <strong>
-              $${cuota3Val}
-            </strong>
+          <button class="pay-option-btn" data-index="${index}" data-modalidad="3 Cuotas" data-link="${encodeURIComponent(link3)}">
+            <span>📅 En 3 Cuotas</span><strong>$${cuota3Val}</strong>
           </button>
-
-          <button
-            class="pay-option-btn"
-            data-index="${index}"
-            data-modalidad="6 Cuotas"
-            data-link="${encodeURIComponent(link6)}"
-          >
-            <span>
-              📅 En 6 Cuotas
-            </span>
-            <strong>
-              $${cuota6Val}
-            </strong>
+          <button class="pay-option-btn" data-index="${index}" data-modalidad="6 Cuotas" data-link="${encodeURIComponent(link6)}">
+            <span>📅 En 6 Cuotas</span><strong>$${cuota6Val}</strong>
           </button>
         </div>
       `;
 
-      /* =================================================
-         EVENTOS DE BOTONES
-         ================================================= */
       card.querySelectorAll('.pay-option-btn').forEach(button => {
         button.addEventListener('click', function(event) {
           event.stopPropagation();
@@ -872,36 +769,26 @@
 
       packList.appendChild(card);
     });
-
-    container.style.opacity = '0';
-    setTimeout(() => {
-      container.style.transition = 'opacity 0.25s ease-in-out';
-      container.style.opacity = '1';
-    }, 50);
   }
 
-  /* =====================================================
-     CARGAR DATOS DESDE APPS SCRIPT
-     ===================================================== */
-  function loadCourses() {
-    const script = document.createElement('script');
-    script.src = APPSCRIPT_BASE + '?callback=handleCourses';
-    script.defer = true;
-    script.onerror = () => {
-      console.error('No se pudo cargar Apps Script.');
-      document.getElementById('courses-container').innerHTML = `
+  async function loadCourses() {
+    try {
+      const response = await fetch(APPSCRIPT_BASE);
+      const data = await response.json();
+      if (data.error) {
+        throw new Error(data.error);
+      }
+      renderCourses(data);
+    } catch (err) {
+      console.error('Error al cargar datos:', err);
+      document.getElementById('pack-list').innerHTML = `
         <div class="error-message">
-          No se pudieron cargar los datos. Por favor recargá la página.
+          No se pudieron cargar los datos de los packs. Verifica la consola.
         </div>`;
-    };
-    document.body.appendChild(script);
+    }
   }
 
-  /* =====================================================
-     INICIAR
-     ===================================================== */
   loadCourses();
 </script>
-
 </body>
 </html>
