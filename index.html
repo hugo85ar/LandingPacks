@@ -647,34 +647,23 @@ fbq('track', 'ViewContent', {
     }
 
     
-
-  function renderCourses(courses) {
+function renderCourses(courses) {
       coursesDataGlobal = courses;
       const packList = document.getElementById('pack-list');
       const container = document.getElementById('courses-container');
 
       if (!Array.isArray(courses) || courses.length === 0) {
-        container.innerHTML = `<div class="error-message">No hay packs disponibles por el momento.</div>`;
+        container.innerHTML = `<div class="error-message">No hay elementos disponibles por el momento.</div>`;
         return;
       }
 
       packList.innerHTML = '';
 
-      const packsFiltrados = courses.filter(course => {
-        const esPack = course['Pack'] && course['Pack'].toString().toLowerCase().includes('pack');
-        return esPack;
-      });
-
-      const itemsARenderizar = packsFiltrados.length > 0 ? packsFiltrados : courses;
-
-      itemsARenderizar.forEach((course, index) => {
+      // Filtramos o procesamos los elementos asegurando que lea toda la estructura
+      courses.forEach((course, index) => {
         const nombre   = course['PackProducto / Pack'] || course['Producto / Pack'] || '';
-        const contado  = formatPrice(course['Precio Total (50% por pago unico)']);
-        const cuota3   = formatPrice(course['Opción 3 Cuotas (Mensual)']);
-        const cuota6   = formatPrice(course['Opción 6 Cuotas (Mensual)']);
-        
-        const incluye   = course['Que cursos incluye?'] || '';
         const subtitulo = course['Subtítulo'] || '';
+        const incluye   = course['Que cursos incluye?'] || '';
         const beneficiosCrudos = course['Beneficios Principales'] || '';
         
         const rawImg   = course['Caratula url'] || course['Imagen'] || '';
@@ -682,10 +671,8 @@ fbq('track', 'ViewContent', {
                          ? rawImg.trim() 
                          : 'https://res.cloudinary.com/dlnrsadbc/image/upload/q_auto,f_auto,w_400/v1778980849/logo_hugo_alvigini_transparente_jodgue_z1tldp.webp';
         
-        // Capturamos los enlaces directamente de las columnas exactas de tu Google Sheet
-        const linkContado = course['Link de Pago Contado'] || '';
-        const link3       = course['Link de Pago en 3 Cuotas'] || '';
-        const link6       = course['Link de Pago en 6 Cuotas'] || '';
+        // Verificamos si es un Pack (Pack 1, Pack 2, Pack 3)
+        const esPack = nombre.toLowerCase().includes('pack') || (course['Pack'] && course['Pack'].toString().toLowerCase().includes('pack'));
 
         let beneficiosHTML = '';
         if (beneficiosCrudos) {
@@ -701,37 +688,80 @@ fbq('track', 'ViewContent', {
         card.className = `course-card`;
         card.onclick = () => selectCourse(index);
 
-        card.innerHTML = `
-          <span class="selected-badge">✓ SELECCIONADO</span>
-          <div class="card-content-grid">
-            <img src="${imgUrl}" alt="${nombre}" class="card-img" loading="lazy">
-            <div class="card-info">
-              <h3>${nombre}</h3>
-              ${subtitulo ? `<div class="course-subtitle">${subtitulo}</div>` : ''}
-              ${incluye ? `<div class="desc"><strong>Incluye:</strong> ${incluye}</div>` : ''}
-              ${beneficiosHTML}
-            </div>
-          </div>
+        if (esPack) {
+          // --- RENDERIZADO PARA LOS PACKS (1, 2 y 3) con sus 3 opciones de pago ---
+          const contadoVal = formatPrice(course['Precio Total (50% por pago unico)']);
+          const cuota3Val  = formatPrice(course['Opción 3 Cuotas (Mensual)']);
+          const cuota6Val  = formatPrice(course['Opción 6 Cuotas (Mensual)']);
           
-          <div class="payment-options-container">
-            <div class="payment-options-title">Elegí tu forma de pago:</div>
+          // URLs exactas de tus columnas
+          const linkContado = course['Link de Pago Contado'] || '';
+          const link3       = course['Link de Pago en 3 Cuotas'] || '';
+          const link6       = course['Link de Pago en 6 Cuotas'] || '';
+
+          card.innerHTML = `
+            <span class="selected-badge">✓ SELECCIONADO</span>
+            <div class="card-content-grid">
+              <img src="${imgUrl}" alt="${nombre}" class="card-img" loading="lazy">
+              <div class="card-info">
+                <h3>${nombre}</h3>
+                ${subtitulo ? `<div class="course-subtitle">${subtitulo}</div>` : ''}
+                ${incluye ? `<div class="desc"><strong>Incluye:</strong> ${incluye}</div>` : ''}
+                ${beneficiosHTML}
+              </div>
+            </div>
             
-            <button class="pay-option-btn" onclick="selectModalidad(${index}, 'Pago Contado (50% OFF)', '${linkContado}', event)">
-              <span>💥 Pago Contado</span>
-              <strong>$${contado}</strong>
-            </button>
+            <div class="payment-options-container">
+              <div class="payment-options-title">Elegí tu forma de pago:</div>
+              
+              <button class="pay-option-btn" onclick="selectModalidad(${index}, 'Pago Contado (50% OFF)', '${linkContado}', event)">
+                <span>💥 Pago Contado</span>
+                <strong>$${contadoVal}</strong>
+              </button>
+              
+              <button class="pay-option-btn" onclick="selectModalidad(${index}, '3 Cuotas', '${link3}', event)">
+                <span>📅 En 3 Cuotas</span>
+                <strong>$${cuota3Val}</strong>
+              </button>
+              
+              <button class="pay-option-btn" onclick="selectModalidad(${index}, '6 Cuotas', '${link6}', event)">
+                <span>📅 En 6 Cuotas</span>
+                <strong>$${cuota6Val}</strong>
+              </button>
+            </div>
+          `;
+        } else {
+          // --- RENDERIZADO PARA PRODUCTOS / CURSOS INDIVIDUALES ---
+          const precioUnico = formatPrice(course['Precio Total (50% por pago unico)'] || course['Precio'] || '0');
+          const linkUnico   = course['Link de Pago Contado'] || course['Link de Pago'] || '';
+          
+          let textoBtnUnico = '💳 Obtener Acceso';
+          if (linkUnico.includes('wa.me')) {
+            textoBtnUnico = '💬 Consultar por WhatsApp';
+          }
+
+          card.innerHTML = `
+            <span class="selected-badge">✓ SELECCIONADO</span>
+            <div class="card-content-grid">
+              <img src="${imgUrl}" alt="${nombre}" class="card-img" loading="lazy">
+              <div class="card-info">
+                <h3>${nombre}</h3>
+                ${subtitulo ? `<div class="course-subtitle">${subtitulo}</div>` : ''}
+                ${incluye ? `<div class="desc"><strong>Incluye:</strong> ${incluye}</div>` : ''}
+                ${beneficiosHTML}
+              </div>
+            </div>
             
-            <button class="pay-option-btn" onclick="selectModalidad(${index}, '3 Cuotas', '${link3}', event)">
-              <span>📅 En 3 Cuotas</span>
-              <strong>$${cuota3}</strong>
-            </button>
-            
-            <button class="pay-option-btn" onclick="selectModalidad(${index}, '6 Cuotas', '${link6}', event)">
-              <span>📅 En 6 Cuotas</span>
-              <strong>$${cuota6}</strong>
-            </button>
-          </div>
-        `;
+            <div class="payment-options-container">
+              <div class="payment-options-title">Acceso al Producto:</div>
+              
+              <button class="pay-option-btn" onclick="selectModalidad(${index}, 'Acceso Único', '${linkUnico}', event)">
+                <span>${textoBtnUnico}</span>
+                <strong>$${precioUnico}</strong>
+              </button>
+            </div>
+          `;
+        }
 
         packList.appendChild(card);
       });
@@ -742,7 +772,7 @@ fbq('track', 'ViewContent', {
         container.style.opacity = '1';
       }, 50);
     }
-
+  
   
     function loadCourses() {
       const script = document.createElement('script');
