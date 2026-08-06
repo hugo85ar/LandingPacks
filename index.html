@@ -654,6 +654,8 @@ fbq('track', 'ViewContent', {
       itemsARenderizar.forEach((course, index) => {
         const nombre   = course['PackProducto / Pack'] || course['Producto / Pack'] || '';
         const contado  = formatPrice(course['Precio Total (50% por pago unico)']);
+        const cuota3   = formatPrice(course['Opción 3 Cuotas (Mensual)']);
+        const cuota6   = formatPrice(course['Opción 6 Cuotas (Mensual)']);
         
         const incluye   = course['Que cursos incluye?'] || '';
         const subtitulo = course['Subtítulo'] || '';
@@ -664,21 +666,18 @@ fbq('track', 'ViewContent', {
                          ? rawImg.trim() 
                          : 'https://res.cloudinary.com/dlnrsadbc/image/upload/q_auto,f_auto,w_400/v1778980849/logo_hugo_alvigini_transparente_jodgue_z1tldp.webp';
         
-        // Tomamos el link de pago único disponible en la celda
-        const linkUnico = course['Link de Pago Contado'] || course['Link de Pago'] || '';
+        // Obtenemos los links de cada columna de forma independiente y segura
+        let linkContado = course['Link de Pago Contado'] || course['Link de Pago'] || '';
+        let link3       = course['Link de Pago en 3 Cuotas'] || '';
+        let link6       = course['Link de Pago en 6 Cuotas'] || '';
 
-        // Determinamos el tipo de enlace para personalizar el botón de pago
-        let textoBotonPago = '💳 Comprar Ahora';
-        let tipoModalidad = 'Pago Único';
-        if (linkUnico.includes('wa.me')) {
-          textoBotonPago = '💬 Consultar por WhatsApp';
-          tipoModalidad = 'Consulta WhatsApp';
-        } else if (linkUnico.includes('ko-fi.com')) {
-          textoBotonPago = '☕ Pagar con Ko-fi';
-          tipoModalidad = 'Pago Ko-fi';
-        } else if (linkUnico.includes('lemonsqueezy.com')) {
-          textoBotonPago = '💳 Pagar con Lemon Squeezy';
-          tipoModalidad = 'Pago Lemon Squeezy';
+        // Si por alguna razón solo hay un link general cargado en la fila (ej. WhatsApp o Lemon),
+        // lo replicamos temporalmente para que las 3 opciones funcionen y no queden vacías.
+        if (!linkContado && !link3 && !link6) {
+          // Si no hay nada, dejamos cadena vacía
+        } else if (linkContado && !link3 && !link6) {
+          link3 = linkContado;
+          link6 = linkContado;
         }
 
         let beneficiosHTML = '';
@@ -708,11 +707,21 @@ fbq('track', 'ViewContent', {
           </div>
           
           <div class="payment-options-container">
-            <div class="payment-options-title">Acceso al Pack:</div>
+            <div class="payment-options-title">Elegí tu forma de pago:</div>
             
-            <button class="pay-option-btn active" onclick="selectModalidad(${index}, '${tipoModalidad}', '${linkUnico}', event)">
-              <span>${textoBotonPago}</span>
+            <button class="pay-option-btn" onclick="selectModalidad(${index}, 'Pago Contado (50% OFF)', '${linkContado}', event)">
+              <span>💥 Pago Contado</span>
               <strong>$${contado}</strong>
+            </button>
+            
+            <button class="pay-option-btn" onclick="selectModalidad(${index}, '3 Cuotas', '${link3}', event)">
+              <span>📅 En 3 Cuotas</span>
+              <strong>$${cuota3}</strong>
+            </button>
+            
+            <button class="pay-option-btn" onclick="selectModalidad(${index}, '6 Cuotas', '${link6}', event)">
+              <span>📅 En 6 Cuotas</span>
+              <strong>$${cuota6}</strong>
             </button>
           </div>
         `;
@@ -726,7 +735,6 @@ fbq('track', 'ViewContent', {
         container.style.opacity = '1';
       }, 50);
     }
-
     function loadCourses() {
       const script = document.createElement('script');
       script.src = APPSCRIPT_BASE + '?callback=handleCourses';
