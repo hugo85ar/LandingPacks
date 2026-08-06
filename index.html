@@ -641,7 +641,9 @@ fbq('track', 'ViewContent', {
       renderCourses(courses);
     }
   
-    function renderCourses(courses) {
+
+
+  function renderCourses(courses) {
       const packList = document.getElementById('pack-list');
       const container = document.getElementById('courses-container');
 
@@ -650,18 +652,23 @@ fbq('track', 'ViewContent', {
         return;
       }
 
-      // 1. Filtrar estrictamente solo los que pertenecen a la categoría "Packs & Programas Integrales" (columna K)
+      // Filtro flexible: busca coincidencias parciales sin importar mayúsculas/minúsculas
       const filteredCourses = courses.filter(course => {
         const categoria = course['categoryImgCategoryPromocional?'] || course['category'] || course['Categoría'] || '';
-        return categoria.trim().toLowerCase() === 'packs & programas integrales'.toLowerCase();
+        const catLower = categoria.trim().toLowerCase();
+        
+        // Acepta si pertenece a la categoría de packs integrales o contiene palabras clave
+        return catLower.includes('packs & programas integrales') || 
+               catLower.includes('integrales') || 
+               catLower.includes('pack');
       });
 
       if (filteredCourses.length === 0) {
-        container.innerHTML = `<div class="error-message">No hay packs integrales disponibles en este momento.</div>`;
+        container.innerHTML = `<div class="error-message">No hay packs integrales disponibles en este momento. (Revisá los nombres de categoría en tu Sheet).</div>`;
         return;
       }
 
-      // Guardamos la data filtrada globalmente para mantener los índices correctos
+      // Guardamos la data filtrada globalmente
       coursesDataGlobal = filteredCourses;
       packList.innerHTML = '';
 
@@ -697,7 +704,6 @@ fbq('track', 'ViewContent', {
           const cuota3Val  = formatPrice(course['Opción 3 Cuotas (Mensual)']);
           const cuota6Val  = formatPrice(course['Opción 6 Cuotas (Mensual)']);
           
-          // 2. Extraer limpiamente los enlaces de pago por modalidad correspondientes a cada columna
           const linkContado = course['buyUrlContadobuyUrl3CuotasbuyUrl6Cuotas'] || course['Link de Pago Contado'] || '';
           const link3       = course['buyUrl3Cuotas'] || course['Link de Pago en 3 Cuotas'] || '';
           const link6       = course['buyUrl6Cuotas'] || course['Link de Pago en 6 Cuotas'] || '';
@@ -774,6 +780,8 @@ fbq('track', 'ViewContent', {
         container.style.opacity = '1';
       }, 50);
     }
+
+  
   
     function loadCourses() {
       const script = document.createElement('script');
