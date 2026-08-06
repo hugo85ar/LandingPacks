@@ -1,798 +1,970 @@
-<!DOCTYPE html>
-<html lang="es">
+<html>
+
 <head>
-  <base target="_top">
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Hugo Alvigini — Packs & Programas Integrales</title>
-  
-  <meta name="description" content="Ecosistema de cursos avanzados y packs de automatizaciones con Google Sheets, Apps Script e IA de Hugo Alvigini. Potencia tu negocio hoy."/>
-  <link rel="icon" href="data:,">
-  
-<!-- META PIXEL -->
-<script>
-!function(f,b,e,v,n,t,s)
-{
-if(f.fbq)return;
-n=f.fbq=function(){
-n.callMethod ?
-n.callMethod.apply(n,arguments) :
-n.queue.push(arguments)
-};
-if(!f._fbq)f._fbq=n;
-n.push=n;
-n.loaded=!0;
-n.version='2.0';
-n.queue=[];
-t=b.createElement(e);
-t.async=!0;
-t.src=v;
-s=b.getElementsByTagName(e)[0];
-s.parentNode.insertBefore(t,s);
-}(window, document,'script',
-'https://connect.facebook.net/en_US/fbevents.js');
 
-fbq('init', '2189151328193841');
-fbq('track', 'PageView');
-fbq('track', 'ViewContent', {
-  content_name: 'Landing Packs - Ruta del Emprendedor',
-  content_type: 'product_group'
-});
-</script>
-<noscript>
-<img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=2189151328193841&ev=PageView&noscript=1"/>
-</noscript>
+  <base target="_top" />
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
 
   <style>
+
     :root {
-      --primary-blue: #00e5ff;
-      --action-green: #4CAF50;
-      --innovation-purple: #101026;
-      --dark-background: #070714;
-      --text-light: #ffffff;
-      --text-dark: #a0a0b2;
-      --border-radius: 12px;
+
+      --bg-color: #141414;
+
+      --text-color: #e5e5e5;
+
+      --accent-color: #e50914;
+
+      --card-bg: #2f2f2f;
+
     }
-    
+
     body {
-      font-family: "Open Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+
+      background-color: var(--bg-color);
+
+      color: var(--text-color);
+
+      font-family: "Roboto", sans-serif;
+
       margin: 0;
-      background-color: var(--dark-background);
-      color: #ffffff;
-      line-height: 1.6;
-      overflow-x: hidden;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      background-image: radial-gradient(circle at 50% 0%, #131336 0%, var(--dark-background) 70%);
-    }
 
-    h1, h2, h3 {
-      font-family: "Montserrat", sans-serif;
-      font-display: swap;
-    }
-
-    header.hero-main {
-      padding: 30px 20px 25px 20px;
-      background: linear-gradient(180deg, rgba(16, 16, 38, 0.95) 0%, rgba(7, 7, 20, 0.8) 100%);
-      text-align: center;
-      border-bottom: 1px solid rgba(0, 229, 255, 0.2);
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-      position: relative;
-    }
-
-    .hero-content-wrapper {
-      max-width: 900px;
-      margin: 0 auto;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 15px;
-    }
-
-    .top-nav-row {
-      width: 100%;
-      display: flex;
-      justify-content: flex-start;
-      margin-bottom: 5px;
-    }
-
-    .btn-volver {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      background: rgba(255, 255, 255, 0.05);
-      color: var(--text-light);
-      border: 1px solid rgba(0, 229, 255, 0.3);
-      padding: 8px 16px;
-      border-radius: 8px;
-      font-family: "Montserrat", sans-serif;
-      font-size: 0.9rem;
-      font-weight: 600;
-      text-decoration: none;
-      cursor: pointer;
-      transition: all 0.2s ease;
-    }
-
-    .btn-volver:hover {
-      background: rgba(0, 229, 255, 0.1);
-      border-color: var(--primary-blue);
-      color: var(--primary-blue);
-      box-shadow: 0 0 15px rgba(0, 229, 255, 0.2);
-    }
-
-    .logo-hero {
-      width: 200px; 
-      max-width: 70%; 
-      height: auto; 
-      display: block;
-      filter: drop-shadow(0 0 20px rgba(0, 229, 255, 0.4)); 
-    }
-
-    .hero-main h1 {
-      font-size: clamp(1.6rem, 3.5vw, 2.4rem);
-      font-weight: 700;
-      margin: 0;
-      color: var(--text-light);
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      text-shadow: 0 0 20px rgba(0, 229, 255, 0.3);
-    }
-
-    .hero-main p {
-      color: var(--text-dark);
-      font-size: 1rem;
-      margin: 0;
-      letter-spacing: 0.02em;
-    }
-
-    #courses-container {
-      width: 100%;
-      box-sizing: border-box;
-      padding: 30px 20px;
-      max-width: 900px;
-      margin: 0 auto;
-      flex: 1;
-    }
-
-    .section-header h2 {
-      font-family: "Montserrat", sans-serif;
-      font-size: 1.15rem;
-      font-weight: 700;
-      color: var(--primary-blue);
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      border-bottom: 1px solid rgba(0, 229, 255, 0.2);
-      padding-bottom: 8px;
-      margin-bottom: 24px;
-    }
-
-    .course-card {
-      background: rgba(16, 16, 38, 0.7);
-      border: 1px solid rgba(0, 229, 255, 0.2);
-      border-radius: 12px;
-      padding: 24px;
-      margin-bottom: 24px;
-      box-sizing: border-box;
-      cursor: pointer;
-      transition: all 0.25s ease;
-      position: relative;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
-    }
-
-    .course-card:hover {
-      border-color: rgba(0, 229, 255, 0.6);
-      box-shadow: 0 8px 30px rgba(0, 229, 255, 0.15);
-      transform: translateY(-2px);
-    }
-
-    .course-card.selected {
-      border-color: #00e5ff;
-      box-shadow: 0 0 0 2px rgba(0,229,255,0.3), 0 8px 30px rgba(0,229,255,0.2);
-      background: rgba(16, 30, 50, 0.9);
-    }
-
-    .selected-badge {
-      display: none;
-      position: absolute;
-      top: 16px;
-      right: 16px;
-      background: #00e5ff;
-      color: #070714;
-      font-size: 0.75rem;
-      font-weight: 700;
-      font-family: "Montserrat", sans-serif;
-      padding: 4px 12px;
-      border-radius: 20px;
-      letter-spacing: 0.05em;
-      box-shadow: 0 0 10px rgba(0, 229, 255, 0.5);
-    }
-
-    .course-card.selected .selected-badge { display: inline-block; }
-
-    .card-content-grid {
-      display: flex;
-      gap: 20px;
-      align-items: flex-start;
-    }
-
-    .card-img {
-      width: 130px;
-      height: 130px;
-      object-fit: contain;
-      border-radius: 8px;
-      border: 1px solid rgba(255,255,255,0.1);
-      flex-shrink: 0;
-      background: #0b0b1e;
-      padding: 4px;
-    }
-
-    .card-info {
-      flex: 1;
-    }
-
-    .course-card h3 {
-      font-family: "Montserrat", sans-serif;
-      color: #ffffff;
-      margin-top: 0;
-      margin-bottom: 6px;
-      font-size: 1.2rem;
-      letter-spacing: 0.03em;
-    }
-
-    .course-card.selected h3 { color: #00e5ff; }
-
-    .course-subtitle {
-      font-size: 0.95rem;
-      color: #00e5ff;
-      font-weight: 600;
-      margin-bottom: 10px;
-      line-height: 1.4;
-    }
-
-    .course-card .desc {
-      font-size: 0.85rem;
-      color: var(--text-dark);
-      margin-bottom: 12px;
-      line-height: 1.4;
-    }
-
-    .benefits-list {
-      list-style: none;
       padding: 0;
-      margin: 10px 0 0 0;
-      font-size: 0.84rem;
-      color: var(--text-light);
+
+      overflow-x: hidden;
+
     }
 
-    .benefits-list li {
+    /* Hero Section */
+
+    .hero {
+
+      height: 50vh;
+
       position: relative;
-      padding-left: 18px;
-      margin-bottom: 6px;
-      line-height: 1.4;
+
+      background-size: cover;
+
+      background-position: center;
+
+      display: flex;
+
+      align-items: flex-end;
+
+      padding: 20px 4%;
+
+      margin-bottom: 20px;
+
     }
 
-    .benefits-list li::before {
-      content: "✔";
+    .hero::after {
+
+      content: '';
+
       position: absolute;
+
+      top: 0;
+
       left: 0;
-      color: #00e5ff;
-      font-size: 0.8rem;
+
+      right: 0;
+
+      bottom: 0;
+
+      background: linear-gradient(to top, var(--bg-color), transparent 50%);
+
     }
 
-    .payment-options-container {
-      display: none;
-      margin-top: 20px;
-      padding-top: 16px;
-      border-top: 1px solid rgba(255,255,255,0.15);
-      animation: fadeIn 0.3s ease;
-    }
+    .hero-content {
 
-    .course-card.selected .payment-options-container {
-      display: block;
-    }
+      position: relative;
 
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(-5px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
+      z-index: 2;
 
-    .payment-options-title {
-      font-size: 0.85rem;
-      color: #00e5ff;
-      font-weight: 600;
-      margin-bottom: 10px;
-      font-family: "Montserrat", sans-serif;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-    }
-
-    .pay-option-btn {
-      width: 100%;
-      background: rgba(255, 255, 255, 0.03);
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      color: #fff;
-      padding: 12px 16px;
-      border-radius: 8px;
-      margin-bottom: 8px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      cursor: pointer;
-      font-size: 0.9rem;
-      transition: all 0.2s;
-    }
-
-    .pay-option-btn:hover {
-      background: rgba(0, 229, 255, 0.08);
-      border-color: rgba(0, 229, 255, 0.5);
-    }
-
-    .pay-option-btn.active {
-      background: rgba(0, 229, 255, 0.15);
-      border-color: #00e5ff;
-      font-weight: bold;
-      color: #00e5ff;
-      box-shadow: 0 0 10px rgba(0, 229, 255, 0.2);
-    }
-
-    .sticky-bar {
-      position: fixed;
-      bottom: 0; left: 0; width: 100%;
-      z-index: 100;
-      padding: 14px 20px;
-      background: rgba(7, 7, 20, 0.95);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      border-top: 1px solid rgba(0, 229, 255, 0.3);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 12px;
-      flex-wrap: wrap;
-      box-sizing: border-box;
-      box-shadow: 0 -5px 25px rgba(0,0,0,0.8);
-    }
-
-    .sticky-bar .selected-label {
-      font-size: 0.85rem;
-      color: var(--text-dark);
-      width: 100%;
-      text-align: center;
-      margin-bottom: 2px;
-    }
-
-    .sticky-bar .selected-label span {
-      color: #00e5ff;
-      font-weight: 600;
-    }
-
-    .action-btn-group {
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-      justify-content: center;
-      width: 100%;
       max-width: 600px;
+
+      text-align: left;
+
     }
 
-    .btn-action {
-      flex: 1;
-      min-width: 220px;
-      padding: 12px 20px;
-      border: none;
-      border-radius: var(--border-radius);
-      font-family: "Montserrat", sans-serif;
-      font-weight: 700;
-      font-size: 0.95rem;
-      cursor: pointer;
-      transition: transform 0.2s, box-shadow 0.2s;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
+    .hero-title {
+
+      font-size: 2.5rem;
+
+      font-weight: bold;
+
+      margin-bottom: 10px;
+
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+
+    }
+
+    .hero-desc {
+
+      font-size: 1.1rem;
+
+      margin-bottom: 20px;
+
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
+
+    }
+
+    .hero-btn {
+
+      background-color: white;
+
+      color: black;
+
+      padding: 10px 25px;
+
+      border-radius: 4px;
+
+      font-weight: bold;
+
       text-decoration: none;
-      white-space: nowrap;
+
+      display: inline-block;
+
+      cursor: pointer;
+
+      border: none;
+
+      transition: opacity 0.2s;
+
     }
 
-    .btn-whatsapp {
-      background: linear-gradient(135deg, #25D366, #128C7E);
-      color: var(--text-light);
-      box-shadow: 0 4px 15px rgba(37,211,102,0.3);
-    }
-    .btn-whatsapp:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(37,211,102,0.4); }
+    .hero-btn:hover {
 
-    .btn-lemon {
-      background: linear-gradient(135deg, #00E676, #00A859);
-      color: #0a1e10;
-      box-shadow: 0 4px 15px rgba(0,230,118,0.3);
-    }
-    .btn-lemon:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,230,118,0.4); }
+      opacity: 0.8;
 
-    .btn-action:disabled {
-      background: linear-gradient(135deg, #222, #151515);
-      color: #666;
-      box-shadow: none;
-      cursor: not-allowed;
-      opacity: 0.5;
     }
 
-    .error-message { text-align: center; padding: 40px; color: #ff6b6b; }
+    /* Navigation Bar */
 
-    footer {
-      margin-top: auto;
-      padding: 30px 0 140px 0;
-      text-align: center;
+    .nav-bar {
+
+      padding: 10px 4%;
+
+      display: flex;
+
+      align-items: center;
+
+      gap: 10px;
+
     }
 
-    .banner-pagos {
-      width: 100% !important;
-      max-width: 350px !important;
-      height: auto !important;
-      display: block;
-      margin: 0 auto; 
+    .back-btn {
+
+      background: transparent;
+
+      color: white;
+
+      border: 1px solid white;
+
+      padding: 5px 15px;
+
+      border-radius: 4px;
+
+      cursor: pointer;
+
+      font-size: 0.9rem;
+
+      display: flex;
+
+      align-items: center;
+
+      gap: 5px;
+
     }
 
-    footer > p {
-      margin-top: 15px;
-      font-size: 0.82rem;
-      color: var(--text-dark);
+    .back-btn:hover {
+
+      background: rgba(255, 255, 255, 0.1);
+
     }
 
-    @media (max-width: 768px) {
-      .card-content-grid { flex-direction: column; align-items: center; text-align: center; }
-      .card-img { width: 120px; height: 120px; margin-bottom: 10px; }
-      .benefits-list li { padding-left: 0; list-style-position: inside; }
-      .action-btn-group { flex-direction: column; }
-      .btn-action { width: 100%; }
-      footer { padding-bottom: 150px; }
+    .section-title {
+
+      font-size: 1.5rem;
+
+      font-weight: bold;
+
+      margin: 0;
+
     }
+
+    /* Grid Layout */
+
+    .main-container {
+
+      padding: 20px 4%;
+
+    }
+
+    .grid-container {
+
+      display: grid;
+
+      grid-template-columns: 1fr;
+
+      /* Mobile: 1 column */
+
+      gap: 20px;
+
+    }
+
+    /* Card Styles */
+
+    .card {
+
+  background-color: var(--bg-color); /* Esto usará el negro de tu fondo: #141414 */
+
+  border-radius: 8px;
+
+  overflow: hidden;
+
+  cursor: pointer;
+
+  transition: transform 0.3s ease;
+
+  position: relative;
+
+  aspect-ratio: 1 / 1; /* Mantiene el cuadrado */
+
+}
+
+    /* NUEVO: Promotional Badge Style */
+
+    .promo-badge {
+
+      position: absolute;
+
+      top: 10px;
+
+      right: 10px;
+
+      background-color: var(--accent-color); /* Rojo de Netflix: #e50914 */
+
+      color: white;
+
+      padding: 5px 10px;
+
+      border-radius: 4px;
+
+      font-size: 0.8rem;
+
+      font-weight: bold;
+
+      z-index: 5;
+
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+
+    }
+
+    .card:hover {
+
+      transform: scale(1.03);
+
+      z-index: 10;
+
+    }
+
+  .card-img {
+
+  width: 100%;
+
+  height: 100%;
+
+  object-fit: contain; /* Mantiene la imagen completa */
+
+  display: block;
+
+}
+
+    .card-overlay {
+
+      position: absolute;
+
+      bottom: 0;
+
+      left: 0;
+
+      right: 0;
+
+      background: linear-gradient(to top, rgba(0, 0, 0, 0.9), transparent);
+
+      padding: 20px;
+
+      display: flex;
+
+      flex-direction: column;
+
+      justify-content: flex-end;
+
+      height: 50%;
+
+    }
+
+    .card-title {
+
+      font-size: 1.2rem;
+
+      font-weight: bold;
+
+      margin-bottom: 5px;
+
+    }
+
+    .card-subtitle {
+
+      font-size: 0.9rem;
+
+      color: #aaa;
+
+    }
+
+    /* Modal */
+
+    .modal-overlay {
+
+      position: fixed;
+
+      top: 0;
+
+      left: 0;
+
+      right: 0;
+
+      bottom: 0;
+
+      background: rgba(0, 0, 0, 0.8);
+
+      display: flex;
+
+      justify-content: center;
+
+      align-items: center;
+
+      z-index: 1000;
+
+      opacity: 0;
+
+      pointer-events: none;
+
+      transition: opacity 0.3s;
+
+    }
+
+    .modal-overlay.active {
+
+      opacity: 1;
+
+      pointer-events: auto;
+
+    }
+
+    .modal-content {
+
+      background: #181818;
+
+      width: 90%;
+
+      max-width: 800px;
+
+      border-radius: 8px;
+
+      overflow: hidden;
+
+      position: relative;
+
+      display: flex;
+
+      flex-direction: column;
+
+      max-height: 90vh;
+
+    }
+
+    .modal-close {
+
+      position: absolute;
+
+      top: 15px;
+
+      right: 15px;
+
+      background: rgba(0, 0, 0, 0.5);
+
+      color: white;
+
+      border: none;
+
+      border-radius: 50%;
+
+      width: 36px;
+
+      height: 36px;
+
+      cursor: pointer;
+
+      font-size: 20px;
+
+      z-index: 10;
+
+    }
+
+    .modal-image {
+
+      width: 100%;
+
+      height: 300px;
+
+      object-fit: cover;
+
+    }
+
+    .modal-details {
+
+      padding: 30px;
+
+      text-align: left;
+
+      overflow-y: auto;
+
+    }
+
+    .modal-title {
+
+      font-size: 2rem;
+
+      margin-bottom: 10px;
+
+    }
+
+    .modal-desc {
+
+      color: #aaa;
+
+      margin-bottom: 20px;
+
+      line-height: 1.5;
+
+    }
+
+    .btn-primary {
+
+      background-color: white;
+
+      color: black;
+
+      padding: 10px 30px;
+
+      border-radius: 4px;
+
+      text-decoration: none;
+
+      font-weight: bold;
+
+      display: inline-flex;
+
+      align-items: center;
+
+      gap: 8px;
+
+    }
+
+    /* WhatsApp Float */
+
+    .whatsapp-float {
+
+      position: fixed;
+
+      bottom: 20px;
+
+      right: 20px;
+
+      background-color: #25D366;
+
+      color: white;
+
+      padding: 12px 20px;
+
+      border-radius: 50px;
+
+      text-decoration: none;
+
+      font-weight: bold;
+
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+
+      z-index: 900;
+
+      display: flex;
+
+      align-items: center;
+
+      gap: 8px;
+
+    }
+
+    /* Desktop Grid */
+
+    @media (min-width: 768px) {
+
+      .grid-container {
+
+        grid-template-columns: repeat(3, 1fr);
+
+        /* Desktop: 3 columns */
+
+      }
+
+      .modal-content {
+
+        flex-direction: row;
+
+      }
+
+      .modal-image {
+
+        width: 50%;
+
+        height: auto;
+
+      }
+
+      .modal-details {
+
+        width: 50%;
+
+      }
+
+    }
+
   </style>
+
 </head>
+
 <body>
 
-  <header class="hero-main">
-    <div class="hero-content-wrapper">
-      <div class="top-nav-row">
-        <a href="https://hugo85ar.github.io/catalogo-promociones/" class="btn-volver">
-          ← Volver al Inicio
-        </a>
-      </div>
-      <img src="https://res.cloudinary.com/dlnrsadbc/image/upload/q_auto,f_auto,w_400/v1778980849/logo_hugo_alvigini_transparente_jodgue_z1tldp.webp"
-           alt="Hugo Alvigini" class="logo-hero" fetchpriority="high" width="400" height="100">
-      <h1>Packs & Programas Integrales</h1>
-      <p>Sistemas para escalar tu negocio digital al siguiente nivel</p>
-    </div>
-  </header>
+  <!-- Hero Section -->
 
-  <main id="courses-container">
-    <div class="section-header"><h2>Elegí tu Pack de Cursos</h2></div>
-    <div id="pack-list">
-      <div class="skeleton-card" style="padding:20px; background:rgba(16,16,38,0.7); border-radius:12px; min-height:150px;">Cargando packs...</div>
-    </div>
-  </main>
+  <div id="hero" class="hero" style="display: none;">
 
-  <footer>
-    <div class="payment-info">
-      <img src="https://res.cloudinary.com/dlnrsadbc/image/upload/q_auto,f_auto,w_350/v1778980376/pago_moneda_local_ms2q3z.webp" 
-           alt="Pagar en Moneda Local Argentina y Paraguay" 
-           class="banner-pagos" loading="lazy" width="350" height="70">
-    </div>
-    <p>&copy; 2026 Hugo Alvigini. Todos los derechos reservados.</p>
-  </footer>
+    <div class="hero-content">
 
-  <div class="sticky-bar">
-    <div class="selected-label" id="selected-label">Seleccioná un pack y modalidad de pago</div>
-    <div class="action-btn-group">
-      <button class="btn-action btn-whatsapp" id="btn-whatsapp" disabled>
-        📲 Consultar por WhatsApp
-      </button>
-      <button class="btn-action btn-lemon" id="btn-lemon" disabled>
-        💳 Pagar con Lemon
-      </button>
+      <h1 id="hero-title" class="hero-title"></h1>
+
+      <p id="hero-desc" class="hero-desc"></p>
+
+      <button id="hero-btn" class="hero-btn">Ver Detalles</button>
+
     </div>
+
   </div>
 
-<script>
-    const APPSCRIPT_BASE = 'https://script.google.com/macros/s/AKfycbyxlO60asW5Jc8tHtjtSqk8-tUTSxJwwDZ-i0oN-Jgqn5wsmg7l0a70jFD7rZssUD4IOw/exec';
-    const WA_NUMBER = '5491176529179';
+  <!-- Navigation Bar (Hidden on Home) -->
 
-    let selectedCourse = null;
-    let selectedModalidad = null;
-    let activePaymentLink = '';
-    let coursesDataGlobal = [];
+  <div id="nav-bar" class="nav-bar" style="display: none;">
 
-    function formatPrice(val) {
-      if (!val || val === '-') return '-';
-      const num = parseFloat(val);
-      if (isNaN(num)) return val;
-      return num.toLocaleString('es-AR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-    }
+    <button class="back-btn" onclick="renderHome()">← Volver</button>
 
-    function selectCourse(index) {
-      const course = coursesDataGlobal[index];
-      const nombre = course['PackProducto / Pack'] || course['Producto / Pack'] || '';
+    <h2 id="section-title" class="section-title"></h2>
 
-      if (selectedCourse === nombre) {
-        resetSelection();
-        return;
-      }
+  </div>
 
-      selectedCourse = nombre;
-      selectedModalidad = null;
-      activePaymentLink = '';
+  <!-- Main Content Grid -->
 
-      document.querySelectorAll('.course-card').forEach((c, idx) => {
-        if (idx === index) {
-          c.classList.add('selected');
-        } else {
-          c.classList.remove('selected');
-          c.querySelectorAll('.pay-option-btn').forEach(b => b.classList.remove('active'));
+  <div id="main-container" class="main-container">
+
+    <div id="grid-container" class="grid-container">
+
+      <!-- Items will be injected here -->
+
+    </div>
+
+  </div>
+
+  <!-- Modal -->
+
+  <div id="modal" class="modal-overlay" onclick="closeModal(event)">
+
+    <div class="modal-content">
+
+      <button class="modal-close" onclick="closeModal(event)">×</button>
+
+      <img id="modal-img" class="modal-image" src="" alt="">
+
+      <div class="modal-details">
+
+        <h2 id="modal-title" class="modal-title"></h2>
+
+        <p id="modal-desc" class="modal-desc"></p>
+
+        <p id="modal-offer" style="color: #46d369; font-weight: bold; margin-bottom: 15px;"></p>
+
+        <div class="modal-actions">
+
+          <a id="modal-buy" href="#" target="_blank" class="btn-primary">
+
+            <span>▶</span> Comprar
+
+          </a>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <a id="whatsapp-btn" class="whatsapp-float" target="_blank">
+
+    <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+
+      <path
+
+        d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.711 2.598 2.669-.699c.968.585 1.961.898 3.03.899 3.181 0 5.769-2.587 5.769-5.766.001-3.18-2.584-5.768-5.763-5.768zm7.693 5.766c-.001 4.244-3.453 7.695-7.692 7.695-1.285 0-2.488-.324-3.516-.892l-4.133 1.083 1.107-4.029c-.631-1.08-1.006-2.338-1.006-3.857 0-4.245 3.451-7.698 7.695-7.698 4.245 0 7.695 3.453 7.695 7.698zm-3.446 2.323c-.191-.095-1.134-.56-1.311-.624-.176-.064-.303-.096-.432.096-.127.192-.495.624-.605.752-.111.128-.224.144-.415.048-.192-.096-.807-.297-1.537-.948-.57-.508-.956-1.135-1.068-1.327-.112-.192-.012-.296.084-.391.086-.086.192-.224.288-.336.096-.112.128-.192.192-.32.064-.128.032-.24-.016-.336-.048-.096-.432-1.04-.592-1.424-.155-.373-.313-.323-.432-.328-.111-.005-.239-.005-.367-.005-.128 0-.335.048-.511.24-.176.192-.672.656-.672 1.6s.688 1.856.784 1.984c.096.128 1.352 2.064 3.275 2.894 1.923.83 1.923.552 2.275.512.352-.04 1.134-.464 1.295-.912.16-.448.16-.832.112-.912-.048-.08-.176-.128-.368-.224z" />
+
+      </path>
+
+    </svg>
+
+    WhatsApp
+
+  </a>
+
+  <script>
+
+    let allData = {};
+
+    const API_ENDPOINT = "https://script.google.com/macros/s/AKfycbxTGQQZWDLXcfMtMbOH9c98PfH5cQgu5lIzK6jw9vBP-9NLR_RlmX28fDSpd92UZbZU/exec";
+
+    document.addEventListener("DOMContentLoaded", () => {
+
+        fetch(API_ENDPOINT)
+
+            .then(response => {
+
+                if (!response.ok) {
+
+                    throw new Error(`HTTP error! status: ${response.status}`);
+
+                }
+
+                return response.json();
+
+            })
+
+            .then(initApp)
+
+            .catch(error => {
+
+                console.error('Error al cargar datos del API:', error);
+
+            });
+
+    });
+
+    function initApp(data) {
+
+        const urlParams = new URLSearchParams(window.location.search);
+
+        const modo = urlParams.get('modo');
+
+        if (modo === 'clientes' && data.categories) {
+
+            data.categories = data.categories.map(cat => {
+
+                cat.products = cat.products.filter(prod => {
+
+                    const nombreProd = (prod.name || "").toLowerCase();
+
+                    const esGratuito = nombreProd.includes("gratis") || nombreProd.includes("gratuito");
+
+                    return !esGratuito;
+
+                });
+
+                return cat;
+
+            }).filter(cat => cat.products.length > 0);
+
         }
-      });
 
-      updateStickyBar();
-    }
+        allData = data;
 
-    function selectModalidad(index, modalidad, link, event) {
-      event.stopPropagation();
-      const course = coursesDataGlobal[index];
-      const nombre = course['PackProducto / Pack'] || course['Producto / Pack'] || '';
+        document.body.style.backgroundColor = data.config.backgroundColor;
 
-      selectedCourse = nombre;
-      selectedModalidad = modalidad;
-      activePaymentLink = link || '';
+        document.getElementById("whatsapp-btn").href = data.config.whatsappUrl;
 
-      document.querySelectorAll('.course-card').forEach((c, idx) => {
-        if (idx === index) {
-          c.classList.add('selected');
-          c.querySelectorAll('.pay-option-btn').forEach(btn => btn.classList.remove('active'));
-        } else {
-          c.classList.remove('selected');
-        }
-      });
-
-      event.currentTarget.classList.add('active');
-      updateStickyBar();
-    }
-
-    function resetSelection() {
-      selectedCourse = null;
-      selectedModalidad = null;
-      activePaymentLink = '';
-      document.querySelectorAll('.course-card').forEach(c => {
-        c.classList.remove('selected');
-        c.querySelectorAll('.pay-option-btn').forEach(b => b.classList.remove('active'));
-      });
-      updateStickyBar();
-    }
-
-    function updateStickyBar() {
-      const label = document.getElementById('selected-label');
-      const btnWa  = document.getElementById('btn-whatsapp');
-      const btnLemon = document.getElementById('btn-lemon');
-
-      if (!selectedCourse || !selectedModalidad) {
-        label.innerHTML = selectedCourse 
-          ? `Pack: <span>${selectedCourse}</span> — <span style="color:#00e5ff">Elegí la forma de pago arriba 👇</span>`
-          : 'Seleccioná un pack y modalidad de pago';
         
-        btnWa.disabled = true;
-        btnLemon.disabled = true;
-        btnWa.onclick = null;
-        btnLemon.onclick = null;
-        btnLemon.innerText = '💳 Pagar / Acceder';
-        return;
-      }
 
-      label.innerHTML = `Seleccionado: <span>${selectedCourse}</span> (<span>${selectedModalidad}</span>)`;
-      btnWa.disabled = false;
-      btnLemon.disabled = false;
+        renderHome();
 
-      const msg = encodeURIComponent(
-        `Hola Hugo! Me interesa el pack "${selectedCourse}" abonando en modalidad de *${selectedModalidad}*. ¿Cómo seguimos?`
-      );
-      const defaultWaUrl = `https://wa.me/5491176529179?text=${msg}`;
-
-      const targetUrl = activePaymentLink && activePaymentLink.trim() !== '' ? activePaymentLink.trim() : defaultWaUrl;
-
-      let buttonText = '💳 Realizar Pago';
-      let buttonBg = 'linear-gradient(135deg, #00E676, #00A859)';
-
-      if (targetUrl.includes('wa.me')) {
-        buttonText = '📲 Consultar por WhatsApp';
-        buttonBg = 'linear-gradient(135deg, #25D366, #128C7E)';
-      } else if (targetUrl.includes('ko-fi.com')) {
-        buttonText = '☕ Pagar con Ko-fi';
-        buttonBg = 'linear-gradient(135deg, #29abe0, #19587d)';
-      } else if (targetUrl.includes('lemonsqueezy.com')) {
-        buttonText = '💳 Pagar con Lemon Squeezy';
-        buttonBg = 'linear-gradient(135deg, #00E676, #00A859)';
-      }
-
-      btnLemon.innerText = buttonText;
-      btnLemon.style.background = buttonBg;
-
-      btnWa.onclick = () => {
-        if (typeof fbq !== 'undefined') {
-          fbq('track', 'Lead', { content_name: selectedCourse, content_category: selectedModalidad });
-        }
-        window.open(defaultWaUrl, '_blank');
-      };
-
-      btnLemon.onclick = () => {
-        if (typeof fbq !== 'undefined') {
-          fbq('track', 'InitiateCheckout', { content_name: selectedCourse, content_category: selectedModalidad, content_type: 'product' });
-        }
-        window.open(targetUrl, '_blank');
-      };
     }
 
-    function handleCourses(courses) {
-      const container = document.getElementById('courses-container');
-      if (!courses || courses.error) {
-        container.innerHTML = `<div class="error-message">Error al cargar los packs desde Google Sheets.</div>`;
-        return;
-      }
-      renderCourses(courses);
+    // --- Views ---
+
+    function renderHome() {
+
+        const hero = document.getElementById("hero");
+
+        hero.style.display = "flex";
+
+        
+
+        renderHeroSection(); 
+
+        document.getElementById("nav-bar").style.display = "none";
+
+        
+
+        const grid = document.getElementById("grid-container");
+
+        grid.innerHTML = "";
+
+        allData.categories.forEach(cat => {
+
+            if (cat.products.length === 0) return;
+
+            const imgUrl = cat.image || (cat.products[0] ? cat.products[0].image : "");
+
+            const card = createCard(cat.name, `${cat.products.length} productos`, imgUrl, () => {
+
+                renderCategoryView(cat);
+
+            });
+
+            grid.appendChild(card);
+
+        });
+
     }
-  
 
+    function renderCategoryView(category) {
 
- function renderCourses(courses) {
-   console.log("Datos recibidos de Apps Script:", courses);
-      const packList = document.getElementById('pack-list');
-      const container = document.getElementById('courses-container');
+        document.getElementById("hero").style.display = "none";
 
-      if (!Array.isArray(courses) || courses.length === 0) {
-        container.innerHTML = `<div class="error-message">No hay elementos disponibles por el momento.</div>`;
-        return;
-      }
+        const navBar = document.getElementById("nav-bar");
 
-      // --- FILTRO DESACTIVADO TEMPORALMENTE PARA DIAGNÓSTICO ---
-      // Mostramos todo para ver qué dice la columna de categoría en la consola
-      const filteredCourses = courses; 
-      
-      // Imprimimos en consola las categorías reales que vienen en tu Sheet:
-      courses.forEach((c, i) => {
-        console.log(`Fila ${i}: Producto: "${c['PackProducto / Pack'] || c['Producto / Pack']}" | Categoría: "${c['categoryImgCategoryPromocional?'] || c['category'] || c['Categoría']}"`);
-      });
+        navBar.style.display = "flex";
 
-      if (filteredCourses.length === 0) {
-        container.innerHTML = `<div class="error-message">No hay elementos en el Sheet.</div>`;
-        return;
-      }
+        document.getElementById("section-title").textContent = category.name;
 
-      coursesDataGlobal = filteredCourses;
-      packList.innerHTML = '';
-
-      filteredCourses.forEach((course, index) => {
-        const nombre   = course['PackProducto / Pack'] || course['Producto / Pack'] || '';
-        const subtitulo = course['Subtítulo'] || '';
-        const incluye   = course['Que cursos incluye?'] || '';
-        const beneficiosCrudos = course['Beneficios Principales'] || '';
         
-        const rawImg   = course['Caratula url'] || course['Imagen'] || '';
-        const imgUrl   = (rawImg.trim() !== '') 
-                         ? rawImg.trim() 
-                         : 'https://res.cloudinary.com/dlnrsadbc/image/upload/q_auto,f_auto,w_400/v1778980849/logo_hugo_alvigini_transparente_jodgue_z1tldp.webp';
-        
-        const esPack = nombre.toLowerCase().includes('pack') || (course['Pack'] && course['Pack'].toString().toLowerCase().includes('pack'));
 
-        let beneficiosHTML = '';
-        if (beneficiosCrudos) {
-          const listaBeneficios = beneficiosCrudos.split('\n').filter(b => b.trim() !== '');
-          if (listaBeneficios.length > 0) {
-            beneficiosHTML = '<ul class="benefits-list">' + 
-              listaBeneficios.map(b => `<li>${b.trim()}</li>`).join('') + 
-              '</ul>';
-          }
-        }
+        const grid = document.getElementById("grid-container");
 
-        const card = document.createElement('div');
-        card.className = `course-card`;
-        card.onclick = () => selectCourse(index);
+        grid.innerHTML = "";
 
-        if (esPack) {
-          const contadoVal = formatPrice(course['Precio Total (50% por pago unico)']);
-          const cuota3Val  = formatPrice(course['Opción 3 Cuotas (Mensual)']);
-          const cuota6Val  = formatPrice(course['Opción 6 Cuotas (Mensual)']);
-          
-          const linkContado = course['buyUrlContadobuyUrl3CuotasbuyUrl6Cuotas'] || course['Link de Pago Contado'] || '';
-          const link3       = course['buyUrl3Cuotas'] || course['Link de Pago en 3 Cuotas'] || '';
-          const link6       = course['buyUrl6Cuotas'] || course['Link de Pago en 6 Cuotas'] || '';
+        category.products.forEach(prod => {
 
-          card.innerHTML = `
-            <span class="selected-badge">✓ SELECCIONADO</span>
-            <div class="card-content-grid">
-              <img src="${imgUrl}" alt="${nombre}" class="card-img" loading="lazy">
-              <div class="card-info">
-                <h3>${nombre}</h3>
-                ${subtitulo ? `<div class="course-subtitle">${subtitulo}</div>` : ''}
-                ${incluye ? `<div class="desc"><strong>Incluye:</strong> ${incluye}</div>` : ''}
-                ${beneficiosHTML}
-              </div>
-            </div>
-            
-            <div class="payment-options-container">
-              <div class="payment-options-title">Elegí tu forma de pago:</div>
-              
-              <button class="pay-option-btn" onclick="selectModalidad(${index}, 'Pago Contado (50% OFF)', '${linkContado}', event)">
-                <span>💥 Pago Contado</span>
-                <strong>$${contadoVal}</strong>
-              </button>
-              
-              <button class="pay-option-btn" onclick="selectModalidad(${index}, '3 Cuotas', '${link3}', event)">
-                <span>📅 En 3 Cuotas</span>
-                <strong>$${cuota3Val}</strong>
-              </button>
-              
-              <button class="pay-option-btn" onclick="selectModalidad(${index}, '6 Cuotas', '${link6}', event)">
-                <span>📅 En 6 Cuotas</span>
-                <strong>$${cuota6Val}</strong>
-              </button>
-            </div>
-          `;
+            const card = createCard(prod.name, "", prod.image, () => {
+
+                openModal(prod);
+
+            }, prod.isPromotional);
+
+            grid.appendChild(card);
+
+        });
+
+        window.scrollTo(0, 0);
+
+    }
+
+    function renderHeroSection() {
+
+        const urlParams = new URLSearchParams(window.location.search);
+
+        const modo = urlParams.get('modo');
+
+        const tituloHero = document.getElementById("hero-title");
+
+        const descHero = document.getElementById("hero-desc");
+
+        const heroBtn = document.getElementById("hero-btn");
+
+        if (modo === 'clientes') {
+
+            tituloHero.innerText = "🚀 ¡Lleva tu Negocio al Siguiente Nivel con el Pack Total!";
+
+            descHero.innerText = "Ya diste el primer paso. Domina los tres pilares definitivos: Investigación de Mercado Inteligente, Landing Pages que convierten y Automatizaciones con Google Apps Script. 10 años de experiencia resumidos en un solo lugar.";
+
+            heroBtn.textContent = "¡Ver Pack Completo!";
+
         } else {
-          const precioUnico = formatPrice(course['Precio Total (50% por pago unico)'] || course['Precio'] || '0');
-          const linkUnico   = course['buyUrlContado'] || course['Link de Pago Contado'] || course['Link de Pago'] || '';
-          
-          let textoBtnUnico = '💳 Obtener Acceso';
-          if (linkUnico.includes('wa.me')) {
-            textoBtnUnico = '💬 Consultar por WhatsApp';
-          }
 
-          card.innerHTML = `
-            <span class="selected-badge">✓ SELECCIONADO</span>
-            <div class="card-content-grid">
-              <img src="${imgUrl}" alt="${nombre}" class="card-img" loading="lazy">
-              <div class="card-info">
-                <h3>${nombre}</h3>
-                ${subtitulo ? `<div class="course-subtitle">${subtitulo}</div>` : ''}
-                ${incluye ? `<div class="desc"><strong>Incluye:</strong> ${incluye}</div>` : ''}
-                ${beneficiosHTML}
-              </div>
-            </div>
-            
-            <div class="payment-options-container">
-              <div class="payment-options-title">Acceso al Producto:</div>
-              
-              <button class="pay-option-btn" onclick="selectModalidad(${index}, 'Acceso Único', '${linkUnico}', event)">
-                <span>${textoBtnUnico}</span>
-                <strong>$${precioUnico}</strong>
-              </button>
-            </div>
-          `;
+            tituloHero.innerText = "Pack Transformación Total: Todo lo que un Emprendedor Necesita";
+
+            descHero.innerText = "Desbloquea los 3 pilares del éxito digital: Encuentra tu nicho, crea páginas que venden y automatiza tus procesos con IA y Apps Script.";
+
+            heroBtn.textContent = "¡Quiero el Pack Completo!";
+
         }
 
-        packList.appendChild(card);
-      });
+        // Tomar la imagen directamente desde la configuración del API (Celda de configuración en Sheets)
 
-      container.style.opacity = '0';
-      setTimeout(() => {
-        container.style.transition = 'opacity 0.25s ease-in-out';
-        container.style.opacity = '1';
-      }, 50);
+        const hero = document.getElementById("hero");
+
+        const bgImage = (allData.config && allData.config.heroBackgroundImage) ? allData.config.heroBackgroundImage : "";
+
+        
+
+        if (bgImage) {
+
+            hero.style.backgroundImage = `url('${bgImage}')`;
+
+        }
+
+        
+
+        heroBtn.onclick = () => {
+
+            let targetProd = null;
+
+            if (allData.categories) {
+
+                allData.categories.forEach(cat => {
+
+                    cat.products.forEach(p => {
+
+                        if (p.name.includes("Transformación Total") || p.name.includes("Automatizaciones con Appscripts")) {
+
+                            targetProd = p;
+
+                        }
+
+                    });
+
+                });
+
+            }
+
+            if (targetProd) {
+
+                openModal(targetProd);
+
+            }
+
+        };
+
     }
 
-  
-  
-    function loadCourses() {
-      const script = document.createElement('script');
-      script.src = APPSCRIPT_BASE + '?callback=handleCourses';
-      script.defer = true; 
-      script.onerror = () => {
-        document.getElementById('courses-key').innerHTML =
-          '<div class="error-message">No se pudieron cargar los datos. Por favor recargá la página.</div>';
-      };
-      document.body.appendChild(script);
+    
+
+    // --- Helpers ---
+
+    function createCard(title, subtitle, imageUrl, onClick, isPromotional = false) { 
+
+        const card = document.createElement("div");
+
+        card.className = "card";
+
+        card.onclick = onClick;
+
+        const promoBadgeHtml = isPromotional ? 
+
+            '<div class="promo-badge">¡PROMO!</div>' : ''; 
+
+        card.innerHTML = `
+
+            ${promoBadgeHtml} 
+
+            <img class="card-img" src="${imageUrl}" loading="lazy" onerror="this.src='https://via.placeholder.com/400x400?text=Sin+Imagen'">
+
+            <div class="card-overlay">
+
+              <div class="card-title">${title}</div>
+
+              <div class="card-subtitle">${subtitle}</div>
+
+            </div>
+
+        `;
+
+        return card;
+
     }
 
-    loadCourses();
-</script>
+    function openModal(product) {
+
+        const modal = document.getElementById("modal");
+
+        const modalImg = document.getElementById("modal-img");
+
+        modalImg.src = product.image;
+
+        modalImg.onerror = () => { modalImg.src = 'https://via.placeholder.com/600x400?text=Sin+Imagen'; };
+
+        document.getElementById("modal-title").textContent = product.name;
+
+        document.getElementById("modal-desc").textContent = product.detail;
+
+        
+
+        const buyButton = document.getElementById("modal-buy");
+
+        buyButton.href = product.buyUrl;
+
+        
+
+        const isFree = (product.offerNote && product.offerNote.toLowerCase().includes('gratuito')) || 
+
+                       (product.offerNote && product.offerNote.toLowerCase().includes('gratis'));
+
+                       
+
+        if (isFree) {
+
+            buyButton.innerHTML = '<span>🔗</span> Acceder Gratis';
+
+        } else {
+
+            buyButton.innerHTML = '<span>🛒</span> Comprar';
+
+        }
+
+        const offerEl = document.getElementById("modal-offer");
+
+        if (product.offerNote) {
+
+            offerEl.textContent = product.offerNote;
+
+            offerEl.style.display = "block";
+
+        } else {
+
+            offerEl.style.display = "none";
+
+        }
+
+        modal.classList.add("active");
+
+    }
+
+    function closeModal(e) {
+
+        if (e.target === document.getElementById("modal") || e.target.classList.contains("modal-close")) {
+
+            document.getElementById("modal").classList.remove("active");
+
+        }
+
+    }
+
+  </script>
+
 </body>
-</html>
+
+</html> 
+
+
+
+
+
