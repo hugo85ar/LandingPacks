@@ -32,15 +32,12 @@
   'https://connect.facebook.net/en_US/fbevents.js');
 
   fbq('init', '2189151328193841');
-
   fbq('track', 'PageView');
-
   fbq('track', 'ViewContent', {
     content_name: 'Landing Packs - Ruta del Emprendedor',
     content_type: 'product_group'
   });
   </script>
-
   <noscript>
     <img
       height="1"
@@ -51,19 +48,15 @@
   </noscript>
   <!-- FIN META PIXEL -->
 
-
   <!-- GOOGLE FONTS -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
   <link
     href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Open+Sans:wght@400;600&display=swap"
     rel="stylesheet"
   >
 
-
   <style>
-
     :root {
       --primary-blue: #00e5ff;
       --action-green: #4CAF50;
@@ -74,1092 +67,446 @@
       --border-radius: 12px;
     }
 
-
     body {
-      font-family:
-        "Open Sans",
-        -apple-system,
-        BlinkMacSystemFont,
-        "Segoe UI",
-        Roboto,
-        Helvetica,
-        Arial,
-        sans-serif;
-
+      font-family: "Open Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
       margin: 0;
-
-      background-color:
-        var(--dark-background);
-
+      background-color: var(--dark-background);
       color: #ffffff;
-
       line-height: 1.6;
-
       overflow-x: hidden;
-
       min-height: 100vh;
-
       display: flex;
-
       flex-direction: column;
-
-      background-image:
-        radial-gradient(
-          circle at 50% 0%,
-          #131336 0%,
-          var(--dark-background) 70%
-        );
+      background-image: radial-gradient(circle at 50% 0%, #131336 0%, var(--dark-background) 70%);
     }
 
-
-    h1,
-    h2,
-    h3 {
+    h1, h2, h3 {
       font-family: "Montserrat", sans-serif;
     }
 
-
-    /* =====================================================
-       HERO
-       ===================================================== */
-
     header.hero-main {
-
-      padding:
-        30px
-        20px
-        25px
-        20px;
-
-      background:
-        linear-gradient(
-          180deg,
-          rgba(16, 16, 38, 0.95) 0%,
-          rgba(7, 7, 20, 0.8) 100%
-        );
-
+      padding: 30px 20px 25px 20px;
+      background: linear-gradient(180deg, rgba(16, 16, 38, 0.95) 0%, rgba(7, 7, 20, 0.8) 100%);
       text-align: center;
-
-      border-bottom:
-        1px solid
-        rgba(0, 229, 255, 0.2);
-
-      box-shadow:
-        0 10px 30px
-        rgba(0, 0, 0, 0.5);
-
+      border-bottom: 1px solid rgba(0, 229, 255, 0.2);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
       position: relative;
     }
 
-
     .hero-content-wrapper {
-
       max-width: 900px;
-
       margin: 0 auto;
-
       display: flex;
-
       flex-direction: column;
-
       align-items: center;
-
       gap: 15px;
     }
 
-
     .top-nav-row {
-
       width: 100%;
-
       display: flex;
-
       justify-content: flex-start;
-
       margin-bottom: 5px;
     }
 
-
     .btn-volver {
-
       display: inline-flex;
-
       align-items: center;
-
       gap: 8px;
-
-      background:
-        rgba(255, 255, 255, 0.05);
-
+      background: rgba(255, 255, 255, 0.05);
       color: var(--text-light);
-
-      border:
-        1px solid
-        rgba(0, 229, 255, 0.3);
-
-      padding:
-        8px 16px;
-
+      border: 1px solid rgba(0, 229, 255, 0.3);
+      padding: 8px 16px;
       border-radius: 8px;
-
       font-family: "Montserrat", sans-serif;
-
       font-size: 0.9rem;
-
       font-weight: 600;
-
       text-decoration: none;
-
       cursor: pointer;
-
-      transition:
-        all 0.2s ease;
+      transition: all 0.2s ease;
     }
-
 
     .btn-volver:hover {
-
-      background:
-        rgba(0, 229, 255, 0.1);
-
-      border-color:
-        var(--primary-blue);
-
-      color:
-        var(--primary-blue);
-
-      box-shadow:
-        0 0 15px
-        rgba(0, 229, 255, 0.2);
+      background: rgba(0, 229, 255, 0.1);
+      border-color: var(--primary-blue);
+      color: var(--primary-blue);
+      box-shadow: 0 0 15px rgba(0, 229, 255, 0.2);
     }
-
 
     .logo-hero {
-
       width: 200px;
-
       max-width: 70%;
-
       height: auto;
-
       display: block;
-
-      filter:
-        drop-shadow(
-          0 0 20px
-          rgba(0, 229, 255, 0.4)
-        );
+      filter: drop-shadow(0 0 20px rgba(0, 229, 255, 0.4));
     }
-
 
     .hero-main h1 {
-
-      font-size:
-        clamp(
-          1.6rem,
-          3.5vw,
-          2.4rem
-        );
-
+      font-size: clamp(1.6rem, 3.5vw, 2.4rem);
       font-weight: 700;
-
       margin: 0;
-
-      color:
-        var(--text-light);
-
+      color: var(--text-light);
       text-transform: uppercase;
-
-      letter-spacing:
-        0.05em;
-
-      text-shadow:
-        0 0 20px
-        rgba(0, 229, 255, 0.3);
+      letter-spacing: 0.05em;
+      text-shadow: 0 0 20px rgba(0, 229, 255, 0.3);
     }
-
 
     .hero-main p {
-
-      color:
-        var(--text-dark);
-
+      color: var(--text-dark);
       font-size: 1rem;
-
       margin: 0;
-
-      letter-spacing:
-        0.02em;
+      letter-spacing: 0.02em;
     }
-
-
-    /* =====================================================
-       CONTENEDOR
-       ===================================================== */
 
     #courses-container {
-
       width: 100%;
-
       box-sizing: border-box;
-
-      padding:
-        30px 20px;
-
+      padding: 30px 20px;
       max-width: 900px;
-
       margin: 0 auto;
-
       flex: 1;
     }
-
 
     .section-header h2 {
-
-      font-family:
-        "Montserrat",
-        sans-serif;
-
+      font-family: "Montserrat", sans-serif;
       font-size: 1.15rem;
-
       font-weight: 700;
-
-      color:
-        var(--primary-blue);
-
+      color: var(--primary-blue);
       text-transform: uppercase;
-
-      letter-spacing:
-        0.05em;
-
-      border-bottom:
-        1px solid
-        rgba(0, 229, 255, 0.2);
-
+      letter-spacing: 0.05em;
+      border-bottom: 1px solid rgba(0, 229, 255, 0.2);
       padding-bottom: 8px;
-
       margin-bottom: 24px;
     }
-
-
-    /* =====================================================
-       TARJETAS
-       ===================================================== */
 
     .course-card {
-
-      background:
-        rgba(16, 16, 38, 0.7);
-
-      border:
-        1px solid
-        rgba(0, 229, 255, 0.2);
-
+      background: rgba(16, 16, 38, 0.7);
+      border: 1px solid rgba(0, 229, 255, 0.2);
       border-radius: 12px;
-
       padding: 24px;
-
       margin-bottom: 24px;
-
       box-sizing: border-box;
-
       cursor: pointer;
-
-      transition:
-        all 0.25s ease;
-
+      transition: all 0.25s ease;
       position: relative;
-
-      box-shadow:
-        0 4px 20px
-        rgba(0,0,0,0.3);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
     }
-
 
     .course-card:hover {
-
-      border-color:
-        rgba(0, 229, 255, 0.6);
-
-      box-shadow:
-        0 8px 30px
-        rgba(0, 229, 255, 0.15);
-
-      transform:
-        translateY(-2px);
+      border-color: rgba(0, 229, 255, 0.6);
+      box-shadow: 0 8px 30px rgba(0, 229, 255, 0.15);
+      transform: translateY(-2px);
     }
-
 
     .course-card.selected {
-
-      border-color:
-        #00e5ff;
-
-      box-shadow:
-        0 0 0 2px
-        rgba(0,229,255,0.3),
-        0 8px 30px
-        rgba(0,229,255,0.2);
-
-      background:
-        rgba(16, 30, 50, 0.9);
+      border-color: #00e5ff;
+      box-shadow: 0 0 0 2px rgba(0,229,255,0.3), 0 8px 30px rgba(0,229,255,0.2);
+      background: rgba(16, 30, 50, 0.9);
     }
 
-
     .selected-badge {
-
       display: none;
-
       position: absolute;
-
       top: 16px;
-
       right: 16px;
-
-      background:
-        #00e5ff;
-
-      color:
-        #070714;
-
-      font-size:
-        0.75rem;
-
+      background: #00e5ff;
+      color: #070714;
+      font-size: 0.75rem;
       font-weight: 700;
-
-      font-family:
-        "Montserrat",
-        sans-serif;
-
-      padding:
-        4px 12px;
-
-      border-radius:
-        20px;
-
-      letter-spacing:
-        0.05em;
-
-      box-shadow:
-        0 0 10px
-        rgba(0, 229, 255, 0.5);
+      font-family: "Montserrat", sans-serif;
+      padding: 4px 12px;
+      border-radius: 20px;
+      letter-spacing: 0.05em;
+      box-shadow: 0 0 10px rgba(0, 229, 255, 0.5);
     }
 
-
-    .course-card.selected
-    .selected-badge {
-
-      display:
-        inline-block;
+    .course-card.selected .selected-badge {
+      display: inline-block;
     }
-
 
     .card-content-grid {
-
       display: flex;
-
       gap: 20px;
-
-      align-items:
-        flex-start;
+      align-items: flex-start;
     }
-
 
     .card-img {
-
       width: 130px;
-
       height: 130px;
-
-      object-fit:
-        contain;
-
+      object-fit: contain;
       border-radius: 8px;
-
-      border:
-        1px solid
-        rgba(255,255,255,0.1);
-
+      border: 1px solid rgba(255,255,255,0.1);
       flex-shrink: 0;
-
-      background:
-        #0b0b1e;
-
+      background: #0b0b1e;
       padding: 4px;
-
-      box-sizing:
-        border-box;
+      box-sizing: border-box;
     }
 
-
     .card-info {
-
       flex: 1;
     }
 
-
     .course-card h3 {
-
-      font-family:
-        "Montserrat",
-        sans-serif;
-
-      color:
-        #ffffff;
-
+      font-family: "Montserrat", sans-serif;
+      color: #ffffff;
       margin-top: 0;
-
       margin-bottom: 6px;
-
-      font-size:
-        1.2rem;
-
-      letter-spacing:
-        0.03em;
+      font-size: 1.2rem;
+      letter-spacing: 0.03em;
     }
-
 
     .course-card.selected h3 {
-
-      color:
-        #00e5ff;
+      color: #00e5ff;
     }
-
 
     .course-subtitle {
-
-      font-size:
-        0.95rem;
-
-      color:
-        #00e5ff;
-
-      font-weight:
-        600;
-
-      margin-bottom:
-        10px;
-
-      line-height:
-        1.4;
+      font-size: 0.95rem;
+      color: #00e5ff;
+      font-weight: 600;
+      margin-bottom: 10px;
+      line-height: 1.4;
     }
-
 
     .course-card .desc {
-
-      font-size:
-        0.85rem;
-
-      color:
-        var(--text-dark);
-
-      margin-bottom:
-        12px;
-
-      line-height:
-        1.4;
+      font-size: 0.85rem;
+      color: var(--text-dark);
+      margin-bottom: 12px;
+      line-height: 1.4;
     }
-
-
-    /* =====================================================
-       BENEFICIOS
-       ===================================================== */
 
     .benefits-list {
-
-      list-style:
-        none;
-
+      list-style: none;
       padding: 0;
-
-      margin:
-        10px 0 0 0;
-
-      font-size:
-        0.84rem;
-
-      color:
-        var(--text-light);
+      margin: 10px 0 0 0;
+      font-size: 0.84rem;
+      color: var(--text-light);
     }
-
 
     .benefits-list li {
-
       position: relative;
-
-      padding-left:
-        18px;
-
-      margin-bottom:
-        6px;
-
-      line-height:
-        1.4;
+      padding-left: 18px;
+      margin-bottom: 6px;
+      line-height: 1.4;
     }
-
 
     .benefits-list li::before {
-
-      content:
-        "✔";
-
-      position:
-        absolute;
-
+      content: "✔";
+      position: absolute;
       left: 0;
-
-      color:
-        #00e5ff;
-
-      font-size:
-        0.8rem;
+      color: #00e5ff;
+      font-size: 0.8rem;
     }
 
-
-    /* =====================================================
-       OPCIONES DE PAGO
-       ===================================================== */
-
     .payment-options-container {
-
       display: none;
-
-      margin-top:
-        20px;
-
-      padding-top:
-        16px;
-
-      border-top:
-        1px solid
-        rgba(255,255,255,0.15);
-
-      animation:
-        fadeIn 0.3s ease;
+      margin-top: 20px;
+      padding-top: 16px;
+      border-top: 1px solid rgba(255,255,255,0.15);
+      animation: fadeIn 0.3s ease;
     }
 
-
-    .course-card.selected
-    .payment-options-container {
-
-      display:
-        block;
+    .course-card.selected .payment-options-container {
+      display: block;
     }
-
 
     @keyframes fadeIn {
-
-      from {
-        opacity: 0;
-        transform:
-          translateY(-5px);
-      }
-
-      to {
-        opacity: 1;
-        transform:
-          translateY(0);
-      }
+      from { opacity: 0; transform: translateY(-5px); }
+      to { opacity: 1; transform: translateY(0); }
     }
-
 
     .payment-options-title {
-
-      font-size:
-        0.85rem;
-
-      color:
-        #00e5ff;
-
-      font-weight:
-        600;
-
-      margin-bottom:
-        10px;
-
-      font-family:
-        "Montserrat",
-        sans-serif;
-
-      text-transform:
-        uppercase;
-
-      letter-spacing:
-        0.05em;
+      font-size: 0.85rem;
+      color: #00e5ff;
+      font-weight: 600;
+      margin-bottom: 10px;
+      font-family: "Montserrat", sans-serif;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
     }
-
 
     .pay-option-btn {
-
       width: 100%;
-
-      background:
-        rgba(255, 255, 255, 0.03);
-
-      border:
-        1px solid
-        rgba(255, 255, 255, 0.12);
-
-      color:
-        #fff;
-
-      padding:
-        12px 16px;
-
-      border-radius:
-        8px;
-
-      margin-bottom:
-        8px;
-
-      display:
-        flex;
-
-      justify-content:
-        space-between;
-
-      align-items:
-        center;
-
-      cursor:
-        pointer;
-
-      font-size:
-        0.9rem;
-
-      transition:
-        all 0.2s;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      color: #fff;
+      padding: 12px 16px;
+      border-radius: 8px;
+      margin-bottom: 8px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+      font-size: 0.9rem;
+      transition: all 0.2s;
     }
-
 
     .pay-option-btn:hover {
-
-      background:
-        rgba(0, 229, 255, 0.08);
-
-      border-color:
-        rgba(0, 229, 255, 0.5);
+      background: rgba(0, 229, 255, 0.08);
+      border-color: rgba(0, 229, 255, 0.5);
     }
-
 
     .pay-option-btn.active {
-
-      background:
-        rgba(0, 229, 255, 0.15);
-
-      border-color:
-        #00e5ff;
-
-      font-weight:
-        bold;
-
-      color:
-        #00e5ff;
-
-      box-shadow:
-        0 0 10px
-        rgba(0, 229, 255, 0.2);
+      background: rgba(0, 229, 255, 0.15);
+      border-color: #00e5ff;
+      font-weight: bold;
+      color: #00e5ff;
+      box-shadow: 0 0 10px rgba(0, 229, 255, 0.2);
     }
-
-
-    /* =====================================================
-       BARRA INFERIOR
-       ===================================================== */
 
     .sticky-bar {
-
       position: fixed;
-
       bottom: 0;
-
       left: 0;
-
       width: 100%;
-
       z-index: 100;
-
-      padding:
-        14px 20px;
-
-      background:
-        rgba(7, 7, 20, 0.95);
-
-      backdrop-filter:
-        blur(12px);
-
-      -webkit-backdrop-filter:
-        blur(12px);
-
-      border-top:
-        1px solid
-        rgba(0, 229, 255, 0.3);
-
-      display:
-        flex;
-
-      align-items:
-        center;
-
-      justify-content:
-        center;
-
+      padding: 14px 20px;
+      background: rgba(7, 7, 20, 0.95);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-top: 1px solid rgba(0, 229, 255, 0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
       gap: 12px;
-
-      flex-wrap:
-        wrap;
-
-      box-sizing:
-        border-box;
-
-      box-shadow:
-        0 -5px 25px
-        rgba(0,0,0,0.8);
+      flex-wrap: wrap;
+      box-sizing: border-box;
+      box-shadow: 0 -5px 25px rgba(0,0,0,0.8);
     }
-
 
     .sticky-bar .selected-label {
-
-      font-size:
-        0.85rem;
-
-      color:
-        var(--text-dark);
-
-      width:
-        100%;
-
-      text-align:
-        center;
-
-      margin-bottom:
-        2px;
+      font-size: 0.85rem;
+      color: var(--text-dark);
+      width: 100%;
+      text-align: center;
+      margin-bottom: 2px;
     }
-
 
     .sticky-bar .selected-label span {
-
-      color:
-        #00e5ff;
-
-      font-weight:
-        600;
+      color: #00e5ff;
+      font-weight: 600;
     }
-
 
     .action-btn-group {
-
-      display:
-        flex;
-
-      gap:
-        10px;
-
-      flex-wrap:
-        wrap;
-
-      justify-content:
-        center;
-
-      width:
-        100%;
-
-      max-width:
-        600px;
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: center;
+      width: 100%;
+      max-width: 600px;
     }
-
 
     .btn-action {
-
-      flex:
-        1;
-
-      min-width:
-        220px;
-
-      padding:
-        12px 20px;
-
-      border:
-        none;
-
-      border-radius:
-        var(--border-radius);
-
-      font-family:
-        "Montserrat",
-        sans-serif;
-
-      font-weight:
-        700;
-
-      font-size:
-        0.95rem;
-
-      cursor:
-        pointer;
-
-      transition:
-        transform 0.2s,
-        box-shadow 0.2s;
-
-      display:
-        inline-flex;
-
-      align-items:
-        center;
-
-      justify-content:
-        center;
-
-      gap:
-        8px;
-
-      text-decoration:
-        none;
-
-      white-space:
-        nowrap;
+      flex: 1;
+      min-width: 220px;
+      padding: 12px 20px;
+      border: none;
+      border-radius: var(--border-radius);
+      font-family: "Montserrat", sans-serif;
+      font-weight: 700;
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      text-decoration: none;
+      white-space: nowrap;
     }
-
 
     .btn-whatsapp {
-
-      background:
-        linear-gradient(
-          135deg,
-          #25D366,
-          #128C7E
-        );
-
-      color:
-        var(--text-light);
-
-      box-shadow:
-        0 4px 15px
-        rgba(37,211,102,0.3);
+      background: linear-gradient(135deg, #25D366, #128C7E);
+      color: var(--text-light);
+      box-shadow: 0 4px 15px rgba(37,211,102,0.3);
     }
-
 
     .btn-whatsapp:hover:not(:disabled) {
-
-      transform:
-        translateY(-2px);
-
-      box-shadow:
-        0 6px 20px
-        rgba(37,211,102,0.4);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(37,211,102,0.4);
     }
-
 
     .btn-lemon {
-
-      background:
-        linear-gradient(
-          135deg,
-          #00E676,
-          #00A859
-        );
-
-      color:
-        #0a1e10;
-
-      box-shadow:
-        0 4px 15px
-        rgba(0,230,118,0.3);
+      background: linear-gradient(135deg, #00E676, #00A859);
+      color: #0a1e10;
+      box-shadow: 0 4px 15px rgba(0,230,118,0.3);
     }
-
 
     .btn-lemon:hover:not(:disabled) {
-
-      transform:
-        translateY(-2px);
-
-      box-shadow:
-        0 6px 20px
-        rgba(0,230,118,0.4);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(0,230,118,0.4);
     }
-
 
     .btn-action:disabled {
-
-      background:
-        linear-gradient(
-          135deg,
-          #222,
-          #151515
-        );
-
-      color:
-        #666;
-
-      box-shadow:
-        none;
-
-      cursor:
-        not-allowed;
-
-      opacity:
-        0.5;
+      background: linear-gradient(135deg, #222, #151515);
+      color: #666;
+      box-shadow: none;
+      cursor: not-allowed;
+      opacity: 0.5;
     }
-
-
-    /* =====================================================
-       ERROR
-       ===================================================== */
 
     .error-message {
-
-      text-align:
-        center;
-
-      padding:
-        40px;
-
-      color:
-        #ff6b6b;
+      text-align: center;
+      padding: 40px;
+      color: #ff6b6b;
     }
-
-
-    /* =====================================================
-       FOOTER
-       ===================================================== */
 
     footer {
-
-      margin-top:
-        auto;
-
-      padding:
-        30px 0 140px 0;
-
-      text-align:
-        center;
+      margin-top: auto;
+      padding: 30px 0 140px 0;
+      text-align: center;
     }
-
 
     .banner-pagos {
-
-      width:
-        100% !important;
-
-      max-width:
-        350px !important;
-
-      height:
-        auto !important;
-
-      display:
-        block;
-
-      margin:
-        0 auto;
+      width: 100% !important;
+      max-width: 350px !important;
+      height: auto !important;
+      display: block;
+      margin: 0 auto;
     }
-
 
     footer > p {
-
-      margin-top:
-        15px;
-
-      font-size:
-        0.82rem;
-
-      color:
-        var(--text-dark);
+      margin-top: 15px;
+      font-size: 0.82rem;
+      color: var(--text-dark);
     }
-
-
-    /* =====================================================
-       MOBILE
-       ===================================================== */
 
     @media (max-width: 768px) {
-
       .card-content-grid {
-
-        flex-direction:
-          column;
-
-        align-items:
-          center;
-
-        text-align:
-          center;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
       }
-
-
       .card-img {
-
-        width:
-          120px;
-
-        height:
-          120px;
-
-        margin-bottom:
-          10px;
+        width: 120px;
+        height: 120px;
+        margin-bottom: 10px;
       }
-
-
       .benefits-list li {
-
-        padding-left:
-          0;
-
-        list-style-position:
-          inside;
+        padding-left: 0;
+        list-style-position: inside;
       }
-
-
       .action-btn-group {
-
-        flex-direction:
-          column;
+        flex-direction: column;
       }
-
-
       .btn-action {
-
-        width:
-          100%;
+        width: 100%;
       }
-
-
       footer {
-
-        padding-bottom:
-          150px;
+        padding-bottom: 150px;
       }
-
     }
-
   </style>
 </head>
 
-
 <body>
 
-
-  <!-- =====================================================
-       HERO
-       ===================================================== -->
-
   <header class="hero-main">
-
     <div class="hero-content-wrapper">
-
       <div class="top-nav-row">
-
-        <a
-          href="https://hugo85ar.github.io/catalogo-promociones/"
-          class="btn-volver"
-        >
+        <a href="https://hugo85ar.github.io/catalogo-promociones/" class="btn-volver">
           ← Volver al Inicio
         </a>
-
       </div>
-
-
       <img
         src="https://res.cloudinary.com/dlnrsadbc/image/upload/q_auto,f_auto,w_400/v1778980849/logo_hugo_alvigini_transparente_jodgue_z1tldp.webp"
         alt="Hugo Alvigini"
@@ -1168,64 +515,24 @@
         width="400"
         height="100"
       >
-
-
-      <h1>
-        Packs & Programas Integrales
-      </h1>
-
-
-      <p>
-        Sistemas para escalar tu negocio digital al siguiente nivel
-      </p>
-
+      <h1>Packs & Programas Integrales</h1>
+      <p>Sistemas para escalar tu negocio digital al siguiente nivel</p>
     </div>
-
   </header>
 
-
-  <!-- =====================================================
-       CONTENIDO
-       ===================================================== -->
-
   <main id="courses-container">
-
     <div class="section-header">
-
-      <h2>
-        Elegí tu Pack de Cursos
-      </h2>
-
+      <h2>Elegí tu Pack de Cursos</h2>
     </div>
-
-
     <div id="pack-list">
-
-      <div
-        class="skeleton-card"
-        style="
-          padding:20px;
-          background:rgba(16,16,38,0.7);
-          border-radius:12px;
-          min-height:150px;
-        "
-      >
+      <div class="skeleton-card" style="padding:20px; background:rgba(16,16,38,0.7); border-radius:12px; min-height:150px;">
         Cargando packs...
       </div>
-
     </div>
-
   </main>
 
-
-  <!-- =====================================================
-       FOOTER
-       ===================================================== -->
-
   <footer>
-
     <div class="payment-info">
-
       <img
         src="https://res.cloudinary.com/dlnrsadbc/image/upload/q_auto,f_auto,w_350/v1778980376/pago_moneda_local_ms2q3z.webp"
         alt="Pagar en Moneda Local Argentina y Paraguay"
@@ -1234,1201 +541,366 @@
         width="350"
         height="70"
       >
-
     </div>
-
-
-    <p>
-      &copy; 2026 Hugo Alvigini.
-      Todos los derechos reservados.
-    </p>
-
+    <p>&copy; 2026 Hugo Alvigini. Todos los derechos reservados.</p>
   </footer>
 
-
-  <!-- =====================================================
-       STICKY BAR
-       ===================================================== -->
-
   <div class="sticky-bar">
-
-    <div
-      class="selected-label"
-      id="selected-label"
-    >
+    <div class="selected-label" id="selected-label">
       Seleccioná un pack y modalidad de pago
     </div>
-
-
     <div class="action-btn-group">
-
-      <button
-        class="btn-action btn-whatsapp"
-        id="btn-whatsapp"
-        disabled
-      >
+      <button class="btn-action btn-whatsapp" id="btn-whatsapp" disabled>
         📲 Consultar por WhatsApp
       </button>
-
-
-      <button
-        class="btn-action btn-lemon"
-        id="btn-lemon"
-        disabled
-      >
+      <button class="btn-action btn-lemon" id="btn-lemon" disabled>
         💳 Pagar con Lemon
       </button>
-
     </div>
-
   </div>
 
-
 <script>
-
-
-  /* =====================================================
-     CONFIGURACIÓN
-     ===================================================== */
-
-  const APPSCRIPT_BASE =
-    'https://script.google.com/macros/s/AKfycbyxlO60asW5Jc8tHtjtSqk8-tUTSxJwwDZ-i0oN-Jgqn5wsmg7l0a70jFD7rZssUD4IOw/exec';
-
-
-  const WA_NUMBER =
-    '5491176529179';
-
+  const APPSCRIPT_BASE = 'https://script.google.com/macros/s/AKfycbyxlO60asW5Jc8tHtjtSqk8-tUTSxJwwDZ-i0oN-Jgqn5wsmg7l0a70jFD7rZssUD4IOw/exec';
+  const WA_NUMBER = '5491176529179';
 
   let selectedCourse = null;
-
   let selectedModalidad = null;
-
   let activePaymentLink = '';
-
   let coursesDataGlobal = [];
 
-
-  /* =====================================================
-     FORMATEAR PRECIO
-     ===================================================== */
-
   function formatPrice(val) {
-
-    if (
-      !val ||
-      val === '-'
-    ) {
-      return '-';
-    }
-
-
-    const num =
-      parseFloat(val);
-
-
-    if (isNaN(num)) {
-      return val;
-    }
-
-
-    return num.toLocaleString(
-      'es-AR',
-      {
-        minimumFractionDigits: 2,
-        maximumFractionDigits: 2
-      }
-    );
-
+    if (!val || val === '-') return '-';
+    const num = parseFloat(val);
+    if (isNaN(num)) return val;
+    return num.toLocaleString('es-AR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
   }
 
-
-  /* =====================================================
-     SELECCIONAR PACK
-     ===================================================== */
-
-  function selectCourse(index) {
-
-    const course =
-      coursesDataGlobal[index];
-
-
-    const nombre =
-      course['PackProducto / Pack'] ||
-      course['Producto / Pack'] ||
-      '';
-
-
-    if (
-      selectedCourse === nombre
-    ) {
-
-      resetSelection();
-
-      return;
-    }
-
-
-    selectedCourse =
-      nombre;
-
-
-    selectedModalidad =
-      null;
-
-
-    activePaymentLink =
-      '';
-
-
-    document
-      .querySelectorAll('.course-card')
-      .forEach((c, idx) => {
-
-        if (idx === index) {
-
-          c.classList.add(
-            'selected'
-          );
-
-        } else {
-
-          c.classList.remove(
-            'selected'
-          );
-
-          c
-            .querySelectorAll(
-              '.pay-option-btn'
-            )
-            .forEach(
-              b =>
-                b.classList.remove(
-                  'active'
-                )
-            );
-
-        }
-
-      });
-
-
-    updateStickyBar();
-
-  }
-
-
-  /* =====================================================
-     SELECCIONAR MODALIDAD
-     ===================================================== */
-
-  function selectModalidad(
-    index,
-    modalidad,
-    link,
-    event
-  ) {
-
+  function selectModalidad(index, modalidad, link, event) {
     event.stopPropagation();
+    const course = coursesDataGlobal[index];
+    const headers = Object.keys(course);
+    const columnaB = headers[1];
+    const nombre = course['PackProducto / Pack'] || course['Producto / Pack'] || course[columnaB] || 'Pack';
+    
+    selectedCourse = nombre;
+    selectedModalidad = modalidad;
+    activePaymentLink = link || '';
 
-
-    const course =
-      coursesDataGlobal[index];
-
-
-    const nombre =
-      course['PackProducto / Pack'] ||
-      course['Producto / Pack'] ||
-      '';
-
-
-    selectedCourse =
-      nombre;
-
-
-    selectedModalidad =
-      modalidad;
-
-
-    activePaymentLink =
-      link || '';
-
-
-    document
-      .querySelectorAll('.course-card')
-      .forEach((c, idx) => {
-
-        if (idx === index) {
-
-          c.classList.add(
-            'selected'
-          );
-
-          c
-            .querySelectorAll(
-              '.pay-option-btn'
-            )
-            .forEach(
-              btn =>
-                btn.classList.remove(
-                  'active'
-                )
-            );
-
-        } else {
-
-          c.classList.remove(
-            'selected'
-          );
-
-        }
-
-      });
-
-
-    event.currentTarget
-      .classList.add(
-        'active'
-      );
-
+    document.querySelectorAll('.course-card').forEach((c, idx) => {
+      if (idx === index) {
+        c.classList.add('selected');
+        c.querySelectorAll('.pay-option-btn').forEach(btn => {
+          if (btn.dataset.modalidad === modalidad) {
+            btn.classList.add('active');
+          } else {
+            btn.classList.remove('active');
+          }
+        });
+      } else {
+        c.classList.remove('selected');
+        c.querySelectorAll('.pay-option-btn').forEach(btn => btn.classList.remove('active'));
+      }
+    });
 
     updateStickyBar();
-
   }
-
-
-  /* =====================================================
-     RESET
-     ===================================================== */
-
-  function resetSelection() {
-
-    selectedCourse =
-      null;
-
-
-    selectedModalidad =
-      null;
-
-
-    activePaymentLink =
-      '';
-
-
-    document
-      .querySelectorAll(
-        '.course-card'
-      )
-      .forEach(c => {
-
-        c.classList.remove(
-          'selected'
-        );
-
-
-        c
-          .querySelectorAll(
-            '.pay-option-btn'
-          )
-          .forEach(
-            b =>
-              b.classList.remove(
-                'active'
-              )
-          );
-
-      });
-
-
-    updateStickyBar();
-
-  }
-
-
-  /* =====================================================
-     BARRA INFERIOR
-     ===================================================== */
 
   function updateStickyBar() {
+    const label = document.getElementById('selected-label');
+    const btnWa = document.getElementById('btn-whatsapp');
+    const btnLemon = document.getElementById('btn-lemon');
 
-    const label =
-      document.getElementById(
-        'selected-label'
-      );
+    if (!selectedCourse || !selectedModalidad) {
+      label.innerHTML = selectedCourse 
+        ? `Pack: <span>${selectedCourse}</span> — <span style="color:#00e5ff">Elegí la forma de pago arriba 👇</span>`
+        : 'Seleccioná un pack y modalidad de pago';
 
-
-    const btnWa =
-      document.getElementById(
-        'btn-whatsapp'
-      );
-
-
-    const btnLemon =
-      document.getElementById(
-        'btn-lemon'
-      );
-
-
-    if (
-      !selectedCourse ||
-      !selectedModalidad
-    ) {
-
-      label.innerHTML =
-        selectedCourse
-
-          ? `Pack:
-             <span>${selectedCourse}</span>
-             —
-             <span style="color:#00e5ff">
-               Elegí la forma de pago arriba 👇
-             </span>`
-
-          : 'Seleccioná un pack y modalidad de pago';
-
-
-      btnWa.disabled =
-        true;
-
-
-      btnLemon.disabled =
-        true;
-
-
-      btnWa.onclick =
-        null;
-
-
-      btnLemon.onclick =
-        null;
-
-
-      btnLemon.innerText =
-        '💳 Pagar / Acceder';
-
-
+      btnWa.disabled = true;
+      btnLemon.disabled = true;
+      btnWa.onclick = null;
+      btnLemon.onclick = null;
+      btnLemon.innerText = '💳 Pagar / Acceder';
       return;
-
     }
 
+    label.innerHTML = `Seleccionado: <span>${selectedCourse}</span> (<span>${selectedModalidad}</span>)`;
+    btnWa.disabled = false;
+    btnLemon.disabled = false;
 
-    label.innerHTML =
-      `Seleccionado:
-       <span>${selectedCourse}</span>
-       (
-       <span>${selectedModalidad}</span>
-       )`;
+    const msg = encodeURIComponent(`Hola Hugo! Me interesa el pack "${selectedCourse}" abonando en modalidad de *${selectedModalidad}*. ¿Cómo seguimos?`);
+    const defaultWaUrl = `https://wa.me/${WA_NUMBER}?text=${msg}`;
+    const targetUrl = activePaymentLink && activePaymentLink.trim() !== '' ? activePaymentLink.trim() : defaultWaUrl;
 
+    let buttonText = '💳 Realizar Pago';
+    let buttonBg = 'linear-gradient(135deg, #00E676, #00A859)';
 
-    btnWa.disabled =
-      false;
-
-
-    btnLemon.disabled =
-      false;
-
-
-    const msg =
-      encodeURIComponent(
-        `Hola Hugo! Me interesa el pack "${selectedCourse}" abonando en modalidad de *${selectedModalidad}*. ¿Cómo seguimos?`
-      );
-
-
-    const defaultWaUrl =
-      `https://wa.me/${WA_NUMBER}?text=${msg}`;
-
-
-    const targetUrl =
-      activePaymentLink &&
-      activePaymentLink.trim() !== ''
-
-        ? activePaymentLink.trim()
-
-        : defaultWaUrl;
-
-
-    let buttonText =
-      '💳 Realizar Pago';
-
-
-    let buttonBg =
-      'linear-gradient(135deg, #00E676, #00A859)';
-
-
-    if (
-      targetUrl.includes(
-        'wa.me'
-      )
-    ) {
-
-      buttonText =
-        '📲 Consultar por WhatsApp';
-
-
-      buttonBg =
-        'linear-gradient(135deg, #25D366, #128C7E)';
-
+    if (targetUrl.includes('wa.me')) {
+      buttonText = '📲 Consultar por WhatsApp';
+      buttonBg = 'linear-gradient(135deg, #25D366, #128C7E)';
+    } else if (targetUrl.includes('ko-fi.com')) {
+      buttonText = '☕ Pagar con Ko-fi';
+      buttonBg = 'linear-gradient(135deg, #29abe0, #19587d)';
+    } else if (targetUrl.includes('lemonsqueezy.com')) {
+      buttonText = '💳 Pagar con Lemon Squeezy';
+      buttonBg = 'linear-gradient(135deg, #00E676, #00A859)';
     }
 
-    else if (
-      targetUrl.includes(
-        'ko-fi.com'
-      )
-    ) {
+    btnLemon.innerText = buttonText;
+    btnLemon.style.background = buttonBg;
 
-      buttonText =
-        '☕ Pagar con Ko-fi';
+    btnWa.onclick = () => {
+      if (typeof fbq !== 'undefined') {
+        fbq('track', 'Lead', { content_name: selectedCourse, content_category: selectedModalidad });
+      }
+      window.open(defaultWaUrl, '_blank');
+    };
 
-
-      buttonBg =
-        'linear-gradient(135deg, #29abe0, #19587d)';
-
-    }
-
-    else if (
-      targetUrl.includes(
-        'lemonsqueezy.com'
-      )
-    ) {
-
-      buttonText =
-        '💳 Pagar con Lemon Squeezy';
-
-
-      buttonBg =
-        'linear-gradient(135deg, #00E676, #00A859)';
-
-    }
-
-
-    btnLemon.innerText =
-      buttonText;
-
-
-    btnLemon.style.background =
-      buttonBg;
-
-
-    /* WhatsApp */
-
-    btnWa.onclick =
-      () => {
-
-        if (
-          typeof fbq !==
-          'undefined'
-        ) {
-
-          fbq(
-            'track',
-            'Lead',
-            {
-              content_name:
-                selectedCourse,
-
-              content_category:
-                selectedModalidad
-            }
-          );
-
-        }
-
-
-        window.open(
-          defaultWaUrl,
-          '_blank'
-        );
-
-      };
-
-
-    /* Pago */
-
-    btnLemon.onclick =
-      () => {
-
-        if (
-          typeof fbq !==
-          'undefined'
-        ) {
-
-          fbq(
-            'track',
-            'InitiateCheckout',
-            {
-              content_name:
-                selectedCourse,
-
-              content_category:
-                selectedModalidad,
-
-              content_type:
-                'product'
-            }
-          );
-
-        }
-
-
-        window.open(
-          targetUrl,
-          '_blank'
-        );
-
-      };
-
+    btnLemon.onclick = () => {
+      if (typeof fbq !== 'undefined') {
+        fbq('track', 'InitiateCheckout', { content_name: selectedCourse, content_category: selectedModalidad, content_type: 'product' });
+      }
+      window.open(targetUrl, '_blank');
+    };
   }
 
-
-  /* =====================================================
-     RESPUESTA DE APPS SCRIPT
-     ===================================================== */
-
-  function handleCourses(
-    courses
-  ) {
-
-    const container =
-      document.getElementById(
-        'courses-container'
-      );
-
-
-    if (
-      !courses ||
-      courses.error
-    ) {
-
-      console.error(
-        'Error recibido desde Apps Script:',
-        courses
-      );
-
-
-      container.innerHTML =
-        `<div class="error-message">
-          Error al cargar los packs desde Google Sheets.
-        </div>`;
-
-
+  function handleCourses(courses) {
+    const container = document.getElementById('courses-container');
+    if (!courses || courses.error) {
+      console.error('Error recibido desde Apps Script:', courses);
+      container.innerHTML = `<div class="error-message">Error al cargar los packs desde Google Sheets.</div>`;
       return;
-
     }
-
-
-    renderCourses(
-      courses
-    );
-
+    renderCourses(courses);
   }
 
+  function renderCourses(courses) {
+    const packList = document.getElementById('pack-list');
+    const container = document.getElementById('courses-container');
 
-  /* =====================================================
-     RENDERIZAR PACKS
-     ===================================================== */
-
-  function renderCourses(
-    courses
-  ) {
-
-    console.log(
-      'Datos recibidos de Apps Script:',
-      courses
-    );
-
-
-    const packList =
-      document.getElementById(
-        'pack-list'
-      );
-
-
-    const container =
-      document.getElementById(
-        'courses-container'
-      );
-
-
-    if (
-      !Array.isArray(courses) ||
-      courses.length === 0
-    ) {
-
-      container.innerHTML =
-        `<div class="error-message">
-          No hay elementos disponibles por el momento.
-        </div>`;
-
-
+    if (!Array.isArray(courses) || courses.length === 0) {
+      container.innerHTML = `<div class="error-message">No hay elementos disponibles por el momento.</div>`;
       return;
-
     }
 
-
-    /* =====================================================
-       FILTRO REAL POR COLUMNA B
-       
-       La columna B es el segundo encabezado
-       que devuelve Apps Script.
-
-       Solo mostramos filas donde el valor
-       de la columna B contenga "Pack".
-       ===================================================== */
-
-
-    const headers =
-      Object.keys(
-        courses[0]
-      );
-
-
-    const columnaB =
-      headers[1];
-
-
-    console.log(
-      'Encabezados recibidos:',
-      headers
-    );
-
-
-    console.log(
-      'Columna B utilizada para filtrar:',
-      columnaB
-    );
-
+    const headers = Object.keys(courses[0]);
+    const columnaB = headers[1];
 
     if (!columnaB) {
-
-      console.error(
-        'No se pudo identificar la columna B.'
-      );
-
-
-      container.innerHTML =
-        `<div class="error-message">
-          No se pudo identificar la columna B de Productos.
-        </div>`;
-
-
+      container.innerHTML = `<div class="error-message">No se pudo identificar la columna B de Productos.</div>`;
       return;
-
     }
 
+    const filteredCourses = courses.filter(course => {
+      const valorColumnaB = String(course[columnaB] || '').trim().toLowerCase();
+      return valorColumnaB.includes('pack');
+    });
 
-    const filteredCourses =
-      courses.filter(
-        course => {
-
-          const valorColumnaB =
-            String(
-              course[columnaB] || ''
-            )
-              .trim()
-              .toLowerCase();
-
-
-          return valorColumnaB.includes(
-            'pack'
-          );
-
-        }
-      );
-
-
-    console.log(
-      'Total de registros recibidos:',
-      courses.length
-    );
-
-
-    console.log(
-      'Total de registros que contienen "Pack" en columna B:',
-      filteredCourses.length
-    );
-
-
-    console.table(
-      filteredCourses
-    );
-
-
-    if (
-      filteredCourses.length === 0
-    ) {
-
-      packList.innerHTML =
-        `<div class="error-message">
-          No se encontraron Packs disponibles.
-        </div>`;
-
-
+    if (filteredCourses.length === 0) {
+      packList.innerHTML = `<div class="error-message">No se encontraron Packs disponibles.</div>`;
       return;
-
     }
 
+    coursesDataGlobal = filteredCourses;
+    packList.innerHTML = '';
 
-    /* Guardamos solamente los packs */
+    filteredCourses.forEach((course, index) => {
+      const nombre = course['PackProducto / Pack'] || course['Producto / Pack'] || course[columnaB] || 'Pack';
+      const subtitulo = course['Subtítulo'] || '';
+      const incluye = course['Que cursos incluye?'] || '';
+      const beneficiosCrudos = course['Beneficios Principales'] || '';
+      const rawImg = course['Caratula url'] || course['Imagen'] || '';
+      const imgUrl = rawImg.trim() !== '' ? rawImg.trim() : 'https://res.cloudinary.com/dlnrsadbc/image/upload/q_auto,f_auto,w_400/v1778980849/logo_hugo_alvigini_transparente_jodgue_z1tldp.webp';
 
-    coursesDataGlobal =
-      filteredCourses;
-
-
-    packList.innerHTML =
-      '';
-
-
-    /* =====================================================
-       CREAR TARJETAS
-       ===================================================== */
-
-    filteredCourses.forEach(
-      (
-        course,
-        index
-      ) => {
-
-
-        const nombre =
-          course['PackProducto / Pack'] ||
-          course['Producto / Pack'] ||
-          course[columnaB] ||
-          'Pack';
-
-
-        const subtitulo =
-          course['Subtítulo'] ||
-          '';
-
-
-        const incluye =
-          course['Que cursos incluye?'] ||
-          '';
-
-
-        const beneficiosCrudos =
-          course['Beneficios Principales'] ||
-          '';
-
-
-        const rawImg =
-          course['Caratula url'] ||
-          course['Imagen'] ||
-          '';
-
-
-        const imgUrl =
-          rawImg.trim() !== ''
-
-            ? rawImg.trim()
-
-            : 'https://res.cloudinary.com/dlnrsadbc/image/upload/q_auto,f_auto,w_400/v1778980849/logo_hugo_alvigini_transparente_jodgue_z1tldp.webp';
-
-
-        /* =================================================
-           BENEFICIOS
-           ================================================= */
-
-        let beneficiosHTML =
-          '';
-
-
-        if (
-          beneficiosCrudos
-        ) {
-
-          const listaBeneficios =
-            String(
-              beneficiosCrudos
-            )
-              .split('\n')
-              .filter(
-                b =>
-                  b.trim() !== ''
-              );
-
-
-          if (
-            listaBeneficios.length >
-            0
-          ) {
-
-            beneficiosHTML =
-              '<ul class="benefits-list">' +
-
-              listaBeneficios
-                .map(
-                  b =>
-                    `<li>${b.trim()}</li>`
-                )
-                .join('') +
-
-              '</ul>';
-
-          }
-
+      let beneficiosHTML = '';
+      if (beneficiosCrudos) {
+        const listaBeneficios = String(beneficiosCrudos).split('\n').filter(b => b.trim() !== '');
+        if (listaBeneficios.length > 0) {
+          beneficiosHTML = '<ul class="benefits-list">' + listaBeneficios.map(b => `<li>${b.trim()}</li>`).join('') + '</ul>';
         }
+      }
 
+      const card = document.createElement('div');
+      card.className = 'course-card';
 
-        /* =================================================
-           TARJETA
-           ================================================= */
+      // Clic general en la tarjeta para seleccionarla por defecto en contado si no hay otra seleccionada
+      card.onclick = (e) => {
+        // Evitamos disparar si hacen clic directo en un botón interno
+        if (e.target.closest('.pay-option-btn')) return;
+        const firstBtn = card.querySelector('.pay-option-btn');
+        if (firstBtn) firstBtn.click();
+      };
 
-        const card =
-          document.createElement(
-            'div'
-          );
+      const contadoVal = formatPrice(
+        course['Precio Total (50% por pago unico)'] || course['Precio Contado'] || course['Precio']
+      );
+      const cuota3Val = formatPrice(
+        course['Opción 3 Cuotas (Mensual)'] || course['Cuota 3']
+      );
+      const cuota6Val = formatPrice(
+        course['Opción 6 Cuotas (Mensual)'] || course['Cuota 6']
+      );
 
+      /* =================================================
+         LINKS (Soporta múltiples nombres de columnas posibles)
+         ================================================= */
+      const linkContado =
+        course['buyUrlContado'] ||
+        course['Link Pago Contado'] ||
+        course['Link de Pago Contado'] ||
+        '';
 
-        card.className =
-          'course-card';
+      const link3 =
+        course['buyUrl3Cuotas'] ||
+        course['Link 3 Cuotas'] ||
+        course['Link de Pago en 3 Cuotas'] ||
+        '';
 
+      const link6 =
+        course['buyUrl6Cuotas'] ||
+        course['Link 6 Cuotas'] ||
+        course['Link de Pago en 6 Cuotas'] ||
+        '';
 
-        card.onclick =
-          () =>
-            selectCourse(
-              index
-            );
+      /* =================================================
+         HTML DE LA TARJETA
+         ================================================= */
+      card.innerHTML = `
+        <span class="selected-badge">
+          ✓ SELECCIONADO
+        </span>
 
+        <div class="card-content-grid">
+          <img
+            src="${imgUrl}"
+            alt="${nombre}"
+            class="card-img"
+            loading="lazy"
+            onerror="this.src='https://res.cloudinary.com/dlnrsadbc/image/upload/q_auto,f_auto,w_400/v1778980849/logo_hugo_alvigini_transparente_jodgue_z1tldp.webp'"
+          >
 
-        /* =================================================
-           PRECIOS
-           ================================================= */
+          <div class="card-info">
+            <h3>
+              ${nombre}
+            </h3>
 
-        const contadoVal =
-          formatPrice(
-            course[
-              'Precio Total (50% por pago unico)'
-            ]
-          );
-
-
-        const cuota3Val =
-          formatPrice(
-            course[
-              'Opción 3 Cuotas (Mensual)'
-            ]
-          );
-
-
-        const cuota6Val =
-          formatPrice(
-            course[
-              'Opción 6 Cuotas (Mensual)'
-            ]
-          );
-
-
-        /* =================================================
-           LINKS
-           ================================================= */
-
-        const linkContado =
-          course[
-            'buyUrlContadobuyUrl3CuotasbuyUrl6Cuotas'
-          ] ||
-
-          course[
-            'buyUrlContado'
-          ] ||
-
-          course[
-            'Link de Pago Contado'
-          ] ||
-
-          '';
-
-
-        const link3 =
-          course[
-            'buyUrl3Cuotas'
-          ] ||
-
-          course[
-            'Link de Pago en 3 Cuotas'
-          ] ||
-
-          '';
-
-
-        const link6 =
-          course[
-            'buyUrl6Cuotas'
-          ] ||
-
-          course[
-            'Link de Pago en 6 Cuotas'
-          ] ||
-
-          '';
-
-
-        /* =================================================
-           HTML DE LA TARJETA
-           ================================================= */
-
-        card.innerHTML = `
-
-          <span class="selected-badge">
-            ✓ SELECCIONADO
-          </span>
-
-
-          <div class="card-content-grid">
-
-            <img
-              src="${imgUrl}"
-              alt="${nombre}"
-              class="card-img"
-              loading="lazy"
-              onerror="this.src='https://res.cloudinary.com/dlnrsadbc/image/upload/q_auto,f_auto,w_400/v1778980849/logo_hugo_alvigini_transparente_jodgue_z1tldp.webp'"
-            >
-
-
-            <div class="card-info">
-
-              <h3>
-                ${nombre}
-              </h3>
-
-
-              ${
-                subtitulo
-
-                  ? `
+            ${
+              subtitulo
+                ? `
                     <div class="course-subtitle">
                       ${subtitulo}
                     </div>
                   `
+                : ''
+            }
 
-                  : ''
-              }
-
-
-              ${
-                incluye
-
-                  ? `
+            ${
+              incluye
+                ? `
                     <div class="desc">
                       <strong>Incluye:</strong>
                       ${incluye}
                     </div>
                   `
-
-                  : ''
-              }
-
-
-              ${beneficiosHTML}
-
-            </div>
-
-          </div>
-
-
-          <div class="payment-options-container">
-
-            <div class="payment-options-title">
-              Elegí tu forma de pago:
-            </div>
-
-
-            <button
-              class="pay-option-btn"
-              data-index="${index}"
-              data-modalidad="Pago Contado (50% OFF)"
-              data-link="${encodeURIComponent(linkContado)}"
-            >
-
-              <span>
-                💥 Pago Contado
-              </span>
-
-              <strong>
-                $${contadoVal}
-              </strong>
-
-            </button>
-
-
-            <button
-              class="pay-option-btn"
-              data-index="${index}"
-              data-modalidad="3 Cuotas"
-              data-link="${encodeURIComponent(link3)}"
-            >
-
-              <span>
-                📅 En 3 Cuotas
-              </span>
-
-              <strong>
-                $${cuota3Val}
-              </strong>
-
-            </button>
-
-
-            <button
-              class="pay-option-btn"
-              data-index="${index}"
-              data-modalidad="6 Cuotas"
-              data-link="${encodeURIComponent(link6)}"
-            >
-
-              <span>
-                📅 En 6 Cuotas
-              </span>
-
-              <strong>
-                $${cuota6Val}
-              </strong>
-
-            </button>
-
-          </div>
-
-        `;
-
-
-        /* =================================================
-           EVENTOS DE BOTONES
-           Evitamos onclick inline para que una URL
-           nunca rompa el HTML.
-           ================================================= */
-
-        card
-          .querySelectorAll(
-            '.pay-option-btn'
-          )
-          .forEach(
-            button => {
-
-              button.addEventListener(
-                'click',
-                function(event) {
-
-                  event.stopPropagation();
-
-
-                  const index =
-                    Number(
-                      this.dataset.index
-                    );
-
-
-                  const modalidad =
-                    this.dataset.modalidad;
-
-
-                  const link =
-                    decodeURIComponent(
-                      this.dataset.link ||
-                      ''
-                    );
-
-
-                  selectModalidad(
-                    index,
-                    modalidad,
-                    link,
-                    event
-                  );
-
-                }
-              );
-
+                : ''
             }
-          );
 
+            ${beneficiosHTML}
+          </div>
+        </div>
 
-        packList.appendChild(
-          card
-        );
+        <div class="payment-options-container">
+          <div class="payment-options-title">
+            Elegí tu forma de pago:
+          </div>
 
-      }
-    );
+          <button
+            class="pay-option-btn"
+            data-index="${index}"
+            data-modalidad="Pago Contado (50% OFF)"
+            data-link="${encodeURIComponent(linkContado)}"
+          >
+            <span>
+              💥 Pago Contado
+            </span>
+            <strong>
+              $${contadoVal}
+            </strong>
+          </button>
 
+          <button
+            class="pay-option-btn"
+            data-index="${index}"
+            data-modalidad="3 Cuotas"
+            data-link="${encodeURIComponent(link3)}"
+          >
+            <span>
+              📅 En 3 Cuotas
+            </span>
+            <strong>
+              $${cuota3Val}
+            </strong>
+          </button>
 
-    /* =====================================================
-       ANIMACIÓN
-       ===================================================== */
+          <button
+            class="pay-option-btn"
+            data-index="${index}"
+            data-modalidad="6 Cuotas"
+            data-link="${encodeURIComponent(link6)}"
+          >
+            <span>
+              📅 En 6 Cuotas
+            </span>
+            <strong>
+              $${cuota6Val}
+            </strong>
+          </button>
+        </div>
+      `;
 
-    container.style.opacity =
-      '0';
+      /* =================================================
+         EVENTOS DE BOTONES
+         ================================================= */
+      card.querySelectorAll('.pay-option-btn').forEach(button => {
+        button.addEventListener('click', function(event) {
+          event.stopPropagation();
+          const idx = Number(this.dataset.index);
+          const modalidad = this.dataset.modalidad;
+          const link = decodeURIComponent(this.dataset.link || '');
+          selectModalidad(idx, modalidad, link, event);
+        });
+      });
 
+      packList.appendChild(card);
+    });
 
-    setTimeout(
-      () => {
-
-        container.style.transition =
-          'opacity 0.25s ease-in-out';
-
-
-        container.style.opacity =
-          '1';
-
-      },
-      50
-    );
-
+    container.style.opacity = '0';
+    setTimeout(() => {
+      container.style.transition = 'opacity 0.25s ease-in-out';
+      container.style.opacity = '1';
+    }, 50);
   }
-
 
   /* =====================================================
      CARGAR DATOS DESDE APPS SCRIPT
      ===================================================== */
-
   function loadCourses() {
-
-    const script =
-      document.createElement(
-        'script'
-      );
-
-
-    script.src =
-      APPSCRIPT_BASE +
-      '?callback=handleCourses';
-
-
-    script.defer =
-      true;
-
-
-    script.onerror =
-      () => {
-
-        console.error(
-          'No se pudo cargar Apps Script.'
-        );
-
-
-        document.getElementById(
-          'courses-container'
-        ).innerHTML =
-
-          `<div class="error-message">
-            No se pudieron cargar los datos.
-            Por favor recargá la página.
-          </div>`;
-
-      };
-
-
-    document.body.appendChild(
-      script
-    );
-
+    const script = document.createElement('script');
+    script.src = APPSCRIPT_BASE + '?callback=handleCourses';
+    script.defer = true;
+    script.onerror = () => {
+      console.error('No se pudo cargar Apps Script.');
+      document.getElementById('courses-container').innerHTML = `
+        <div class="error-message">
+          No se pudieron cargar los datos. Por favor recargá la página.
+        </div>`;
+    };
+    document.body.appendChild(script);
   }
-
 
   /* =====================================================
      INICIAR
      ===================================================== */
-
   loadCourses();
-
-
 </script>
 
 </body>
