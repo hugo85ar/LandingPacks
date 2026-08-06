@@ -654,8 +654,6 @@ fbq('track', 'ViewContent', {
       itemsARenderizar.forEach((course, index) => {
         const nombre   = course['PackProducto / Pack'] || course['Producto / Pack'] || '';
         const contado  = formatPrice(course['Precio Total (50% por pago unico)']);
-        const cuota3   = formatPrice(course['Opción 3 Cuotas (Mensual)']);
-        const cuota6   = formatPrice(course['Opción 6 Cuotas (Mensual)']);
         
         const incluye   = course['Que cursos incluye?'] || '';
         const subtitulo = course['Subtítulo'] || '';
@@ -666,9 +664,22 @@ fbq('track', 'ViewContent', {
                          ? rawImg.trim() 
                          : 'https://res.cloudinary.com/dlnrsadbc/image/upload/q_auto,f_auto,w_400/v1778980849/logo_hugo_alvigini_transparente_jodgue_z1tldp.webp';
         
-        const linkContado = course['Link de Pago Contado'] || '';
-        const link3       = course['Link de Pago en 3 Cuotas'] || '';
-        const link6       = course['Link de Pago en 6 Cuotas'] || '';
+        // Tomamos el link de pago único disponible en la celda
+        const linkUnico = course['Link de Pago Contado'] || course['Link de Pago'] || '';
+
+        // Determinamos el tipo de enlace para personalizar el botón de pago
+        let textoBotonPago = '💳 Comprar Ahora';
+        let tipoModalidad = 'Pago Único';
+        if (linkUnico.includes('wa.me')) {
+          textoBotonPago = '💬 Consultar por WhatsApp';
+          tipoModalidad = 'Consulta WhatsApp';
+        } else if (linkUnico.includes('ko-fi.com')) {
+          textoBotonPago = '☕ Pagar con Ko-fi';
+          tipoModalidad = 'Pago Ko-fi';
+        } else if (linkUnico.includes('lemonsqueezy.com')) {
+          textoBotonPago = '💳 Pagar con Lemon Squeezy';
+          tipoModalidad = 'Pago Lemon Squeezy';
+        }
 
         let beneficiosHTML = '';
         if (beneficiosCrudos) {
@@ -697,21 +708,11 @@ fbq('track', 'ViewContent', {
           </div>
           
           <div class="payment-options-container">
-            <div class="payment-options-title">Elegí tu forma de pago:</div>
+            <div class="payment-options-title">Acceso al Pack:</div>
             
-            <button class="pay-option-btn" onclick="selectModalidad(${index}, 'Pago Contado (50% OFF)', '${linkContado}', event)">
-              <span>💥 Pago Contado</span>
+            <button class="pay-option-btn active" onclick="selectModalidad(${index}, '${tipoModalidad}', '${linkUnico}', event)">
+              <span>${textoBotonPago}</span>
               <strong>$${contado}</strong>
-            </button>
-            
-            <button class="pay-option-btn" onclick="selectModalidad(${index}, '3 Cuotas', '${link3}', event)">
-              <span>📅 En 3 Cuotas</span>
-              <strong>$${cuota3}</strong>
-            </button>
-            
-            <button class="pay-option-btn" onclick="selectModalidad(${index}, '6 Cuotas', '${link6}', event)">
-              <span>📅 En 6 Cuotas</span>
-              <strong>$${cuota6}</strong>
             </button>
           </div>
         `;
