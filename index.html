@@ -574,7 +574,7 @@ fbq('track', 'ViewContent', {
     function updateStickyBar() {
       const label = document.getElementById('selected-label');
       const btnWa  = document.getElementById('btn-whatsapp');
-      const btnLemon = document.getElementById('btn-lemon'); // Usaremos este botón como el botón de acción principal de pago/enlace
+      const btnLemon = document.getElementById('btn-lemon');
 
       if (!selectedCourse || !selectedModalidad) {
         label.innerHTML = selectedCourse 
@@ -593,18 +593,15 @@ fbq('track', 'ViewContent', {
       btnWa.disabled = false;
       btnLemon.disabled = false;
 
-      // Mensaje por defecto para WhatsApp si el link es de WhatsApp
       const msg = encodeURIComponent(
         `Hola Hugo! Me interesa el pack "${selectedCourse}" abonando en modalidad de *${selectedModalidad}*. ¿Cómo seguimos?`
       );
       const defaultWaUrl = `https://wa.me/5491176529179?text=${msg}`;
 
-      // Si el link de la sheet es un mensaje de WhatsApp, usamos ese o el armado. Si es otra plataforma, usamos el link exacto.
       const targetUrl = activePaymentLink && activePaymentLink.trim() !== '' ? activePaymentLink.trim() : defaultWaUrl;
 
-      // Detectamos dinámicamente el tipo de plataforma según la URL para cambiarle el texto al botón
       let buttonText = '💳 Realizar Pago';
-      let buttonBg = 'linear-gradient(135deg, #00E676, #00A859)'; // Verde estilo Lemon/Pago
+      let buttonBg = 'linear-gradient(135deg, #00E676, #00A859)';
 
       if (targetUrl.includes('wa.me')) {
         buttonText = '📲 Consultar por WhatsApp';
@@ -620,7 +617,6 @@ fbq('track', 'ViewContent', {
       btnLemon.innerText = buttonText;
       btnLemon.style.background = buttonBg;
 
-      // Configurar acción del botón de WhatsApp secundario
       btnWa.onclick = () => {
         if (typeof fbq !== 'undefined') {
           fbq('track', 'Lead', { content_name: selectedCourse, content_category: selectedModalidad });
@@ -628,7 +624,6 @@ fbq('track', 'ViewContent', {
         window.open(defaultWaUrl, '_blank');
       };
 
-      // Configurar acción del botón de pago principal inferior
       btnLemon.onclick = () => {
         if (typeof fbq !== 'undefined') {
           fbq('track', 'InitiateCheckout', { content_name: selectedCourse, content_category: selectedModalidad, content_type: 'product' });
@@ -645,10 +640,8 @@ fbq('track', 'ViewContent', {
       }
       renderCourses(courses);
     }
-
-    
-function renderCourses(courses) {
-      coursesDataGlobal = courses;
+  
+    function renderCourses(courses) {
       const packList = document.getElementById('pack-list');
       const container = document.getElementById('courses-container');
 
@@ -657,10 +650,22 @@ function renderCourses(courses) {
         return;
       }
 
+      // 1. Filtrar estrictamente solo los que pertenecen a la categoría "Packs & Programas Integrales" (columna K)
+      const filteredCourses = courses.filter(course => {
+        const categoria = course['categoryImgCategoryPromocional?'] || course['category'] || course['Categoría'] || '';
+        return categoria.trim().toLowerCase() === 'packs & programas integrales'.toLowerCase();
+      });
+
+      if (filteredCourses.length === 0) {
+        container.innerHTML = `<div class="error-message">No hay packs integrales disponibles en este momento.</div>`;
+        return;
+      }
+
+      // Guardamos la data filtrada globalmente para mantener los índices correctos
+      coursesDataGlobal = filteredCourses;
       packList.innerHTML = '';
 
-      // Filtramos o procesamos los elementos asegurando que lea toda la estructura
-      courses.forEach((course, index) => {
+      filteredCourses.forEach((course, index) => {
         const nombre   = course['PackProducto / Pack'] || course['Producto / Pack'] || '';
         const subtitulo = course['Subtítulo'] || '';
         const incluye   = course['Que cursos incluye?'] || '';
@@ -671,7 +676,6 @@ function renderCourses(courses) {
                          ? rawImg.trim() 
                          : 'https://res.cloudinary.com/dlnrsadbc/image/upload/q_auto,f_auto,w_400/v1778980849/logo_hugo_alvigini_transparente_jodgue_z1tldp.webp';
         
-        // Verificamos si es un Pack (Pack 1, Pack 2, Pack 3)
         const esPack = nombre.toLowerCase().includes('pack') || (course['Pack'] && course['Pack'].toString().toLowerCase().includes('pack'));
 
         let beneficiosHTML = '';
@@ -689,15 +693,14 @@ function renderCourses(courses) {
         card.onclick = () => selectCourse(index);
 
         if (esPack) {
-          // --- RENDERIZADO PARA LOS PACKS (1, 2 y 3) con sus 3 opciones de pago ---
           const contadoVal = formatPrice(course['Precio Total (50% por pago unico)']);
           const cuota3Val  = formatPrice(course['Opción 3 Cuotas (Mensual)']);
           const cuota6Val  = formatPrice(course['Opción 6 Cuotas (Mensual)']);
           
-          // URLs exactas de tus columnas
-          const linkContado = course['Link de Pago Contado'] || '';
-          const link3       = course['Link de Pago en 3 Cuotas'] || '';
-          const link6       = course['Link de Pago en 6 Cuotas'] || '';
+          // 2. Extraer limpiamente los enlaces de pago por modalidad correspondientes a cada columna
+          const linkContado = course['buyUrlContadobuyUrl3CuotasbuyUrl6Cuotas'] || course['Link de Pago Contado'] || '';
+          const link3       = course['buyUrl3Cuotas'] || course['Link de Pago en 3 Cuotas'] || '';
+          const link6       = course['buyUrl6Cuotas'] || course['Link de Pago en 6 Cuotas'] || '';
 
           card.innerHTML = `
             <span class="selected-badge">✓ SELECCIONADO</span>
@@ -731,9 +734,8 @@ function renderCourses(courses) {
             </div>
           `;
         } else {
-          // --- RENDERIZADO PARA PRODUCTOS / CURSOS INDIVIDUALES ---
           const precioUnico = formatPrice(course['Precio Total (50% por pago unico)'] || course['Precio'] || '0');
-          const linkUnico   = course['Link de Pago Contado'] || course['Link de Pago'] || '';
+          const linkUnico   = course['buyUrlContado'] || course['Link de Pago Contado'] || course['Link de Pago'] || '';
           
           let textoBtnUnico = '💳 Obtener Acceso';
           if (linkUnico.includes('wa.me')) {
@@ -773,13 +775,12 @@ function renderCourses(courses) {
       }, 50);
     }
   
-  
     function loadCourses() {
       const script = document.createElement('script');
       script.src = APPSCRIPT_BASE + '?callback=handleCourses';
       script.defer = true; 
       script.onerror = () => {
-        document.getElementById('courses-container').innerHTML =
+        document.getElementById('courses-key').innerHTML =
           '<div class="error-message">No se pudieron cargar los datos. Por favor recargá la página.</div>';
       };
       document.body.appendChild(script);
