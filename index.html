@@ -840,7 +840,7 @@
   // CARGAR DATOS DESDE APPS SCRIPT
   // ============================================================
 
-  async function loadCourses() {
+ async function loadCourses() {
     const packList = document.getElementById('pack-list');
     if (!packList) return;
 
@@ -864,7 +864,19 @@
         throw new Error(data.error);
       }
 
-      renderCourses(data);
+      // EXTRACCIÓN ROBUSTA: Adaptamos para leer desde la estructura de categories o array directo
+      let packsArray = [];
+      if (Array.isArray(data)) {
+        packsArray = data;
+      } else if (data.categories && Array.isArray(data.categories)) {
+        // Buscamos dentro de la categoría de packs que genera tu Apps Script
+        const packCategory = data.categories.find(cat => cat.name === "Packs & Programas Integrales");
+        if (packCategory && packCategory.products) {
+          packsArray = packCategory.products;
+        }
+      }
+
+      renderCourses(packsArray);
 
     } catch (err) {
       console.error('Error al cargar datos:', err);
@@ -876,7 +888,6 @@
         </div>`;
     }
   }
-
 
   // ============================================================
   // INICIAR
