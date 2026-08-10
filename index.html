@@ -330,6 +330,51 @@
       box-shadow: 0 0 10px rgba(0, 229, 255, 0.2);
     }
 
+    /* ESTILOS DEL FORMULARIO INTEGRADO */
+    .checkout-form-container {
+      display: none;
+      margin-top: 15px;
+      padding: 20px;
+      background: rgba(7, 7, 20, 0.85);
+      border: 1px solid var(--primary-blue);
+      border-radius: 10px;
+      animation: fadeIn 0.3s ease;
+    }
+
+    .checkout-form-container.active {
+      display: block;
+    }
+
+    .form-group {
+      margin-bottom: 12px;
+      text-align: left;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 0.8rem;
+      color: var(--text-dark);
+      margin-bottom: 4px;
+      font-family: "Montserrat", sans-serif;
+    }
+
+    .form-group input, .form-group select {
+      width: 100%;
+      padding: 10px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 6px;
+      color: #fff;
+      font-size: 0.9rem;
+      box-sizing: border-box;
+    }
+
+    .form-group input:focus, .form-group select:focus {
+      border-color: var(--primary-blue);
+      outline: none;
+      box-shadow: 0 0 8px rgba(0, 229, 255, 0.3);
+    }
+
     .sticky-bar {
       position: fixed;
       bottom: 0;
@@ -527,7 +572,7 @@
         📲 Consultar por WhatsApp
       </button>
       <button class="btn-action btn-lemon" id="btn-lemon" disabled>
-        💳 Solicitar datos de pago
+        💳 Enviar Datos de Inscripción
       </button>
     </div>
   </div>
@@ -544,15 +589,14 @@
 
   let selectedCourse = null;
   let selectedModalidad = null;
-  let activePaymentLink = '';
   let coursesDataGlobal = [];
 
 
   // ============================================================
-  // SELECCIONAR MODALIDAD
+  // SELECCIONAR MODALIDAD Y MOSTRAR FORMULARIO INTERNO
   // ============================================================
 
-  function selectModalidad(index, modalidad, link, event) {
+  function selectModalidad(index, modalidad, event) {
     if (event) {
       event.stopPropagation();
     }
@@ -573,13 +617,16 @@
 
     selectedCourse = nombre;
     selectedModalidad = modalidad;
-    activePaymentLink = link || '';
 
     document
       .querySelectorAll('.course-card')
       .forEach(function(card, idx) {
+        const formContainer = card.querySelector('.checkout-form-container');
+        
         if (idx === index) {
           card.classList.add('selected');
+          if (formContainer) formContainer.classList.add('active');
+
           card
             .querySelectorAll('.pay-option-btn')
             .forEach(function(btn) {
@@ -591,6 +638,7 @@
             });
         } else {
           card.classList.remove('selected');
+          if (formContainer) formContainer.classList.remove('active');
           card
             .querySelectorAll('.pay-option-btn')
             .forEach(function(btn) {
@@ -623,7 +671,6 @@
       btnLemon.disabled = true;
       btnWa.onclick = null;
       btnLemon.onclick = null;
-      btnLemon.innerText = '💳 Pagar / Acceder';
       return;
     }
 
@@ -637,23 +684,6 @@
     );
 
     const defaultWaUrl = `https://wa.me/${WA_NUMBER}?text=${msg}`;
-    const targetUrl = activePaymentLink && activePaymentLink.trim() !== ''
-      ? activePaymentLink.trim()
-      : defaultWaUrl;
-
-    let buttonText = '💳 Realizar Pago';
-    let buttonBg = 'linear-gradient(135deg, #00E676, #00A859)';
-
-    if (targetUrl.includes('wa.me')) {
-      buttonText = '📲 Consultar por WhatsApp';
-      buttonBg = 'linear-gradient(135deg, #25D366, #128C7E)';
-    } else if (targetUrl.includes('lemonsqueezy.com')) {
-      buttonText = '💳 Solicitar datos de pago';
-      buttonBg = 'linear-gradient(135deg, #00E676, #00A859)';
-    }
-
-    btnLemon.innerText = buttonText;
-    btnLemon.style.background = buttonBg;
 
     btnWa.onclick = function() {
       if (typeof fbq !== 'undefined') {
@@ -666,6 +696,25 @@
     };
 
     btnLemon.onclick = function() {
+      // Tomar los datos del formulario abierto de la tarjeta activa
+      const activeCard = document.querySelector('.course-card.selected');
+      if (!activeCard) return;
+
+      const nameInput = activeCard.querySelector('.input-nombre');
+      const emailInput = activeCard.querySelector('.input-email');
+      const countrySelect = activeCard.querySelector('.select-pais');
+
+      const userName = nameInput ? nameInput.value.trim() : '';
+      const userEmail = emailInput ? emailInput.value.trim() : '';
+      const userCountry = countrySelect ? countrySelect.value : '';
+
+      if (!userName || !userEmail) {
+        alert('Por favor, completá tu Nombre y Correo para continuar.');
+        if (nameInput && !userName) nameInput.focus();
+        else if (emailInput && !userEmail) emailInput.focus();
+        return;
+      }
+
       if (typeof fbq !== 'undefined') {
         fbq('track', 'InitiateCheckout', {
           content_name: selectedCourse,
@@ -673,7 +722,13 @@
           content_type: 'product'
         });
       }
-      window.open(targetUrl, '_blank');
+
+      // Generar mensaje con los datos precargados para enviar por WhatsApp o registrar
+      const detailMsg = encodeURIComponent(
+        `Hola Hugo! Ya completé mis datos para registrarme:\n\n📦 Pack: *${selectedCourse}*\n💳 Modalidad: *${selectedModalidad}*\n👤 Nombre: ${userName}\n📧 Email: ${userEmail}\n🌍 País: ${userCountry}\n\n¿Cómo avanzamos con el pago?`
+      );
+
+      window.open(`https://wa.me/${WA_NUMBER}?text=${detailMsg}`, '_blank');
     };
   }
 
@@ -693,7 +748,7 @@
 
 
   // ============================================================
-  // RENDERIZAR PACKS DINÁMICAMENTE (PLANTILLA INTELIGENTE)
+  // RENDERIZAR PACKS DINÁMICAMENTE CON FORMULARIO INTEGRADO
   // ============================================================
 
   function renderCourses(courses) {
@@ -730,15 +785,15 @@
       const imgUrl = course['imageUrl'] || course['Caratula url'] || course['Carátula url'] || 'https://res.cloudinary.com/dlnrsadbc/image/upload/q_auto,f_auto,w_400/v1778980849/logo_hugo_alvigini_transparente_jodgue_z1tldp.webp';
       const offerNote = course['offerNote'] || course['Nota Oferta'] || '50% off pagando al contado';
 
-      const linkContado = course['buyUrlContado'] || course['Link Contado'] || course[headers[5]] || '';
-      const link3 = course['buyUrl3Cuotas'] || course['Link 3 Cuotas'] || course[headers[6]] || '';
-      const link6 = course['buyUrl6Cuotas'] || course['Link 6 Cuotas'] || course[headers[7]] || '';
+      const hasContado = course['buyUrlContado'] || course['Link Contado'] || course[headers[5]] || true;
+      const has3 = course['buyUrl3Cuotas'] || course['Link 3 Cuotas'] || course[headers[6]] || true;
+      const has6 = course['buyUrl6Cuotas'] || course['Link 6 Cuotas'] || course[headers[7]] || true;
 
       const card = document.createElement('div');
       card.className = 'course-card';
 
       card.onclick = function(e) {
-        if (e.target.closest('.pay-option-btn')) return;
+        if (e.target.closest('.pay-option-btn') || e.target.closest('.checkout-form-container')) return;
         const firstBtn = card.querySelector('.pay-option-btn');
         if (firstBtn) firstBtn.click();
       };
@@ -778,37 +833,57 @@
           <div class="payment-options-title">Elegí tu forma de pago:</div>
       `;
 
-      if (linkContado) {
+      if (hasContado) {
         htmlContent += `
-          <button class="pay-option-btn" data-index="${index}" data-modalidad="Pago Contado (50% OFF)" data-link="${encodeURIComponent(linkContado)}">
-            <span>💥 Pago Contado</span><strong>Acceder</strong>
+          <button class="pay-option-btn" data-index="${index}" data-modalidad="Pago Contado (50% OFF)">
+            <span>💥 Pago Contado</span><strong>Seleccionar</strong>
           </button>
         `;
       }
-      if (link3) {
+      if (has3) {
         htmlContent += `
-          <button class="pay-option-btn" data-index="${index}" data-modalidad="3 Cuotas" data-link="${encodeURIComponent(link3)}">
-            <span>📅 En 3 Cuotas</span><strong>Acceder</strong>
+          <button class="pay-option-btn" data-index="${index}" data-modalidad="3 Cuotas">
+            <span>📅 En 3 Cuotas</span><strong>Seleccionar</strong>
           </button>
         `;
       }
-      if (link6) {
+      if (has6) {
         htmlContent += `
-          <button class="pay-option-btn" data-index="${index}" data-modalidad="6 Cuotas" data-link="${encodeURIComponent(link6)}">
-            <span>📅 En 6 Cuotas</span><strong>Acceder</strong>
-          </button>
-        `;
-      }
-
-      if (!linkContado && !link3 && !link6) {
-        htmlContent += `
-          <button class="pay-option-btn" data-index="${index}" data-modalidad="Inscripción General" data-link="">
-            <span>💳 Inscribirme / Consultar</span><strong>Acceder</strong>
+          <button class="pay-option-btn" data-index="${index}" data-modalidad="6 Cuotas">
+            <span>📅 En 6 Cuotas</span><strong>Seleccionar</strong>
           </button>
         `;
       }
 
-      htmlContent += `</div>`;
+      // FORMULARIO INTEGRADO QUE APARECE AL SELECCIONAR LA OPCIÓN
+      htmlContent += `
+          <div class="checkout-form-container">
+            <div class="payment-options-title" style="margin-bottom:12px;">Completá tus datos para continuar:</div>
+            <div class="form-group">
+              <label>Nombre y Apellido</label>
+              type="text" class="input-nombre" placeholder="Tu nombre completo">
+            </div>
+            <div class="form-group">
+              <label>Correo Electrónico (Gmail preferentemente)</label>
+              <input type="email" class="input-email" placeholder="tucorreo@gmail.com">
+            </div>
+            <div class="form-group">
+              <label>País de residencia</label>
+              <select class="select-pais">
+                <option value="Argentina">Argentina</option>
+                <option value="Paraguay">Paraguay</option>
+                <option value="Uruguay">Uruguay</option>
+                <option value="Chile">Chile</option>
+                <option value="México">México</option>
+                <option value="Colombia">Colombia</option>
+                <option value="España">España</option>
+                <option value="Otro">Otro</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      `;
+
       card.innerHTML = htmlContent;
 
       card.querySelectorAll('.pay-option-btn').forEach(function(button) {
@@ -816,14 +891,13 @@
           event.stopPropagation();
           const idx = Number(this.dataset.index);
           const modalidad = this.dataset.modalidad;
-          const link = decodeURIComponent(this.dataset.link || '');
-          selectModalidad(idx, modalidad, link, event);
+          selectModalidad(idx, modalidad, event);
         });
       });
 
       packList.appendChild(card);
     });
-  } // <--- ESTA LLAVE FALTABA Y CAUSABA EL ERROR DE SINTAXIS
+  }
 
 
   // ============================================================
