@@ -724,122 +724,110 @@
     coursesDataGlobal = filteredCourses;
     packList.innerHTML = '';
 
-    filteredCourses.forEach(function(course, index) {
-      // 1. Extracción dinámica de campos (Soporta múltiples variantes en la Sheet)
-      const nombre = course['Nombre'] || course['Titulo'] || course['title'] || course[colB] || 'Pack';
-      const subtitulo = course['detail'] || course['Subtítulo'] || course['Descripcion'] || course['Descripción'] || '';
-      
-      // Plantilla flexible: detecta si el campo de contenido incluye lista, beneficios o texto descriptivo general
-      const incluye = course['Curso Gratuito'] || course['Que cursos incluye?'] || course['Qué cursos incluye?'] || course['Contenido'] || '';
-      
-      const imgUrl = course['imageUrl'] || course['Caratula url'] || course['Carátula url'] || 'https://res.cloudinary.com/dlnrsadbc/image/upload/q_auto,f_auto,w_400/v1778980849/logo_hugo_alvigini_transparente_jodgue_z1tldp.webp';
-      const offerNote = course['offerNote'] || course['Nota Oferta'] || '50% off pagando al contado';
+ filteredCourses.forEach(function(course, index) {
+    const nombre = course['Nombre'] || course['Titulo'] || course['title'] || course[colB] || 'Pack';
+    const subtitulo = course['detail'] || course['Subtítulo'] || course['Descripcion'] || course['Descripción'] || '';
+    const incluye = course['Curso Gratuito'] || course['Que cursos incluye?'] || course['Qué cursos incluye?'] || course['Contenido'] || '';
+    const imgUrl = course['imageUrl'] || course['Caratula url'] || course['Carátula url'] || 'https://res.cloudinary.com/dlnrsadbc/image/upload/q_auto,f_auto,w_400/v1778980849/logo_hugo_alvigini_transparente_jodgue_z1tldp.webp';
+    const offerNote = course['offerNote'] || course['Nota Oferta'] || '50% off pagando al contado';
 
-      // Links de pago dinámicos según columnas o propiedades estructuradas
-      const linkContado = course['buyUrlContado'] || course['Link Contado'] || course[headers[5]] || '';
-      const link3 = course['buyUrl3Cuotas'] || course['Link 3 Cuotas'] || course[headers[6]] || '';
-      const link6 = course['buyUrl6Cuotas'] || course['Link 6 Cuotas'] || course[headers[7]] || '';
+    const linkContado = course['buyUrlContado'] || course['Link Contado'] || course[headers[5]] || '';
+    const link3 = course['buyUrl3Cuotas'] || course['Link 3 Cuotas'] || course[headers[6]] || '';
+    const link6 = course['buyUrl6Cuotas'] || course['Link 6 Cuotas'] || course[headers[7]] || '';
 
-      const card = document.createElement('div');
-      card.className = 'course-card';
+    const card = document.createElement('div');
+    card.className = 'course-card';
 
-      card.onclick = function(e) {
-        if (e.target.closest('.pay-option-btn')) return;
-        const firstBtn = card.querySelector('.pay-option-btn');
-        if (firstBtn) firstBtn.click();
-      };
+    // 1. RESTAURAMOS EL CLIC GLOBAL EN LA TARJETA (Abre las opciones de pago)
+    card.onclick = function(e) {
+      if (e.target.closest('.pay-option-btn')) return;
+      const firstBtn = card.querySelector('.pay-option-btn');
+      if (firstBtn) firstBtn.click();
+    };
 
-      // 2. Construcción modular / adaptativa de la plantilla de tarjeta
-      let htmlContent = `
-        <span class="selected-badge">✓ SELECCIONADO</span>
-        <div class="card-content-grid">
-          <img src="${escapeHtml(imgUrl)}" alt="${escapeHtml(nombre)}" class="card-img" loading="lazy" onerror="this.src='https://res.cloudinary.com/dlnrsadbc/image/upload/q_auto,f_auto,w_400/v1778980849/logo_hugo_alvigini_transparente_jodgue_z1tldp.webp'">
-          <div class="card-info">
-            <h3>${escapeHtml(nombre)}</h3>
-      `;
+    let htmlContent = `
+      <span class="selected-badge">✓ SELECCIONADO</span>
+      <div class="card-content-grid">
+        <img src="${escapeHtml(imgUrl)}" alt="${escapeHtml(nombre)}" class="card-img" loading="lazy" onerror="this.src='https://res.cloudinary.com/dlnrsadbc/image/upload/q_auto,f_auto,w_400/v1778980849/logo_hugo_alvigini_transparente_jodgue_z1tldp.webp'">
+        <div class="card-info">
+          <h3>${escapeHtml(nombre)}</h3>
+    `;
 
-      if (subtitulo) {
-        htmlContent += `<div class="course-subtitle">${escapeHtml(subtitulo)}</div>`;
-      }
+    if (subtitulo) {
+      htmlContent += `<div class="course-subtitle">${escapeHtml(subtitulo)}</div>`;
+    }
 
-      if (incluye) {
-        htmlContent += `
-          <div class="desc">
-            <strong>Incluye / Detalle:</strong> ${escapeHtml(incluye)}
-          </div>
-        `;
-      }
-
-      if (offerNote) {
-        htmlContent += `
-          <div class="offer-note" style="color:#00E676; font-size:0.85rem; margin-top:6px;">
-            ✨ ${escapeHtml(offerNote)}
-          </div>
-        `;
-      }
-
-htmlContent += `
-          </div>
-        </div>
-        <div class="payment-options-container">
-          <div class="payment-options-title">Elegí tu acción:</div>
-      `;
-
-      // 1. Botón de gestión/formulario (siempre visible para configurar)
+    if (incluye) {
       htmlContent += `
-          <button class="pay-option-btn" data-index="${index}" data-modalidad="Gestionar / Cargar Link" data-link="">
-            <span>⚙️ Configurar / Generar Link</span><strong>Abrir Formulario</strong>
-          </button>
+        <div class="desc">
+          <strong>Incluye / Detalle:</strong> ${escapeHtml(incluye)}
+        </div>
       `;
+    }
 
-      // 2. Renderizado de botones de pago existentes (si los hubiera)
-      if (linkContado) {
-        htmlContent += `
-          <button class="pay-option-btn" data-index="${index}" data-modalidad="Pago Contado" data-link="${encodeURIComponent(linkContado)}">
-            <span>💥 Pago Contado</span><strong>Acceder</strong>
-          </button>
-        `;
-      }
-      if (link3) {
-        htmlContent += `
-          <button class="pay-option-btn" data-index="${index}" data-modalidad="3 Cuotas" data-link="${encodeURIComponent(link3)}">
-            <span>📅 En 3 Cuotas</span><strong>Acceder</strong>
-          </button>
-        `;
-      }
-      if (link6) {
-        htmlContent += `
-          <button class="pay-option-btn" data-index="${index}" data-modalidad="6 Cuotas" data-link="${encodeURIComponent(link6)}">
-            <span>📅 En 6 Cuotas</span><strong>Acceder</strong>
-          </button>
-        `;
-      }
+    if (offerNote) {
+      htmlContent += `
+        <div class="offer-note" style="color:#00E676; font-size:0.85rem; margin-top:6px;">
+          ✨ ${escapeHtml(offerNote)}
+        </div>
+      `;
+    }
 
-      htmlContent += `</div>`;
-      card.innerHTML = htmlContent;
+    htmlContent += `
+        </div>
+      </div>
+      <div class="payment-options-container">
+        <div class="payment-options-title">Elegí tu forma de pago:</div>
+    `;
 
-      // Eventos de botones de pago internos
-      card.querySelectorAll('.pay-option-btn').forEach(function(button) {
-        button.addEventListener('click', function(event) {
-          event.stopPropagation();
-          const idx = Number(this.dataset.index);
-          const modalidad = this.dataset.modalidad;
-          
-          // Si es el botón de configuración, manejamos una acción especial
-          if (modalidad === "Gestionar / Cargar Link") {
-             console.log("Acción: Abrir formulario para el pack", idx);
-             // AQUÍ PUEDES LLAMAR A TU FUNCIÓN QUE ABRE EL FORMULARIO
-             // abrirMiFormulario(idx); 
-          } else {
-             const link = decodeURIComponent(this.dataset.link || '');
-             selectModalidad(idx, modalidad, link, event);
-          }
-        });
+    // 2. RENDERIZADO DE OPCIONES DE PAGO DISPONIBLES
+    if (linkContado) {
+      htmlContent += `
+        <button class="pay-option-btn" data-index="${index}" data-modalidad="Pago Contado (50% OFF)" data-link="${encodeURIComponent(linkContado)}">
+          <span>💥 Pago Contado</span><strong>Acceder</strong>
+        </button>
+      `;
+    }
+    if (link3) {
+      htmlContent += `
+        <button class="pay-option-btn" data-index="${index}" data-modalidad="3 Cuotas" data-link="${encodeURIComponent(link3)}">
+          <span>📅 En 3 Cuotas</span><strong>Acceder</strong>
+        </button>
+      `;
+    }
+    if (link6) {
+      htmlContent += `
+        <button class="pay-option-btn" data-index="${index}" data-modalidad="6 Cuotas" data-link="${encodeURIComponent(link6)}">
+          <span>📅 En 6 Cuotas</span><strong>Acceder</strong>
+        </button>
+      `;
+    }
+
+    // 3. OPCIÓN POR DEFECTO SI NO HAY LINKS CARGADOS EN EL SHEET
+    if (!linkContado && !link3 && !link6) {
+      htmlContent += `
+        <button class="pay-option-btn" data-index="${index}" data-modalidad="Inscripción General" data-link="">
+          <span>💳 Inscribirme / Consultar</span><strong>Acceder</strong>
+        </button>
+      `;
+    }
+
+    htmlContent += `</div>`;
+    card.innerHTML = htmlContent;
+
+    // Asignación de eventos a los botones internos de pago
+    card.querySelectorAll('.pay-option-btn').forEach(function(button) {
+      button.addEventListener('click', function(event) {
+        event.stopPropagation();
+        const idx = Number(this.dataset.index);
+        const modalidad = this.dataset.modalidad;
+        const link = decodeURIComponent(this.dataset.link || '');
+        selectModalidad(idx, modalidad, link, event);
       });
-
-      packList.appendChild(card);
     });
-  }
+
+    packList.appendChild(card);
+  });
 
   // ============================================================
   // CARGAR DATOS DESDE APPS SCRIPT
