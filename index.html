@@ -778,17 +778,24 @@
         `;
       }
 
-      htmlContent += `
+htmlContent += `
           </div>
         </div>
         <div class="payment-options-container">
-          <div class="payment-options-title">Elegí tu forma de pago:</div>
+          <div class="payment-options-title">Elegí tu acción:</div>
       `;
 
-      // Renderizado dinámico de botones de pago según existan o no los links en el Sheet
+      // 1. Botón de gestión/formulario (siempre visible para configurar)
+      htmlContent += `
+          <button class="pay-option-btn" data-index="${index}" data-modalidad="Gestionar / Cargar Link" data-link="">
+            <span>⚙️ Configurar / Generar Link</span><strong>Abrir Formulario</strong>
+          </button>
+      `;
+
+      // 2. Renderizado de botones de pago existentes (si los hubiera)
       if (linkContado) {
         htmlContent += `
-          <button class="pay-option-btn" data-index="${index}" data-modalidad="Pago Contado (50% OFF)" data-link="${encodeURIComponent(linkContado)}">
+          <button class="pay-option-btn" data-index="${index}" data-modalidad="Pago Contado" data-link="${encodeURIComponent(linkContado)}">
             <span>💥 Pago Contado</span><strong>Acceder</strong>
           </button>
         `;
@@ -808,33 +815,31 @@
         `;
       }
 
-      // Si no hay ninguno configurado explícitamente, por defecto muestra una opción genérica de consulta o pago estándar
-      if (!linkContado && !link3 && !link6) {
-        htmlContent += `
-          <button class="pay-option-btn" data-index="${index}" data-modalidad="Inscripción General" data-link="">
-            <span>💳 Inscribirme / Consultar</span><strong>Acceder</strong>
-          </button>
-        `;
-      }
-
       htmlContent += `</div>`;
       card.innerHTML = htmlContent;
 
-      // Eventos de botones de pago internos de la tarjeta
+      // Eventos de botones de pago internos
       card.querySelectorAll('.pay-option-btn').forEach(function(button) {
         button.addEventListener('click', function(event) {
           event.stopPropagation();
           const idx = Number(this.dataset.index);
           const modalidad = this.dataset.modalidad;
-          const link = decodeURIComponent(this.dataset.link || '');
-          selectModalidad(idx, modalidad, link, event);
+          
+          // Si es el botón de configuración, manejamos una acción especial
+          if (modalidad === "Gestionar / Cargar Link") {
+             console.log("Acción: Abrir formulario para el pack", idx);
+             // AQUÍ PUEDES LLAMAR A TU FUNCIÓN QUE ABRE EL FORMULARIO
+             // abrirMiFormulario(idx); 
+          } else {
+             const link = decodeURIComponent(this.dataset.link || '');
+             selectModalidad(idx, modalidad, link, event);
+          }
         });
       });
 
       packList.appendChild(card);
     });
   }
-
 
   // ============================================================
   // CARGAR DATOS DESDE APPS SCRIPT
