@@ -330,7 +330,6 @@
       box-shadow: 0 0 10px rgba(0, 229, 255, 0.2);
     }
 
-    /* FORMULARIO INTEGRADO CON BUEN ESPACIADO */
     .checkout-form-container {
       display: none;
       margin-top: 20px;
@@ -696,7 +695,7 @@
       window.open(defaultWaUrl, '_blank');
     };
 
-    btnLemon.onclick = function() {
+    btnLemon.onclick = async function() {
       const activeCard = document.querySelector('.course-card.selected');
       if (!activeCard) return;
 
@@ -715,6 +714,31 @@
         return;
       }
 
+      // Deshabilitar botón temporalmente para evitar doble clic
+      btnLemon.disabled = true;
+      btnLemon.innerText = 'Registrando...';
+
+      try {
+        // Enviar datos al Apps Script para que los guarde en PAGOS_CURSOS
+        await fetch(APPSCRIPT_BASE, {
+          method: 'POST',
+          mode: 'no-cors',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            action: 'registrar_pago',
+            nombre: userName,
+            email: userEmail,
+            pais: userCountry,
+            curso: selectedCourse,
+            plan: selectedModalidad
+          })
+        });
+      } catch (err) {
+        console.error('Error al registrar en hoja:', err);
+      }
+
       if (typeof fbq !== 'undefined') {
         fbq('track', 'InitiateCheckout', {
           content_name: selectedCourse,
@@ -723,26 +747,14 @@
         });
       }
 
-      // Si querés enviar los datos a Apps Script para guardarlos en PAGOS_CURSOS:
-      /*
-      fetch(APPSCRIPT_BASE, {
-        method: 'POST',
-        body: JSON.stringify({
-          action: 'registrar_pago',
-          nombre: userName,
-          email: userEmail,
-          pais: userCountry,
-          curso: selectedCourse,
-          plan: selectedModalidad
-        })
-      });
-      */
-
       const detailMsg = encodeURIComponent(
         `Hola Hugo! Ya completé mis datos para registrarme:\n\n📦 Pack: *${selectedCourse}*\n💳 Modalidad: *${selectedModalidad}*\n👤 Nombre: ${userName}\n📧 Email: ${userEmail}\n🌍 País: ${userCountry}\n\n¿Cómo avanzamos con el pago?`
       );
 
       window.open(`https://wa.me/${WA_NUMBER}?text=${detailMsg}`, '_blank');
+      
+      btnLemon.disabled = false;
+      btnLemon.innerText = '💳 Enviar Datos de Inscripción';
     };
   }
 
@@ -869,7 +881,6 @@
         `;
       }
 
-      // FORMULARIO INTEGRADO CORREGIDO Y CON BUEN ESPACIADO
       htmlContent += `
           <div class="checkout-form-container">
             <div class="payment-options-title" style="margin-bottom:14px; color:#00e5ff;">📝 Completá tus datos para registrar el pago:</div>
