@@ -322,12 +322,36 @@
       border-color: rgba(0, 229, 255, 0.5);
     }
 
-    .pay-option-btn.active {
+    .pay-option-btn.active-option {
       background: rgba(0, 229, 255, 0.15);
       border-color: #00e5ff;
       font-weight: bold;
       color: #00e5ff;
       box-shadow: 0 0 10px rgba(0, 229, 255, 0.2);
+    }
+
+    .price-display-box {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 14px;
+      background: rgba(0, 229, 255, 0.03);
+      padding: 10px 14px;
+      border-radius: 8px;
+      border: 1px dashed rgba(0, 229, 255, 0.3);
+    }
+
+    .price-old {
+      text-decoration: line-through;
+      color: var(--text-dark);
+      font-size: 0.95rem;
+    }
+
+    .price-contado {
+      color: #00E676;
+      font-weight: 700;
+      font-size: 1.1rem;
     }
 
     .checkout-form-container {
@@ -339,10 +363,6 @@
       border-radius: 10px;
       animation: fadeIn 0.3s ease;
       box-shadow: inset 0 0 15px rgba(0, 229, 255, 0.05);
-    }
-
-    .checkout-form-container.active {
-      display: block;
     }
 
     .form-group {
@@ -435,17 +455,6 @@
       gap: 8px;
       text-decoration: none;
       white-space: nowrap;
-    }
-
-    .btn-whatsapp {
-      background: linear-gradient(135deg, #25D366, #128C7E);
-      color: var(--text-light);
-      box-shadow: 0 4px 15px rgba(37,211,102,0.3);
-    }
-
-    .btn-whatsapp:hover:not(:disabled) {
-      transform: translateY(-2px);
-      box-shadow: 0 6px 20px rgba(37,211,102,0.4);
     }
 
     .btn-lemon {
@@ -619,114 +628,70 @@
   let coursesDataGlobal = [];
 
 
-// ============================================================
-// FUNCIÓN PARA SELECCIONAR LA MODALIDAD Y ACTIVAR EL BOTÓN
-// ============================================================
+  // ============================================================
+  // FUNCIÓN PARA SELECCIONAR LA MODALIDAD Y ACTIVAR EL BOTÓN
+  // ============================================================
 
-function selectModalidad(index, modalidad, event) {
-  // 1. Guardar la selección globalmente si lo necesitas para el envío
-  if (typeof selectedPackIndex !== 'undefined') {
-    selectedPackIndex = index;
-  }
-  if (typeof selectedModalidadPago !== 'undefined') {
-    selectedModalidadPago = modalidad;
-  }
+  function selectModalidad(index, nombrePack, modalidad, event) {
+    selectedCourse = nombrePack;
+    selectedModalidad = modalidad;
 
-  // 2. Remover la clase 'selected' de todas las tarjetas y limpiar formularios previos
-  const cards = document.querySelectorAll('.course-card');
-  cards.forEach(function(c, idx) {
-    c.classList.remove('selected');
-    const formContainer = c.querySelector('.checkout-form-container');
-    if (formContainer) {
-      if (idx !== index) {
+    // 1. Remover la clase 'selected' de todas las tarjetas y limpiar formularios previos
+    const cards = document.querySelectorAll('.course-card');
+    cards.forEach(function(c, idx) {
+      c.classList.remove('selected');
+      const formContainer = c.querySelector('.checkout-form-container');
+      if (formContainer && idx !== index) {
         formContainer.style.display = 'none';
       }
-    }
-  });
-
-  // 3. Seleccionar la tarjeta actual y mostrar su formulario de pago
-  const selectedCard = cards[index];
-  if (selectedCard) {
-    selectedCard.classList.add('selected');
-    const currentFormContainer = selectedCard.querySelector('.checkout-form-container');
-    if (currentFormContainer) {
-      currentFormContainer.style.display = 'block';
-    }
-
-    // Marcar visualmente el botón de opción de pago como activo dentro de esta tarjeta
-    selectedCard.querySelectorAll('.pay-option-btn').forEach(function(btn) {
-      if (btn.dataset.modalidad === modalidad) {
-        btn.classList.add('active-option');
-      } else {
-        btn.classList.remove('active-option');
-      }
     });
-  }
 
-  // 4. ACTIVAR EL BOTÓN INFERIOR DE ENVÍO ("Enviar Datos de Inscripción")
-  // Buscamos el botón por su texto o por clases comunes para asegurar que lo encuentre
-  const botonesEnvio = document.querySelectorAll('button, input[type="submit"]');
-  botonesEnvio.forEach(function(btn) {
-    const texto = btn.textContent || btn.innerText || '';
-    if (texto.includes('Enviar Datos de Inscripción') || btn.id.includes('enviar') || btn.classList.contains('btn-enviar')) {
-      btn.disabled = false;
-      btn.style.opacity = '1';
-      btn.style.cursor = 'pointer';
-      btn.classList.add('enabled', 'activo');
+    // 2. Seleccionar la tarjeta actual y mostrar su formulario de pago
+    const selectedCard = cards[index];
+    if (selectedCard) {
+      selectedCard.classList.add('selected');
+      const currentFormContainer = selectedCard.querySelector('.checkout-form-container');
+      if (currentFormContainer) {
+        currentFormContainer.style.display = 'block';
+      }
+
+      // Marcar visualmente el botón de opción de pago como activo dentro de esta tarjeta
+      selectedCard.querySelectorAll('.pay-option-btn').forEach(function(btn) {
+        if (btn.dataset.modalidad === modalidad) {
+          btn.classList.add('active-option');
+        } else {
+          btn.classList.remove('active-option');
+        }
+      });
     }
-  });
 
-  // Opcional: Si tienes un contenedor global de texto guía (ej. "Seleccioná un pack y modalidad de pago")
-  const helperText = document.querySelector('.selection-helper-text, #helper-text');
-  if (helperText) {
-    helperText.style.display = 'none';
+    // 3. Sincronizar y actualizar la barra inferior interactiva
+    updateStickyBar();
   }
-}
 
 
   // ============================================================
-  // BARRA INFERIOR
+  // BARRA INFERIOR Y ENVÍO DE DATOS
   // ============================================================
 
   function updateStickyBar() {
     const label = document.getElementById('selected-label');
-    const btnWa = document.getElementById('btn-whatsapp');
     const btnLemon = document.getElementById('btn-lemon');
 
-    if (!label || !btnWa || !btnLemon) return;
+    if (!label || !btnLemon) return;
 
     if (!selectedCourse || !selectedModalidad) {
       label.innerHTML = selectedCourse
         ? `Pack: <span>${escapeHtml(selectedCourse)}</span> — <span style="color:#00e5ff">Elegí la forma de pago arriba 👇</span>`
         : 'Seleccioná un pack y modalidad de pago';
 
-      btnWa.disabled = true;
       btnLemon.disabled = true;
-      btnWa.onclick = null;
       btnLemon.onclick = null;
       return;
     }
 
     label.innerHTML = `Seleccionado: <span>${escapeHtml(selectedCourse)}</span> (<span>${escapeHtml(selectedModalidad)}</span>)`;
-
-    btnWa.disabled = false;
     btnLemon.disabled = false;
-
-    const msg = encodeURIComponent(
-      `Hola Hugo! Me interesa el pack "${selectedCourse}" abonando en modalidad de *${selectedModalidad}*. ¿Cómo seguimos?`
-    );
-
-    const defaultWaUrl = `https://wa.me/${WA_NUMBER}?text=${msg}`;
-
-    btnWa.onclick = function() {
-      if (typeof fbq !== 'undefined') {
-        fbq('track', 'Lead', {
-          content_name: selectedCourse,
-          content_category: selectedModalidad
-        });
-      }
-      window.open(defaultWaUrl, '_blank');
-    };
 
     btnLemon.onclick = async function() {
       const activeCard = document.querySelector('.course-card.selected');
@@ -813,115 +778,104 @@ function selectModalidad(index, modalidad, event) {
   }
 
 
-// ============================================================
-  // RENDERIZAR PACKS DINÁMICAMENTE CON FORMULARIO INTEGRADO
+  // ============================================================
+  // RENDERIZAR PACKS DINÁMICAMENTE CON PRECIOS Y FORMULARIO
   // ============================================================
 
-  // ============================================================
-// RENDERIZAR PACKS DINÁMICAMENTE CON FORMULARIO INTEGRADO
-// ============================================================
+  function renderCourses(courses) {
+    const packList = document.getElementById('pack-list');
+    if (!packList) return;
 
-function renderCourses(courses) {
-  const packList = document.getElementById('pack-list');
-  if (!packList) return;
-
-  if (!Array.isArray(courses) || courses.length === 0) {
-    packList.innerHTML = `<div class="error-message">No hay Packs disponibles por el momento.</div>`;
-    return;
-  }
-
-  // Opcional: Si quieres filtrar por categoría de forma segura, o mostrar todos si vienen de esta API específica:
-  const filteredCourses = courses; // Mostramos todos los elementos que trae la respuesta
-
-  if (filteredCourses.length === 0) {
-    packList.innerHTML = `<div class="error-message">No se encontraron Packs disponibles.</div>`;
-    return;
-  }
-
-  coursesDataGlobal = filteredCourses;
-  packList.innerHTML = '';
-
-  filteredCourses.forEach(function(course, index) {
-    const headers = Object.keys(course);
-    const colB = headers[1] || '';
-    
-    const nombre = course['Nombre'] || course['Titulo'] || course['title'] || course[colB] || 'Pack';
-    const subtitulo = course['detail'] || course['Subtítulo'] || course['Descripcion'] || course['Descripción'] || '';
-    const incluye = course['Curso Gratuito'] || course['Que cursos incluye?'] || course['Qué cursos incluye?'] || course['Contenido'] || '';
-    const imgUrl = course['imageUrl'] || course['Caratula url'] || course['Carátula url'] || 'https://res.cloudinary.com/dlnrsadbc/image/upload/q_auto,f_auto,w_400/v1778980849/logo_hugo_alvigini_transparente_jodgue_z1tldp.webp';
-    const offerNote = course['offerNote'] || course['Nota Oferta'] || '50% off pagando al contado';
-
-    const hasContado = course['buyUrlContado'] || course['Link Contado'] || true;
-    const has3 = course['buyUrl3Cuotas'] || course['Link 3 Cuotas'] || true;
-    const has6 = course['buyUrl6Cuotas'] || course['Link 6 Cuotas'] || true;
-
-    const card = document.createElement('div');
-    card.className = 'course-card';
-
-    card.onclick = function(e) {
-      if (e.target.closest('.pay-option-btn') || e.target.closest('.checkout-form-container')) return;
-      const firstBtn = card.querySelector('.pay-option-btn');
-      if (firstBtn) firstBtn.click();
-    };
-
-    let htmlContent = `
-      <span class="selected-badge">✓ SELECCIONADO</span>
-      <div class="card-content-grid">
-        <img src="${escapeHtml(imgUrl)}" alt="${escapeHtml(nombre)}" class="card-img" loading="lazy" onerror="this.src='https://res.cloudinary.com/dlnrsadbc/image/upload/q_auto,f_auto,w_400/v1778980849/logo_hugo_alvigini_transparente_jodgue_z1tldp.webp'">
-        <div class="card-info">
-          <h3>${escapeHtml(nombre)}</h3>
-    `;
-
-    if (subtitulo) {
-      htmlContent += `<div class="course-subtitle">${escapeHtml(subtitulo)}</div>`;
+    if (!Array.isArray(courses) || courses.length === 0) {
+      packList.innerHTML = `<div class="error-message">No hay Packs disponibles por el momento.</div>`;
+      return;
     }
 
-    if (incluye) {
+    coursesDataGlobal = courses;
+    packList.innerHTML = '';
+
+    courses.forEach(function(course, index) {
+      const headers = Object.keys(course);
+      const colB = headers[1] || '';
+      
+      const nombre = course['Nombre'] || course['Titulo'] || course['title'] || course[colB] || 'Pack';
+      const subtitulo = course['detail'] || course['Subtítulo'] || course['Descripcion'] || course['Descripción'] || '';
+      const incluye = course['Curso Gratuito'] || course['Que cursos incluye?'] || course['Qué cursos incluye?'] || course['Contenido'] || '';
+      const imgUrl = course['imageUrl'] || course['Caratula url'] || course['Carátula url'] || 'https://res.cloudinary.com/dlnrsadbc/image/upload/q_auto,f_auto,w_400/v1778980849/logo_hugo_alvigini_transparente_jodgue_z1tldp.webp';
+      const offerNote = course['offerNote'] || course['Nota Oferta'] || '50% off pagando al contado';
+
+      // Extracción de Precios (Buscando dinámicamente en las propiedades de la hoja)
+      const precioRegular = course['Precio Regular'] || course['Precio Total'] || course['PrecioLista'] || course['Precio Original'] || '$--';
+      const precioContado = course['Precio Contado'] || course['Precio Contado (50% OFF)'] || course['PrecioOferta'] || '$--';
+      const cuota3Val = course['3 Cuotas'] || course['Precio 3 Cuotas'] || '$--';
+      const cuota6Val = course['6 Cuotas'] || course['Precio 6 Cuotas'] || '$--';
+
+      const card = document.createElement('div');
+      card.className = 'course-card';
+
+      card.onclick = function(e) {
+        if (e.target.closest('.pay-option-btn') || e.target.closest('.checkout-form-container')) return;
+        const firstBtn = card.querySelector('.pay-option-btn');
+        if (firstBtn) firstBtn.click();
+      };
+
+      let htmlContent = `
+        <span class="selected-badge">✓ SELECCIONADO</span>
+        <div class="card-content-grid">
+          <img src="${escapeHtml(imgUrl)}" alt="${escapeHtml(nombre)}" class="card-img" loading="lazy" onerror="this.src='https://res.cloudinary.com/dlnrsadbc/image/upload/q_auto,f_auto,w_400/v1778980849/logo_hugo_alvigini_transparente_jodgue_z1tldp.webp'">
+          <div class="card-info">
+            <h3>${escapeHtml(nombre)}</h3>
+      `;
+
+      if (subtitulo) {
+        htmlContent += `<div class="course-subtitle">${escapeHtml(subtitulo)}</div>`;
+      }
+
+      if (incluye) {
+        htmlContent += `
+          <div class="desc">
+            <strong>Incluye / Detalle:</strong> ${escapeHtml(incluye)}
+          </div>
+        `;
+      }
+
+      // SECCIÓN DE PRECIOS VISIBLES
       htmlContent += `
-        <div class="desc">
-          <strong>Incluye / Detalle:</strong> ${escapeHtml(incluye)}
+        <div class="price-display-box">
+          <span class="price-old">${escapeHtml(precioRegular)}</span>
+          <span class="price-contado">⚡ Contado: ${escapeHtml(precioContado)}</span>
         </div>
       `;
-    }
 
-    if (offerNote) {
+      if (offerNote) {
+        htmlContent += `
+          <div class="offer-note" style="color:#00E676; font-size:0.85rem; margin-top:2px;">
+            ✨ ${escapeHtml(offerNote)}
+          </div>
+        `;
+      }
+
       htmlContent += `
-        <div class="offer-note" style="color:#00E676; font-size:0.85rem; margin-top:6px;">
-          ✨ ${escapeHtml(offerNote)}
+          </div>
         </div>
+        <div class="payment-options-container">
+          <div class="payment-options-title">Elegí tu forma de pago:</div>
       `;
-    }
 
-    htmlContent += `
-        </div>
-      </div>
-      <div class="payment-options-container">
-        <div class="payment-options-title">Elegí tu forma de pago:</div>
-    `;
-
-    if (hasContado) {
+      // BOTONES DE MODALIDAD DE PAGO CON SUS RESPECTIVOS PRECIOS
       htmlContent += `
         <button class="pay-option-btn" data-index="${index}" data-modalidad="Pago Contado (50% OFF)">
-          <span>💥 Pago Contado</span><strong>Seleccionar</strong>
+          <span>💥 Pago Contado</span><strong>${escapeHtml(precioContado)}</strong>
         </button>
-      `;
-    }
-    if (has3) {
-      htmlContent += `
         <button class="pay-option-btn" data-index="${index}" data-modalidad="3 Cuotas">
-          <span>📅 En 3 Cuotas</span><strong>Seleccionar</strong>
+          <span>📅 En 3 Cuotas</span><strong>${escapeHtml(cuota3Val)}</strong>
         </button>
-      `;
-    }
-    if (has6) {
-      htmlContent += `
         <button class="pay-option-btn" data-index="${index}" data-modalidad="6 Cuotas">
-          <span>📅 En 6 Cuotas</span><strong>Seleccionar</strong>
+          <span>📅 En 6 Cuotas</span><strong>${escapeHtml(cuota6Val)}</strong>
         </button>
       `;
-    }
 
-    htmlContent += `
+      htmlContent += `
           <div class="checkout-form-container">
             <div class="payment-options-title" style="margin-bottom:14px; color:#00e5ff;">📝 Completá tus datos para registrar el pago:</div>
             <div class="form-group">
@@ -942,7 +896,7 @@ function renderCourses(courses) {
                 <option value="Colombia">Colombia</option>
                 <option value="Puerto Rico">Puerto Rico</option>
                 <option value="España">España</option>
-                <option value="Argentina">Argentina</option>
+                <option value="Argentina" selected>Argentina</option>
                 <option value="Otro">Otro</option>
               </select>
             </div>
@@ -953,30 +907,32 @@ function renderCourses(courses) {
             </div>
           </div>
         </div>
-    `;
+      `;
 
-    card.innerHTML = htmlContent;
+      card.innerHTML = htmlContent;
 
-    card.querySelectorAll('.pay-option-btn').forEach(function(button) {
-      button.addEventListener('click', function(event) {
-        event.stopPropagation();
-        const idx = Number(this.dataset.index);
-        const modalidad = this.dataset.modalidad;
-        selectModalidad(idx, modalidad, event);
+      card.querySelectorAll('.pay-option-btn').forEach(function(button) {
+        button.addEventListener('click', function(event) {
+          event.stopPropagation();
+          const idx = Number(this.dataset.index);
+          const modalidad = this.dataset.modalidad;
+          selectModalidad(idx, nombre, modalidad, event);
+        });
       });
+
+      packList.appendChild(card);
     });
 
-    packList.appendChild(card);
-  });
-
-  if (filteredCourses.length > 0) {
-    const firstCard = packList.querySelector('.course-card');
-    const firstPayBtn = firstCard ? firstCard.querySelector('.pay-option-btn') : null;
-    if (firstPayBtn) {
-      selectModalidad(0, firstPayBtn.dataset.modalidad, null);
+    // Seleccionar por defecto la primera opción del primer pack al cargar
+    if (courses.length > 0) {
+      const firstCard = packList.querySelector('.course-card');
+      const firstPayBtn = firstCard ? firstCard.querySelector('.pay-option-btn') : null;
+      const firstName = courses[0]['Nombre'] || courses[0]['Titulo'] || 'Pack 1';
+      if (firstPayBtn) {
+        selectModalidad(0, firstName, firstPayBtn.dataset.modalidad, null);
+      }
     }
   }
-}
 
 
   // ============================================================
