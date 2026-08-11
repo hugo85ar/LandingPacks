@@ -112,21 +112,28 @@
     updateStickyBar();
   }
 
-  function updateStickyBar(){
+ function updateStickyBar(){
     const label=document.getElementById('selected-label'); const btn=document.getElementById('btn-lemon');
     if(!selectedCourse||!selectedModalidad){ label.innerHTML='Seleccioná un pack y modalidad de pago'; btn.disabled=true; return; }
     label.innerHTML=`Seleccionado: <span>${esc(selectedCourse)}</span> (<span>${esc(selectedModalidad)}</span>)`; btn.disabled=false;
     btn.onclick=async()=>{
       const active=document.querySelector('.course-card.selected'); if(!active) return;
-      const nameI=active.querySelector('.input-nombre'); const emailI=active.querySelector('.input-email'); const countryS=active.querySelector('.select-pais'); const otroI=active.querySelector('.input-otro-pais');
-      let userName=nameI.value.trim(); let userEmail=emailI.value.trim(); let userCountry=countryS.value; if(userCountry==="Otro" && otroI.value.trim()) userCountry=otroI.value.trim();
-      if(!userName||!userEmail){ alert('Completá Nombre y Correo'); return; }
+      const nameI=active.querySelector('.input-nombre'); 
+      const countryS=active.querySelector('.select-pais'); 
+      const otroI=active.querySelector('.input-otro-pais');
+
+      let userName=nameI.value.trim(); 
+      let userCountry=countryS.value; 
+      if(userCountry==="Otro" && otroI.value.trim()) userCountry=otroI.value.trim();
+      if(!userName){ alert('Decime tu nombre para atenderte mejor'); nameI.focus(); return; }
+      let userEmail = 'no-requerido@whatsapp.com'; // para que tu Apps Script no falle
+            
       btn.disabled=true; btn.innerText='Registrando...';
       try{ await fetch(APPSCRIPT_BASE,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'registrar_pago',nombre:userName,email:userEmail,pais:userCountry,curso:selectedCourse,plan:selectedModalidad})}); }catch(e){}
       if(typeof fbq!=='undefined') fbq('track','InitiateCheckout',{content_name:selectedCourse,content_category:selectedModalidad});
-      const msg=encodeURIComponent(`Hola Hugo! Ya completé mis datos:\n\n📦 Pack: *${selectedCourse}*\n💳 Modalidad: *${selectedModalidad}*\n👤 Nombre: ${userName}\n📧 Email: ${userEmail}\n🌍 País: ${userCountry}\n\n¿Cómo avanzamos?`);
+      const msg=encodeURIComponent(`Hola Hugo! Me interesa este pack:\n\n📦 Pack: *${selectedCourse}*\n💳 Modalidad: *${selectedModalidad}*\n👤 Nombre: ${userName}\n🌍 País: ${userCountry}\n\n¿Cómo avanzamos?`);
       window.open(`https://wa.me/${WA_NUMBER}?text=${msg}`,'_blank');
-      btn.disabled=false; btn.innerText='💳 Enviar Datos de Inscripción';
+      btn.disabled=false; btn.innerText='💬 Consultar por WhatsApp';
     };
   }
 
@@ -223,9 +230,8 @@
           <button class="pay-option-btn" data-index="${index}" data-modalidad="3 Cuotas de ${formatPrice(cuota3)}"><span>📅 En 3 Cuotas</span><strong>${formatPrice(cuota3)} c/u</strong></button>
           <button class="pay-option-btn" data-index="${index}" data-modalidad="6 Cuotas de ${formatPrice(cuota6)}"><span>📅 En 6 Cuotas</span><strong>${formatPrice(cuota6)} c/u</strong></button>
           <div class="checkout-form-container">
-            <div class="payment-options-title">📝 Completá tus datos:</div>
-            <div class="form-group"><label>Nombre y Apellido</label><input type="text" class="input-nombre" placeholder="Tu nombre completo"></div>
-            <div class="form-group"><label>Correo</label><input type="email" class="input-email" placeholder="tucorreo@gmail.com"></div>
+            <div class="payment-options-title">📝 Casi listo:</div>
+            <div class="form-group"><label>Tu Nombre</label><input type="text" class="input-nombre" placeholder="Ej: Alejandro"></div>
             <div class="form-group"><label>País</label><select class="select-pais" onchange="verificarPaisDinamico(this)"><option>Argentina</option><option>Perú</option><option>Colombia</option><option>México</option><option>Chile</option><option>Paraguay</option><option>España</option><option>Otro</option></select></div>
             <div class="form-group grupo-otro-pais" style="display:none;"><label>Indica tu país</label><input type="text" class="input-otro-pais" placeholder="Escribe tu país"></div>
           </div>
