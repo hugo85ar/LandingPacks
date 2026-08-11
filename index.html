@@ -147,8 +147,7 @@
       }catch(e){}
       
       if(typeof fbq!=='undefined') fbq('track','InitiateCheckout',{content_name:selectedCourse,content_category:selectedModalidad});
-      
-      const msg=encodeURIComponent(`Hola Hugo! Me interesa este pack:\n\n📦 Pack: *${selectedCourse}*\n💳 Modalidad: *${selectedModalidad}*\n👤 Nombre: ${userName}\n🌍 País: ${userCountry}\n\n¿Cómo avanzamos?`);
+      const msg=encodeURIComponent(`Hola Hugo! Me interesa este pack:\n\n*Pack:* ${selectedCourse}\n*Modalidad:* ${selectedModalidad}\n*Nombre:* ${userName}\n*Pais:* ${userCountry}\n\nComo avanzamos?`);
       window.open(`https://wa.me/${WA_NUMBER}?text=${msg}`,'_blank');
       
       btn.disabled=false; 
