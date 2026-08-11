@@ -11,88 +11,55 @@
     body { font-family:"Open Sans", sans-serif; margin:0; background:var(--dark-background); color:#fff; line-height:1.6; min-height:100vh; display:flex; flex-direction:column; background-image:radial-gradient(circle at 50% 0%, #131336 0%, var(--dark-background) 70%); }
     h1,h2,h3{ font-family:"Montserrat", sans-serif; }
     header.hero-main{ padding:30px 20px 25px; background:linear-gradient(180deg, rgba(16,16,38,0.95) 0%, rgba(7,7,20,0.8) 100%); text-align:center; border-bottom:1px solid rgba(0,229,255,0.2); }
-    .hero-content-wrapper{ max-width:900px; margin:0 auto; display:flex; flex-direction:column; align-items:center; gap:15px; }
-    .btn-volver{ display:inline-flex; align-items:center; gap:8px; background:rgba(255,255,255,0.05); color:#fff; border:1px solid rgba(0,229,255,0.3); padding:8px 16px; border-radius:8px; font-weight:600; text-decoration:none; }
-    .logo-hero{ width:200px; max-width:70%; }
+   .hero-content-wrapper{ max-width:900px; margin:0 auto; display:flex; flex-direction:column; align-items:center; gap:15px; }
+   .btn-volver{ display:inline-flex; align-items:center; gap:8px; background:rgba(255,255,255,0.05); color:#fff; border:1px solid rgba(0,229,255,0.3); padding:8px 16px; border-radius:8px; font-weight:600; text-decoration:none; }
+   .logo-hero{ width:200px; max-width:70%; }
     #courses-container{ width:100%; padding:30px 20px; max-width:900px; margin:0 auto; flex:1; box-sizing:border-box; }
-    .section-header h2{ font-size:1.15rem; font-weight:700; color:var(--primary-blue); text-transform:uppercase; border-bottom:1px solid rgba(0,229,255,0.2); padding-bottom:8px; margin-bottom:24px; }
-    .course-card{ background:rgba(16,16,38,0.7); border:1px solid rgba(0,229,255,0.2); border-radius:12px; padding:24px; margin-bottom:24px; cursor:pointer; position:relative; }
-    .course-card.selected{ border-color:#00e5ff; box-shadow:0 0 0 2px rgba(0,229,255,0.3); background:rgba(16,30,50,0.9); }
-    .selected-badge{ display:none; position:absolute; top:16px; right:16px; background:#00e5ff; color:#070714; font-size:0.75rem; font-weight:700; padding:4px 12px; border-radius:20px; }
-    .course-card.selected .selected-badge{ display:inline-block; }
-    .card-content-grid{ display:flex; gap:20px; }
-    .card-img{ width:130px; height:130px; object-fit:contain; border-radius:8px; background:#0b0b1e; }
-    .card-info{ flex:1; }
-    .course-card h3{ margin:0 0 6px; font-size:1.2rem; }
-    .course-subtitle{ font-size:0.95rem; color:#00e5ff; font-weight:600; margin-bottom:10px; }
-    .desc{ font-size:0.85rem; color:var(--text-dark); margin-bottom:12px; }
-    .payment-options-container{ display:none; margin-top:24px; padding-top:20px; border-top:1px solid rgba(0,229,255,0.2); }
-    .course-card.selected .payment-options-container{ display:block; }
-    .payment-options-title{ font-size:0.85rem; color:#00e5ff; font-weight:600; margin-bottom:12px; text-transform:uppercase; }
-    .pay-option-btn{ width:100%; background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.12); color:#fff; padding:14px 16px; border-radius:8px; margin-bottom:10px; display:flex; justify-content:space-between; align-items:center; cursor:pointer; }
-    .pay-option-btn.active-option{ background:rgba(0,229,255,0.15); border-color:#00e5ff; color:#00e5ff; font-weight:bold; }
-    .price-display-box{ display:flex; flex-direction:column; gap:6px; margin-bottom:14px; background:rgba(0,229,255,0.05); padding:14px; border-radius:8px; border:1px dashed rgba(0,229,255,0.3); }
-    .price-old{ text-decoration:line-through; color:var(--text-dark); font-size:0.9rem; background:rgba(255,255,255,0.05); padding:2px 8px; border-radius:4px; }
-    .price-contado{ color:#00E676; font-weight:800; font-size:1.15rem; }
-    .price-cuotas{ font-size:0.82rem; color:#a0a0b2; }
-    .price-cuotas strong{ color:#fff; }
-    .checkout-form-container{ display:none; margin-top:20px; padding:20px; background:rgba(7,7,20,0.9); border:1px solid rgba(0,229,255,0.4); border-radius:10px; }
-    .form-group{ margin-bottom:14px; }
-    .form-group label{ display:block; font-size:0.82rem; color:var(--text-dark); margin-bottom:6px; }
-    .form-group input,.form-group select{ width:100%; padding:12px; background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.2); border-radius:6px; color:#fff; box-sizing:border-box; }
-    .sticky-bar{ position:fixed; bottom:0; left:0; width:100%; z-index:100; padding:14px 20px; background:rgba(7,7,20,0.95); border-top:1px solid rgba(0,229,255,0.3); display:flex; justify-content:center; flex-wrap:wrap; box-sizing:border-box; }
-    .selected-label{ font-size:0.85rem; color:var(--text-dark); width:100%; text-align:center; }
-    .selected-label span{ color:#00e5ff; font-weight:600; }
-    .btn-action{ flex:1; min-width:220px; padding:12px 20px; border:none; border-radius:12px; font-family:"Montserrat"; font-weight:700; cursor:pointer; }
-    .btn-lemon{ background:linear-gradient(135deg, #00E676, #00A859); color:#0a1e10; }
+   .section-header h2{ font-size:1.15rem; font-weight:700; color:var(--primary-blue); text-transform:uppercase; border-bottom:1px solid rgba(0,229,255,0.2); padding-bottom:8px; margin-bottom:24px; }
+   .course-card{ background:rgba(16,16,38,0.7); border:1px solid rgba(0,229,255,0.2); border-radius:12px; padding:24px; margin-bottom:24px; cursor:pointer; position:relative; }
+   .course-card.selected{ border-color:#00e5ff; box-shadow:0 0 0 2px rgba(0,229,255,0.3); background:rgba(16,30,50,0.9); }
+   .selected-badge{ display:none; position:absolute; top:16px; right:16px; background:#00e5ff; color:#070714; font-size:0.75rem; font-weight:700; padding:4px 12px; border-radius:20px; }
+   .course-card.selected.selected-badge{ display:inline-block; }
+   .card-content-grid{ display:flex; gap:20px; }
+   .card-img{ width:130px; height:130px; object-fit:contain; border-radius:8px; background:#0b0b1e; }
+   .card-info{ flex:1; }
+   .course-card h3{ margin:0 0 6px; font-size:1.2rem; }
+   .course-subtitle{ font-size:0.95rem; color:#00e5ff; font-weight:600; margin-bottom:10px; }
+   .desc{ font-size:0.85rem; color:var(--text-dark); margin-bottom:12px; }
+   .payment-options-container{ display:none; margin-top:24px; padding-top:20px; border-top:1px solid rgba(0,229,255,0.2); }
+   .course-card.selected.payment-options-container{ display:block; }
+   .payment-options-title{ font-size:0.85rem; color:#00e5ff; font-weight:600; margin-bottom:12px; text-transform:uppercase; }
+   .pay-option-btn{ width:100%; background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.12); color:#fff; padding:14px 16px; border-radius:8px; margin-bottom:10px; display:flex; justify-content:space-between; align-items:center; cursor:pointer; }
+   .pay-option-btn.active-option{ background:rgba(0,229,255,0.15); border-color:#00e5ff; color:#00e5ff; font-weight:bold; }
+   .price-display-box{ display:flex; flex-direction:column; gap:6px; margin-bottom:14px; background:rgba(0,229,255,0.05); padding:14px; border-radius:8px; border:1px dashed rgba(0,229,255,0.3); }
+   .price-old{ text-decoration:line-through; color:var(--text-dark); font-size:0.9rem; background:rgba(255,255,255,0.05); padding:2px 8px; border-radius:4px; }
+   .price-contado{ color:#00E676; font-weight:800; font-size:1.15rem; }
+   .price-cuotas{ font-size:0.82rem; color:#a0a0b2; }
+   .price-cuotas strong{ color:#fff; }
+   .checkout-form-container{ display:none; margin-top:20px; padding:20px; background:rgba(7,7,20,0.9); border:1px solid rgba(0,229,255,0.4); border-radius:10px; }
+   .form-group{ margin-bottom:14px; }
+   .form-group label{ display:block; font-size:0.82rem; color:var(--text-dark); margin-bottom:6px; }
+   .form-group input,.form-group select{ width:100%; padding:12px; background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.2); border-radius:6px; color:#fff; box-sizing:border-box; }
+   .sticky-bar{ position:fixed; bottom:0; left:0; width:100%; z-index:100; padding:14px 20px; background:rgba(7,7,20,0.95); border-top:1px solid rgba(0,229,255,0.3); display:flex; justify-content:center; flex-wrap:wrap; box-sizing:border-box; }
+   .selected-label{ font-size:0.85rem; color:var(--text-dark); width:100%; text-align:center; }
+   .selected-label span{ color:#00e5ff; font-weight:600; }
+   .btn-action{ flex:1; min-width:220px; padding:12px 20px; border:none; border-radius:12px; font-family:"Montserrat"; font-weight:700; cursor:pointer; }
+   .btn-lemon{ background:linear-gradient(135deg, #00E676, #00A859); color:#0a1e10; }
     footer{ padding:30px 0 140px; text-align:center; }
-    .select-pais{ color:#333 !important; background:#fff !important; width:100%; padding:10px; border-radius:4px; }
-    .input-otro-pais{ width:100%; padding:10px; color:#333 !important; background:#fff !important; border-radius:4px; }
+   .select-pais{ color:#333!important; background:#fff!important; width:100%; padding:10px; border-radius:4px; }
+   .input-otro-pais{ width:100%; padding:10px; color:#333!important; background:#fff!important; border-radius:4px; }
   </style>
 </head>
 <body>
-
-
    <!-- META PIXEL -->
   <script>
-  !function(f,b,e,v,n,t,s)
-  {
-    if(f.fbq)return;
-    n=f.fbq=function(){
-      n.callMethod ?
-      n.callMethod.apply(n,arguments) :
-      n.queue.push(arguments)
-    };
-    if(!f._fbq)f._fbq=n;
-    n.push=n;
-    n.loaded=!0;
-    n.version='2.0';
-    n.queue=[];
-    t=b.createElement(e);
-    t.async=!0;
-    t.src=v;
-    s=b.getElementsByTagName(e)[0];
-    s.parentNode.insertBefore(t,s);
-  }(window, document,'script',
-  'https://connect.facebook.net/en_US/fbevents.js');
-
+ !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s);}(window, document,'script','https://connect.facebook.net/en_US/fbevents.js');
   fbq('init', '2189151328193841');
   fbq('track', 'PageView');
-  fbq('track', 'ViewContent', {
-    content_name: 'Landing Packs - Ruta del Emprendedor',
-    content_type: 'product_group'
-  });
+  fbq('track', 'ViewContent', {content_name: 'Landing Packs - Ruta del Emprendedor', content_type: 'product_group'});
   </script>
-  <noscript>
-    <img
-      height="1"
-      width="1"
-      style="display:none"
-      src="https://www.facebook.com/tr?id=2189151328193841&ev=PageView&noscript=1"
-    />
-  </noscript>
+  <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=2189151328193841&ev=PageView&noscript=1"/></noscript>
   <!-- FIN META PIXEL -->
-  
 <header class="hero-main">
   <div class="hero-content-wrapper">
     <a href="https://hugo85ar.github.io/catalogo-promociones/" class="btn-volver">← Volver al Inicio</a>
@@ -115,7 +82,7 @@
     selectedCourse=nombrePack; selectedModalidad=modalidad;
     document.querySelectorAll('.course-card').forEach((c,idx)=>{ c.classList.remove('selected'); const f=c.querySelector('.checkout-form-container'); if(f && idx!==index) f.style.display='none'; });
     const sc=document.querySelectorAll('.course-card')[index];
-    if(sc){ sc.classList.add('selected'); const cf=sc.querySelector('.checkout-form-container'); if(cf) cf.style.display='block'; sc.querySelectorAll('.pay-option-btn').forEach(btn=>{ btn.dataset.modalidad===modalidad ? btn.classList.add('active-option') : btn.classList.remove('active-option'); }); }
+    if(sc){ sc.classList.add('selected'); const cf=sc.querySelector('.checkout-form-container'); if(cf) cf.style.display='block'; sc.querySelectorAll('.pay-option-btn').forEach(btn=>{ btn.dataset.modalidad===modalidad? btn.classList.add('active-option') : btn.classList.remove('active-option'); }); }
     updateStickyBar();
   }
   function updateStickyBar(){
@@ -146,15 +113,21 @@
   function renderCourses(courses){
     const list=document.getElementById('pack-list'); list.innerHTML='';
     courses.forEach((course,index)=>{
-      const nombre=course['Nombre']||course['Pack']||course['Producto / Pack']||'Pack';
-      const subtitulo=course['detail']||course['Subtítulo']||'';
-      const incluye=course['Que cursos incluye?']||course['Qué cursos incluye?']||'';
-      const imgUrl=course['imageUrl']||course['Caratula url']||'https://res.cloudinary.com/dlnrsadbc/image/upload/q_auto,f_auto,w_400/v1778980849/logo_hugo_alvigini_transparente_jodgue_z1tldp.webp';
-      const precioRegular=course['Precio Total (100%)']||course['Precio Total']||'$550';
-      const precio50=course['Precio Total (50% por pago unico)']||course['Precio Contado']||'$275';
-      const cuota3=course['Opción 3 Cuotas (Mensual)']||course['3 Cuotas']||'$145';
-      const cuota6=course['Opción 6 Cuotas (Mensual)']||course['6 Cuotas']||'$73';
-      const offerNote=course['offerNote']||'50% off pagando al contado';
+      // CORRECCION CLAVE: Leemos tus columnas exactas
+      const codigoPack = course['Pack'] || `Pack ${index+1}`; // Pack 1, Pack 2...
+      const nombrePack = course['Producto / Pack'] || ''; // EMPRENDEDOR DIGITAL, etc
+      const incluye = course['Que cursos incluye?'] || course['Qué cursos incluye?'] || '';
+      const imgUrl = course['imageUrl']||course['Caratula url']||'https://res.cloudinary.com/dlnrsadbc/image/upload/q_auto,f_auto,w_400/v1778980849/logo_hugo_alvigini_transparente_jodgue_z1tldp.webp';
+
+      const precioRegular = course['Precio Total (100%)'] || '$550';
+      const precio50 = course['Precio Total (50% por pago unico)'] || '$275';
+      const cuota3 = course['Opción 3 Cuotas (Mensual)'] || '$145';
+      const cuota6 = course['Opción 6 Cuotas (Mensual)'] || '$73';
+      const offerNote = course['offerNote']||'50% off pagando al contado';
+
+      // NOMBRE COMPLETO PARA TITULO Y WHATSAPP
+      const nombre = `${codigoPack} - ${nombrePack}`.trim(); // Ej: "Pack 1 - EMPRENDEDOR DIGITAL"
+
       const card=document.createElement('div'); card.className='course-card';
       card.onclick=(e)=>{ if(e.target.closest('.pay-option-btn')||e.target.closest('.checkout-form-container')) return; const b=card.querySelector('.pay-option-btn'); if(b) b.click(); };
       card.innerHTML=`
@@ -163,8 +136,7 @@
           <img src="${esc(imgUrl)}" class="card-img">
           <div class="card-info">
             <h3>${esc(nombre)}</h3>
-            ${subtitulo?`<div class="course-subtitle">${esc(subtitulo)}</div>`:''}
-            ${incluye?`<div class="desc"><strong>Incluye:</strong> ${esc(incluye)}</div>`:''}
+            <div class="desc"><strong>Incluye:</strong> ${esc(incluye)}</div>
             <div class="price-display-box">
               <div><span class="price-old">Valor real: ${esc(precioRegular)}</span></div>
               <div><span class="price-contado">⚡ HOY 50% OFF Contado: ${formatPrice(precio50)}</span></div>
@@ -189,7 +161,16 @@
       card.querySelectorAll('.pay-option-btn').forEach(b=>{ b.addEventListener('click',function(e){ e.stopPropagation(); selectModalidad(Number(this.dataset.index),nombre,this.dataset.modalidad); }); });
       list.appendChild(card);
     });
-    if(courses.length>0){ const fc=list.querySelector('.course-card'); const fb=fc?fc.querySelector('.pay-option-btn'):null; if(fb){ selectModalidad(0,courses[0]['Nombre']||'Pack 1',fb.dataset.modalidad); } }
+    if(courses.length>0){
+      const fc=list.querySelector('.course-card');
+      const fb=fc?fc.querySelector('.pay-option-btn'):null;
+      if(fb){
+        // Usamos el nombre corregido
+        const firstCourse = courses[0];
+        const firstName = `${firstCourse['Pack']||'Pack 1'} - ${firstCourse['Producto / Pack']||''}`.trim();
+        selectModalidad(0,firstName,fb.dataset.modalidad);
+      }
+    }
   }
   async function loadCourses(){
     const list=document.getElementById('pack-list');
