@@ -51,11 +51,48 @@
   </style>
 </head>
 <body>
-<script>
-// PEGA AQUI TU META PIXEL (copia el que tenes arriba en tu archivo original)
-// !function(f,b,e,v,n,t,s)... etc
-// fbq('init','2189151328193841')...
-</script>
+
+
+   <!-- META PIXEL -->
+  <script>
+  !function(f,b,e,v,n,t,s)
+  {
+    if(f.fbq)return;
+    n=f.fbq=function(){
+      n.callMethod ?
+      n.callMethod.apply(n,arguments) :
+      n.queue.push(arguments)
+    };
+    if(!f._fbq)f._fbq=n;
+    n.push=n;
+    n.loaded=!0;
+    n.version='2.0';
+    n.queue=[];
+    t=b.createElement(e);
+    t.async=!0;
+    t.src=v;
+    s=b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t,s);
+  }(window, document,'script',
+  'https://connect.facebook.net/en_US/fbevents.js');
+
+  fbq('init', '2189151328193841');
+  fbq('track', 'PageView');
+  fbq('track', 'ViewContent', {
+    content_name: 'Landing Packs - Ruta del Emprendedor',
+    content_type: 'product_group'
+  });
+  </script>
+  <noscript>
+    <img
+      height="1"
+      width="1"
+      style="display:none"
+      src="https://www.facebook.com/tr?id=2189151328193841&ev=PageView&noscript=1"
+    />
+  </noscript>
+  <!-- FIN META PIXEL -->
+  
 <header class="hero-main">
   <div class="hero-content-wrapper">
     <a href="https://hugo85ar.github.io/catalogo-promociones/" class="btn-volver">← Volver al Inicio</a>
