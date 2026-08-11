@@ -979,7 +979,7 @@ htmlContent += `
   }
 
 
-  // ============================================================
+ // ============================================================
   // CARGAR DATOS DESDE APPS SCRIPT
   // ============================================================
 
@@ -1040,19 +1040,23 @@ htmlContent += `
   });
 
   // Función para mostrar u ocultar el input de "Otro" en la tarjeta activa
-function verificarPaisDinamico(selectElement) {
-  const formContainer = selectElement.closest('.checkout-form-container');
-  const grupoOtro = formContainer.querySelector('.grupo-otro-pais');
-  const inputOtro = formContainer.querySelector('.input-otro-pais');
+  function verificarPaisDinamico(selectElement) {
+    const formContainer = selectElement.closest('.checkout-form-container');
+    if (!formContainer) return;
+    
+    const grupoOtro = formContainer.querySelector('.grupo-otro-pais');
+    const inputOtro = formContainer.querySelector('.input-otro-pais');
 
-  if (selectElement.value === "Otro") {
-    grupoOtro.style.display = "block";
-    inputOtro.focus();
-  } else {
-    grupoOtro.style.display = "none";
-    inputOtro.value = "";
+    if (!grupoOtro || !inputOtro) return;
+
+    if (selectElement.value === "Otro") {
+      grupoOtro.style.display = "block";
+      inputOtro.focus();
+    } else {
+      grupoOtro.style.display = "none";
+      inputOtro.value = "";
+    }
   }
-}
   
 </script>
 </body>
