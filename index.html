@@ -348,6 +348,7 @@
     .form-group {
       margin-bottom: 14px;
       text-align: left;
+      position: relative;
     }
 
     .form-group label {
@@ -514,45 +515,35 @@
       }
     }
 
-  /* Corrección: Añadido color de texto y aseguramiento de visibilidad */
-.select-pais {
-  appearance: auto;
-  -webkit-appearance: auto;
-  -moz-appearance: auto;
-  display: block;
-  width: 100%;
-  padding: 10px;
-  cursor: pointer;
-  z-index: 1000;
-  
-  /* ESTILOS CLAVE PARA VISIBILIDAD */
-  color: #333333 !important;
-  background-color: #ffffff !important;
-  border: 1px solid #cccccc;
-  border-radius: 4px;
-}
+    .select-pais {
+      appearance: auto;
+      -webkit-appearance: auto;
+      -moz-appearance: auto;
+      display: block;
+      width: 100%;
+      padding: 10px;
+      cursor: pointer;
+      z-index: 1000;
+      color: #333333 !important;
+      background-color: #ffffff !important;
+      border: 1px solid #cccccc;
+      border-radius: 4px;
+    }
 
-/* Forzar que las opciones del desplegable también sean legibles */
-.select-pais option {
-  color: #333333 !important;
-  background-color: #ffffff !important;
-}
+    .select-pais option {
+      color: #333333 !important;
+      background-color: #ffffff !important;
+    }
 
-/* Estilo para el input de "Otro país" si usas clases similares */
-#inputOtroPais {
-  width: 100%;
-  padding: 10px;
-  color: #333333 !important;
-  background-color: #ffffff !important;
-  border: 1px solid #cccccc;
-  border-radius: 4px;
-}
-
-/* Si tenías un contenedor que lo bloqueaba, revisalo también */
-.form-group {
-  position: relative;    /* Importante para que el z-index del select funcione */
-}
-    
+    .input-otro-pais {
+      width: 100%;
+      padding: 10px;
+      color: #333333 !important;
+      background-color: #ffffff !important;
+      border: 1px solid #cccccc;
+      border-radius: 4px;
+      box-sizing: border-box;
+    }
   </style>
 </head>
 
@@ -618,13 +609,12 @@
   </div>
 
 <script>
-
   // ============================================================
   // CONFIGURACIÓN
   // ============================================================
 
   const APPSCRIPT_BASE = 'https://script.google.com/macros/s/AKfycbxTGQQZWDLXcfMtMbOH9c98PfH5cQgu5lIzK6jw9vBP-9NLR_RlmX28fDSpd92UZbZU/exec';
-                           
+                     
   const WA_NUMBER = '5491176529179';
 
   let selectedCourse = null;
@@ -747,7 +737,6 @@
       const userName = nameInput ? nameInput.value.trim() : '';
       const userEmail = emailInput ? emailInput.value.trim() : '';
       
-      // Lógica para definir el país real (si es "Otro", toma lo escrito en el input)
       let userCountry = countrySelect ? countrySelect.value : '';
       if (userCountry === "Otro" && inputOtroPais && inputOtroPais.value.trim() !== "") {
         userCountry = inputOtroPais.value.trim();
@@ -760,7 +749,6 @@
         return;
       }
 
-      // Si eligió "Otro" pero dejó el campo vacío
       if (countrySelect.value === "Otro" && (!inputOtroPais || inputOtroPais.value.trim() === "")) {
         alert('Por favor, especifica cuál es tu país de residencia.');
         inputOtroPais.focus();
@@ -796,7 +784,6 @@
         });
       }
 
-      // Ahora userCountry tendrá el nombre real del país ingresado
       const detailMsg = encodeURIComponent(
         `Hola Hugo! Ya completé mis datos para registrarme:\n\n📦 Pack: *${selectedCourse}*\n💳 Modalidad: *${selectedModalidad}*\n👤 Nombre: ${userName}\n📧 Email: ${userEmail}\n🌍 País: ${userCountry}\n\n¿Cómo avanzamos con el pago?`
       );
@@ -806,6 +793,8 @@
       btnLemon.disabled = false;
       btnLemon.innerText = '💳 Enviar Datos de Inscripción';
     };
+  }
+
 
   // ============================================================
   // ESCAPAR HTML
@@ -929,7 +918,7 @@
         `;
       }
 
-htmlContent += `
+      htmlContent += `
           <div class="checkout-form-container">
             <div class="payment-options-title" style="margin-bottom:14px; color:#00e5ff;">📝 Completá tus datos para registrar el pago:</div>
             <div class="form-group">
@@ -979,7 +968,7 @@ htmlContent += `
   }
 
 
- // ============================================================
+  // ============================================================
   // CARGAR DATOS DESDE APPS SCRIPT
   // ============================================================
 
@@ -1057,7 +1046,6 @@ htmlContent += `
       inputOtro.value = "";
     }
   }
-  
 </script>
 </body>
 </html>
