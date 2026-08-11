@@ -807,7 +807,7 @@
   }
 
 
-  // ============================================================
+// ============================================================
   // RENDERIZAR PACKS DINÁMICAMENTE CON FORMULARIO INTEGRADO
   // ============================================================
 
@@ -962,6 +962,15 @@
 
       packList.appendChild(card);
     });
+
+    // SELECCIONAR AUTOMÁTICAMENTE EL PRIMER PACK Y SU PRIMERA MODALIDAD PARA QUE EL BOTÓN SE ENCIENDA DE ENTRADA
+    if (filteredCourses.length > 0) {
+      const firstCard = packList.querySelector('.course-card');
+      const firstPayBtn = firstCard ? firstCard.querySelector('.pay-option-btn') : null;
+      if (firstPayBtn) {
+        selectModalidad(0, firstPayBtn.dataset.modalidad, null);
+      }
+    }
   }
 
 
