@@ -513,6 +513,25 @@
         padding-bottom: 150px;
       }
     }
+
+  /* Esto restaura la apariencia nativa y asegura que sea clickeable */
+.select-pais {
+  appearance: auto;      /* Restaura la flechita del navegador */
+  -webkit-appearance: auto;
+  -moz-appearance: auto;
+  display: block;        /* Asegura que ocupe su lugar */
+  width: 100%;           /* O el ancho que quieras */
+  padding: 10px;         /* Espaciado interno para que sea fácil de tocar */
+  cursor: pointer;       /* Cambia el cursor al pasar por encima */
+  z-index: 1000;         /* Asegura que esté por encima de otros elementos */
+  background: white;     /* Fondo blanco para que no sea transparente */
+}
+
+/* Si tenías un contenedor que lo bloqueaba, revisalo también */
+.form-group {
+  position: relative;    /* Importante para que el z-index del select funcione */
+}
+    
   </style>
 </head>
 
