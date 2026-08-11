@@ -85,7 +85,7 @@
 <div class="sticky-bar">
   <div class="selected-label" id="selected-label">Seleccioná un pack y modalidad de pago</div>
   <div style="width:100%;max-width:600px;display:flex;justify-content:center;">
-    <button class="btn-action btn-lemon" id="btn-lemon" disabled>💳 Enviar Datos de Inscripción</button>
+    <button class="btn-action btn-lemon" id="btn-lemon" disabled>💬 Hablar con Hugo por WhatsApp</button>
   </div>
 </div>
 <script>
@@ -128,12 +128,31 @@
       if(!userName){ alert('Decime tu nombre para atenderte mejor'); nameI.focus(); return; }
       let userEmail = 'no-requerido@whatsapp.com'; // para que tu Apps Script no falle
             
-      btn.disabled=true; btn.innerText='Registrando...';
-      try{ await fetch(APPSCRIPT_BASE,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'registrar_pago',nombre:userName,email:userEmail,pais:userCountry,curso:selectedCourse,plan:selectedModalidad})}); }catch(e){}
+   btn.disabled=true; 
+      btn.innerText='Abriendo WhatsApp...';
+      try{ 
+        await fetch(APPSCRIPT_BASE,{
+          method:'POST',
+          mode:'no-cors',
+          headers:{'Content-Type':'application/json'},
+          body:JSON.stringify({
+            action:'registrar_pago',
+            nombre:userName,
+            email:userEmail, // dummy: no-requerido@whatsapp.com
+            pais:userCountry,
+            curso:selectedCourse,
+            plan:selectedModalidad
+          })
+        }); 
+      }catch(e){}
+      
       if(typeof fbq!=='undefined') fbq('track','InitiateCheckout',{content_name:selectedCourse,content_category:selectedModalidad});
+      
       const msg=encodeURIComponent(`Hola Hugo! Me interesa este pack:\n\n📦 Pack: *${selectedCourse}*\n💳 Modalidad: *${selectedModalidad}*\n👤 Nombre: ${userName}\n🌍 País: ${userCountry}\n\n¿Cómo avanzamos?`);
       window.open(`https://wa.me/${WA_NUMBER}?text=${msg}`,'_blank');
-      btn.disabled=false; btn.innerText='💬 Consultar por WhatsApp';
+      
+      btn.disabled=false; 
+      btn.innerText=`💬 Consultar ${selectedCourse} por WhatsApp`;
     };
   }
 
