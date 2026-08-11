@@ -619,63 +619,69 @@
   let coursesDataGlobal = [];
 
 
-  // ============================================================
-  // SELECCIONAR MODALIDAD Y MOSTRAR FORMULARIO INTERNO
-  // ============================================================
+// ============================================================
+// FUNCIÓN PARA SELECCIONAR LA MODALIDAD Y ACTIVAR EL BOTÓN
+// ============================================================
 
-  function selectModalidad(index, modalidad, event) {
-    if (event) {
-      event.stopPropagation();
-    }
-
-    const course = coursesDataGlobal[index];
-    if (!course) {
-      console.error('No se encontró el curso seleccionado.');
-      return;
-    }
-
-    const headers = Object.keys(course);
-    const nombre =
-      course['Nombre'] ||
-      course['Titulo'] ||
-      course['title'] ||
-      course[headers[1]] ||
-      'Pack';
-
-    selectedCourse = nombre;
-    selectedModalidad = modalidad;
-
-    document
-      .querySelectorAll('.course-card')
-      .forEach(function(card, idx) {
-        const formContainer = card.querySelector('.checkout-form-container');
-        
-        if (idx === index) {
-          card.classList.add('selected');
-          if (formContainer) formContainer.classList.add('active');
-
-          card
-            .querySelectorAll('.pay-option-btn')
-            .forEach(function(btn) {
-              if (btn.dataset.modalidad === modalidad) {
-                btn.classList.add('active');
-              } else {
-                btn.classList.remove('active');
-              }
-            });
-        } else {
-          card.classList.remove('selected');
-          if (formContainer) formContainer.classList.remove('active');
-          card
-            .querySelectorAll('.pay-option-btn')
-            .forEach(function(btn) {
-              btn.classList.remove('active');
-            });
-        }
-      });
-
-    updateStickyBar();
+function selectModalidad(index, modalidad, event) {
+  // 1. Guardar la selección globalmente si lo necesitas para el envío
+  if (typeof selectedPackIndex !== 'undefined') {
+    selectedPackIndex = index;
   }
+  if (typeof selectedModalidadPago !== 'undefined') {
+    selectedModalidadPago = modalidad;
+  }
+
+  // 2. Remover la clase 'selected' de todas las tarjetas y limpiar formularios previos
+  const cards = document.querySelectorAll('.course-card');
+  cards.forEach(function(c, idx) {
+    c.classList.remove('selected');
+    const formContainer = c.querySelector('.checkout-form-container');
+    if (formContainer) {
+      if (idx !== index) {
+        formContainer.style.display = 'none';
+      }
+    }
+  });
+
+  // 3. Seleccionar la tarjeta actual y mostrar su formulario de pago
+  const selectedCard = cards[index];
+  if (selectedCard) {
+    selectedCard.classList.add('selected');
+    const currentFormContainer = selectedCard.querySelector('.checkout-form-container');
+    if (currentFormContainer) {
+      currentFormContainer.style.display = 'block';
+    }
+
+    // Marcar visualmente el botón de opción de pago como activo dentro de esta tarjeta
+    selectedCard.querySelectorAll('.pay-option-btn').forEach(function(btn) {
+      if (btn.dataset.modalidad === modalidad) {
+        btn.classList.add('active-option');
+      } else {
+        btn.classList.remove('active-option');
+      }
+    });
+  }
+
+  // 4. ACTIVAR EL BOTÓN INFERIOR DE ENVÍO ("Enviar Datos de Inscripción")
+  // Buscamos el botón por su texto o por clases comunes para asegurar que lo encuentre
+  const botonesEnvio = document.querySelectorAll('button, input[type="submit"]');
+  botonesEnvio.forEach(function(btn) {
+    const texto = btn.textContent || btn.innerText || '';
+    if (texto.includes('Enviar Datos de Inscripción') || btn.id.includes('enviar') || btn.classList.contains('btn-enviar')) {
+      btn.disabled = false;
+      btn.style.opacity = '1';
+      btn.style.cursor = 'pointer';
+      btn.classList.add('enabled', 'activo');
+    }
+  });
+
+  // Opcional: Si tienes un contenedor global de texto guía (ej. "Seleccioná un pack y modalidad de pago")
+  const helperText = document.querySelector('.selection-helper-text, #helper-text');
+  if (helperText) {
+    helperText.style.display = 'none';
+  }
+}
 
 
   // ============================================================
