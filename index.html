@@ -10,9 +10,12 @@
     :root { --primary-blue:#00e5ff; --dark-background:#070714; --text-light:#fff; --text-dark:#a0a0b2; }
     body { font-family:"Open Sans", sans-serif; margin:0; background:var(--dark-background); color:#fff; line-height:1.6; min-height:100vh; display:flex; flex-direction:column; background-image:radial-gradient(circle at 50% 0%, #131336 0%, var(--dark-background) 70%); }
     h1,h2,h3{ font-family:"Montserrat", sans-serif; }
-    header.hero-main{ padding:30px 20px 25px; background:linear-gradient(180deg, rgba(16,16,38,0.95) 0%, rgba(7,7,20,0.8) 100%); text-align:center; border-bottom:1px solid rgba(0,229,255,0.2); }
-    .hero-content-wrapper{ max-width:900px; margin:0 auto; display:flex; flex-direction:column; align-items:center; gap:15px; }
-    .btn-volver{ display:inline-flex; align-items:center; gap:8px; background:rgba(255,255,255,0.05); color:#fff; border:1px solid rgba(0,229,255,0.3); padding:8px 16px; border-radius:8px; font-weight:600; text-decoration:none; }
+    header.hero-main{ padding:30px 20px 25px; background:linear-gradient(180deg, rgba(16,16,38,0.95) 0%, rgba(7,7,20,0.8) 100%); border-bottom:1px solid rgba(0,229,255,0.2); }
+    .hero-content-wrapper{ max-width:900px; margin:0 auto; display:flex; flex-direction:column; align-items:center; gap:15px; text-align:center; }
+    
+    /* Botón a la izquierda */
+    .btn-volver{ display:inline-flex; align-items:center; gap:8px; background:rgba(255,255,255,0.05); color:#fff; border:1px solid rgba(0,229,255,0.3); padding:8px 16px; border-radius:8px; font-weight:600; text-decoration:none; align-self:flex-start; }
+    
     .logo-hero{ width:200px; max-width:70%; }
     #courses-container{ width:100%; padding:30px 20px; max-width:900px; margin:0 auto; flex:1; box-sizing:border-box; }
     .section-header h2{ font-size:1.15rem; font-weight:700; color:var(--primary-blue); text-transform:uppercase; border-bottom:1px solid rgba(0,229,255,0.2); padding-bottom:8px; margin-bottom:24px; }
@@ -25,7 +28,6 @@
     .card-info{ flex:1; }
     .course-card h3{ margin:0 0 6px; font-size:1.2rem; }
     .course-subtitle{ font-size:0.95rem; color:#00e5ff; font-weight:600; margin-bottom:10px; }
-    .desc{ font-size:0.85rem; color:var(--text-dark); margin-bottom:12px; }
     .payment-options-container{ display:none; margin-top:24px; padding-top:20px; border-top:1px solid rgba(0,229,255,0.2); }
     .course-card.selected .payment-options-container{ display:block; }
     .payment-options-title{ font-size:0.85rem; color:#00e5ff; font-weight:600; margin-bottom:12px; text-transform:uppercase; }
@@ -51,11 +53,6 @@
   </style>
 </head>
 <body>
-<script>
-// PEGA AQUI TU META PIXEL (copia el que tenes arriba en tu archivo original)
-// !function(f,b,e,v,n,t,s)... etc
-// fbq('init','2189151328193841')...
-</script>
 <header class="hero-main">
   <div class="hero-content-wrapper">
     <a href="https://hugo85ar.github.io/catalogo-promociones/" class="btn-volver">← Volver al Inicio</a>
@@ -69,18 +66,36 @@
   <div id="pack-list"><div style="padding:20px;background:rgba(16,16,38,0.7);border-radius:12px;">Cargando packs...</div></div>
 </main>
 <footer><p>&copy; 2026 Hugo Alvigini.</p></footer>
-<div class="sticky-bar"><div class="selected-label" id="selected-label">Seleccioná un pack y modalidad de pago</div><div style="width:100%;max-width:600px;display:flex;justify-content:center;"><button class="btn-action btn-lemon" id="btn-lemon" disabled>💳 Enviar Datos de Inscripción</button></div></div>
+<div class="sticky-bar">
+  <div class="selected-label" id="selected-label">Seleccioná un pack y modalidad de pago</div>
+  <div style="width:100%;max-width:600px;display:flex;justify-content:center;">
+    <button class="btn-action btn-lemon" id="btn-lemon" disabled>💳 Enviar Datos de Inscripción</button>
+  </div>
+</div>
 <script>
   const APPSCRIPT_BASE = 'https://script.google.com/macros/s/AKfycbxTGQQZWDLXcfMtMbOH9c98PfH5cQgu5lIzK6jw9vBP-9NLR_RlmX28fDSpd92UZbZU/exec';
   const WA_NUMBER = '5491176529179';
   let selectedCourse=null, selectedModalidad=null;
+
   function selectModalidad(index, nombrePack, modalidad){
     selectedCourse=nombrePack; selectedModalidad=modalidad;
-    document.querySelectorAll('.course-card').forEach((c,idx)=>{ c.classList.remove('selected'); const f=c.querySelector('.checkout-form-container'); if(f && idx!==index) f.style.display='none'; });
+    document.querySelectorAll('.course-card').forEach((c,idx)=>{ 
+      c.classList.remove('selected'); 
+      const f=c.querySelector('.checkout-form-container'); 
+      if(f && idx!==index) f.style.display='none'; 
+    });
     const sc=document.querySelectorAll('.course-card')[index];
-    if(sc){ sc.classList.add('selected'); const cf=sc.querySelector('.checkout-form-container'); if(cf) cf.style.display='block'; sc.querySelectorAll('.pay-option-btn').forEach(btn=>{ btn.dataset.modalidad===modalidad ? btn.classList.add('active-option') : btn.classList.remove('active-option'); }); }
+    if(sc){ 
+      sc.classList.add('selected'); 
+      const cf=sc.querySelector('.checkout-form-container'); 
+      if(cf) cf.style.display='block'; 
+      sc.querySelectorAll('.pay-option-btn').forEach(btn=>{ 
+        btn.dataset.modalidad===modalidad ? btn.classList.add('active-option') : btn.classList.remove('active-option'); 
+      }); 
+    }
     updateStickyBar();
   }
+
   function updateStickyBar(){
     const label=document.getElementById('selected-label'); const btn=document.getElementById('btn-lemon');
     if(!selectedCourse||!selectedModalidad){ label.innerHTML='Seleccioná un pack y modalidad de pago'; btn.disabled=true; return; }
@@ -98,51 +113,62 @@
       btn.disabled=false; btn.innerText='💳 Enviar Datos de Inscripción';
     };
   }
+
   function esc(v){ return String(v||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+  
   function formatPrice(val){
-    if(!val) return '$--';
-    let s=String(val).trim();
+    if(val === undefined || val === null || val === '') return '$0';
+    let s = String(val).trim();
     if(s.includes('$')) return s;
-    if(/^\d/.test(s)) return '$'+s+' USD';
-    return s;
+    return '$' + s;
   }
+
+  // Función auxiliar para buscar propiedades de forma inteligente ignorando espacios/mayúsculas exactas
+  function getVal(obj, keys) {
+    for (let k of keys) {
+      for (let prop in obj) {
+        if (prop.toLowerCase().replace(/\s+/g, '').includes(k.toLowerCase().replace(/\s+/g, ''))) {
+          if (obj[prop] !== undefined && obj[prop] !== '') return obj[prop];
+        }
+      }
+    }
+    return '';
+  }
+
   function renderCourses(courses){
     const list=document.getElementById('pack-list'); list.innerHTML='';
     courses.forEach((course,index)=>{
-      // Se amplió la búsqueda de columnas para capturar el título exacto, con fallback al número de pack
-      const nombre = course['Nombre'] || course['Titulo'] || course['Título'] || course['Pack'] || course['Producto / Pack'] || course['title'] || `Pack ${index + 1}`;
+      const nombre = getVal(course, ['Pack', 'Producto', 'Nombre', 'Titulo']) || `Pack ${index + 1}`;
+      const subtitulo = getVal(course, ['Que cursos incluye', 'incluye', 'detail', 'Subtítulo']) || '';
+      const imgUrl = getVal(course, ['imageUrl', 'Caratula', 'Imagen']) || 'https://res.cloudinary.com/dlnrsadbc/image/upload/q_auto,f_auto,w_400/v1778980849/logo_hugo_alvigini_transparente_jodgue_z1tldp.webp';
       
-      const subtitulo=course['detail']||course['Subtítulo']||'';
-      const incluye=course['Que cursos incluye?']||course['Qué cursos incluye?']||'';
-      const imgUrl=course['imageUrl']||course['Caratula url']||'https://res.cloudinary.com/dlnrsadbc/image/upload/q_auto,f_auto,w_400/v1778980849/logo_hugo_alvigini_transparente_jodgue_z1tldp.webp';
-      const precioRegular=course['Precio Total (100%)']||course['Precio Total']||'$550';
-      const precio50=course['Precio Total (50% por pago unico)']||course['Precio Contado']||'$275';
-      const cuota3=course['Opción 3 Cuotas (Mensual)']||course['3 Cuotas']||'$145';
-      const cuota6=course['Opción 6 Cuotas (Mensual)']||course['6 Cuotas']||'$73';
-      const offerNote=course['offerNote']||'50% off pagando al contado';
+      const precioRegular = getVal(course, ['Precio Total (100%)', '100%', 'Regular']) || '550';
+      const precio50 = getVal(course, ['Precio Total (50%', 'pago unico', 'Contado']) || '275';
+      const cuota3 = getVal(course, ['3 Cuotas', 'Opción 3'], ['Cuotas (Mensual)']) || '145';
+      const cuota6 = getVal(course, ['6 Cuotas', 'Opción 6'], ['Cuotas (Mensual)']) || '73';
+
       const card=document.createElement('div'); card.className='course-card';
       card.onclick=(e)=>{ if(e.target.closest('.pay-option-btn')||e.target.closest('.checkout-form-container')) return; const b=card.querySelector('.pay-option-btn'); if(b) b.click(); };
       card.innerHTML=`
         <span class="selected-badge">✓ SELECCIONADO</span>
         <div class="card-content-grid">
-          <img src="${esc(imgUrl)}" class="card-img">
+          <img src="${esc(imgUrl)}" class="card-img" alt="${esc(nombre)}">
           <div class="card-info">
             <h3>${esc(nombre)}</h3>
             ${subtitulo?`<div class="course-subtitle">${esc(subtitulo)}</div>`:''}
-            ${incluye?`<div class="desc"><strong>Incluye:</strong> ${esc(incluye)}</div>`:''}
             <div class="price-display-box">
-              <div><span class="price-old">Valor real: ${esc(precioRegular)}</span></div>
+              <div><span class="price-old">Valor real: ${formatPrice(precioRegular)}</span></div>
               <div><span class="price-contado">⚡ HOY 50% OFF Contado: ${formatPrice(precio50)}</span></div>
               <div class="price-cuotas">O en cuotas: <strong>3x ${formatPrice(cuota3)}</strong> | <strong>6x ${formatPrice(cuota6)}</strong> <span style="color:#00E676;">(aún con 20% OFF sobre valor real)</span></div>
             </div>
-            <div style="color:#00E676;font-size:0.82rem;">✨ ${esc(offerNote)}</div>
+            <div style="color:#00E676;font-size:0.82rem;">✨ 50% off pagando al contado</div>
           </div>
         </div>
         <div class="payment-options-container">
           <div class="payment-options-title">Elegí tu forma de pago:</div>
-          <button class="pay-option-btn" data-index="${index}" data-modalidad="Pago Contado (50% OFF) - ${precio50}"><span>💥 Pago Contado - 50% OFF</span><strong>${formatPrice(precio50)}</strong></button>
-          <button class="pay-option-btn" data-index="${index}" data-modalidad="3 Cuotas de ${cuota3}"><span>📅 En 3 Cuotas</span><strong>${formatPrice(cuota3)} c/u</strong></button>
-          <button class="pay-option-btn" data-index="${index}" data-modalidad="6 Cuotas de ${cuota6}"><span>📅 En 6 Cuotas</span><strong>${formatPrice(cuota6)} c/u</strong></button>
+          <button class="pay-option-btn" data-index="${index}" data-modalidad="Pago Contado (50% OFF) - ${formatPrice(precio50)}"><span>💥 Pago Contado - 50% OFF</span><strong>${formatPrice(precio50)}</strong></button>
+          <button class="pay-option-btn" data-index="${index}" data-modalidad="3 Cuotas de ${formatPrice(cuota3)}"><span>📅 En 3 Cuotas</span><strong>${formatPrice(cuota3)} c/u</strong></button>
+          <button class="pay-option-btn" data-index="${index}" data-modalidad="6 Cuotas de ${formatPrice(cuota6)}"><span>📅 En 6 Cuotas</span><strong>${formatPrice(cuota6)} c/u</strong></button>
           <div class="checkout-form-container">
             <div class="payment-options-title">📝 Completá tus datos:</div>
             <div class="form-group"><label>Nombre y Apellido</label><input type="text" class="input-nombre" placeholder="Tu nombre completo"></div>
@@ -157,10 +183,11 @@
     if(courses.length>0){ 
       const fc=list.querySelector('.course-card'); 
       const fb=fc?fc.querySelector('.pay-option-btn'):null; 
-      const primerNombre = courses[0]['Nombre'] || courses[0]['Titulo'] || courses[0]['Título'] || courses[0]['Pack'] || 'Pack 1';
+      const primerNombre = getVal(courses[0], ['Pack', 'Producto', 'Nombre']) || 'Pack 1';
       if(fb){ selectModalidad(0, primerNombre, fb.dataset.modalidad); } 
     }
   }
+
   async function loadCourses(){
     const list=document.getElementById('pack-list');
     try{
