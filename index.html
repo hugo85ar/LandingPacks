@@ -742,10 +742,16 @@
       const nameInput = activeCard.querySelector('.input-nombre');
       const emailInput = activeCard.querySelector('.input-email');
       const countrySelect = activeCard.querySelector('.select-pais');
+      const inputOtroPais = activeCard.querySelector('.input-otro-pais');
 
       const userName = nameInput ? nameInput.value.trim() : '';
       const userEmail = emailInput ? emailInput.value.trim() : '';
-      const userCountry = countrySelect ? countrySelect.value : '';
+      
+      // Lógica para definir el país real (si es "Otro", toma lo escrito en el input)
+      let userCountry = countrySelect ? countrySelect.value : '';
+      if (userCountry === "Otro" && inputOtroPais && inputOtroPais.value.trim() !== "") {
+        userCountry = inputOtroPais.value.trim();
+      }
 
       if (!userName || !userEmail) {
         alert('Por favor, completá tu Nombre y Correo para continuar.');
@@ -754,18 +760,21 @@
         return;
       }
 
-      // Deshabilitar botón temporalmente para evitar doble clic
+      // Si eligió "Otro" pero dejó el campo vacío
+      if (countrySelect.value === "Otro" && (!inputOtroPais || inputOtroPais.value.trim() === "")) {
+        alert('Por favor, especifica cuál es tu país de residencia.');
+        inputOtroPais.focus();
+        return;
+      }
+
       btnLemon.disabled = true;
       btnLemon.innerText = 'Registrando...';
 
       try {
-        // Enviar datos al Apps Script para que los guarde en PAGOS_CURSOS
         await fetch(APPSCRIPT_BASE, {
           method: 'POST',
           mode: 'no-cors',
-          headers: {
-            'Content-Type': 'application/json'
-          },
+          headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
             action: 'registrar_pago',
             nombre: userName,
@@ -787,6 +796,7 @@
         });
       }
 
+      // Ahora userCountry tendrá el nombre real del país ingresado
       const detailMsg = encodeURIComponent(
         `Hola Hugo! Ya completé mis datos para registrarme:\n\n📦 Pack: *${selectedCourse}*\n💳 Modalidad: *${selectedModalidad}*\n👤 Nombre: ${userName}\n📧 Email: ${userEmail}\n🌍 País: ${userCountry}\n\n¿Cómo avanzamos con el pago?`
       );
@@ -796,8 +806,6 @@
       btnLemon.disabled = false;
       btnLemon.innerText = '💳 Enviar Datos de Inscripción';
     };
-  }
-
 
   // ============================================================
   // ESCAPAR HTML
@@ -921,7 +929,7 @@
         `;
       }
 
-      htmlContent += `
+htmlContent += `
           <div class="checkout-form-container">
             <div class="payment-options-title" style="margin-bottom:14px; color:#00e5ff;">📝 Completá tus datos para registrar el pago:</div>
             <div class="form-group">
@@ -932,26 +940,25 @@
               <label>Correo Electrónico (Gmail preferentemente)</label>
               <input type="email" class="input-email" placeholder="tucorreo@gmail.com">
             </div>
-   <div class="form-group">
-  <label>País de residencia</label>
-  <select class="select-pais" id="selectPais" onchange="verificarPais(this)">
-    <option value="Paraguay">Paraguay</option>
-    <option value="Uruguay">Uruguay</option>
-    <option value="Chile">Chile</option>
-    <option value="México">México</option>
-    <option value="Colombia">Colombia</option>
-    <option value="Puerto Rico">Puerto Rico</option>
-    <option value="España">España</option>
-    <option value="Argentina">Argentina</option>
-    <option value="Otro">Otro</option>
-  </select>
-</div>
-
-<!-- Campo extra que aparecerá solo si eligen "Otro" -->
-<div class="form-group" id="grupoOtroPais" style="display: none; margin-top: 10px;">
-  <label>Indica tu país</label>
-  <input type="text" id="inputOtroPais" class="form-control" placeholder="Escribe tu país aquí">
-</div>
+            <div class="form-group">
+              <label>País de residencia</label>
+              <select class="select-pais" onchange="verificarPaisDinamico(this)">
+                <option value="Paraguay">Paraguay</option>
+                <option value="Uruguay">Uruguay</option>
+                <option value="Chile">Chile</option>
+                <option value="México">México</option>
+                <option value="Colombia">Colombia</option>
+                <option value="Puerto Rico">Puerto Rico</option>
+                <option value="España">España</option>
+                <option value="Argentina">Argentina</option>
+                <option value="Otro">Otro</option>
+              </select>
+            </div>
+            <!-- Campo condicional para cada tarjeta -->
+            <div class="form-group grupo-otro-pais" style="display: none; margin-top: 10px;">
+              <label>Indica tu país</label>
+              <input type="text" class="input-otro-pais" placeholder="Escribe tu país aquí">
+            </div>
           </div>
         </div>
       `;
@@ -1032,16 +1039,18 @@
     loadCourses();
   });
 
-  function verificarPais(select) {
-  const grupoOtro = document.getElementById('grupoOtroPais');
-  const inputOtro = document.getElementById('inputOtroPais');
-  
-  if (select.value === "Otro") {
+  // Función para mostrar u ocultar el input de "Otro" en la tarjeta activa
+function verificarPaisDinamico(selectElement) {
+  const formContainer = selectElement.closest('.checkout-form-container');
+  const grupoOtro = formContainer.querySelector('.grupo-otro-pais');
+  const inputOtro = formContainer.querySelector('.input-otro-pais');
+
+  if (selectElement.value === "Otro") {
     grupoOtro.style.display = "block";
     inputOtro.focus();
   } else {
     grupoOtro.style.display = "none";
-    inputOtro.value = ""; // Limpiar si cambia de opinión
+    inputOtro.value = "";
   }
 }
   
