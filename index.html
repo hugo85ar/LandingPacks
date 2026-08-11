@@ -51,11 +51,23 @@
   </style>
 </head>
 <body>
+  
 <script>
-// PEGA AQUI TU META PIXEL (copia el que tenes arriba en tu archivo original)
-// !function(f,b,e,v,n,t,s)... etc
-// fbq('init','2189151328193841')...
+  !function(f,b,e,v,n,t,s)
+  {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+  n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+  if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+  n.queue=[];t=b.createElement(e);t.async=!0;
+  t.src=v;s=b.getElementsByTagName(e)[0];
+  s.parentNode.insertBefore(t,s)}(window, document,'script',
+  'https://connect.facebook.net/en_US/fbevents.js');
+  fbq('init', '2189151328193841');
+  fbq('track', 'PageView');
 </script>
+  
+<noscript><img height="1" width="1" style="display:none"
+  src="https://www.facebook.com/tr?id=2189151328193841&ev=PageView&noscript=1"
+/></noscript>
 <header class="hero-main">
   <div class="hero-content-wrapper">
     <a href="https://hugo85ar.github.io/catalogo-promociones/" class="btn-volver">← Volver al Inicio</a>
@@ -100,7 +112,7 @@
   }
   function esc(v){ return String(v||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
   function formatPrice(val){
-    if(!val) return '$--';
+    if(!val && val!==0) return '$--';
     let s=String(val).trim();
     if(s.includes('$')) return s;
     if(/^\d/.test(s)) return '$'+s+' USD';
@@ -109,17 +121,19 @@
   function renderCourses(courses){
     const list=document.getElementById('pack-list'); list.innerHTML='';
     courses.forEach((course,index)=>{
-      // Se amplió la búsqueda de columnas para capturar el título exacto, con fallback al número de pack
-      const nombre = course['Nombre'] || course['Titulo'] || course['Título'] || course['Pack'] || course['Producto / Pack'] || course['title'] || `Pack ${index + 1}`;
+      // Lee dinámicamente el nombre o usa Pack N como comodín
+      const nombre = course['Pack'] || course['Nombre'] || course['Titulo'] || course['Título'] || course['Producto / Pack'] || `Pack ${index + 1}`;
       
-      const subtitulo=course['detail']||course['Subtítulo']||'';
-      const incluye=course['Que cursos incluye?']||course['Qué cursos incluye?']||'';
-      const imgUrl=course['imageUrl']||course['Caratula url']||'https://res.cloudinary.com/dlnrsadbc/image/upload/q_auto,f_auto,w_400/v1778980849/logo_hugo_alvigini_transparente_jodgue_z1tldp.webp';
-      const precioRegular=course['Precio Total (100%)']||course['Precio Total']||'$550';
-      const precio50=course['Precio Total (50% por pago unico)']||course['Precio Contado']||'$275';
-      const cuota3=course['Opción 3 Cuotas (Mensual)']||course['3 Cuotas']||'$145';
-      const cuota6=course['Opción 6 Cuotas (Mensual)']||course['6 Cuotas']||'$73';
-      const offerNote=course['offerNote']||'50% off pagando al contado';
+      const subtitulo = course['Que cursos includes?'] || course['Que cursos incluye?'] || course['Qué cursos incluye?'] || course['detail'] || course['Subtítulo'] || '';
+      const imgUrl = course['imageUrl'] || course['Caratula url'] || 'https://res.cloudinary.com/dlnrsadbc/image/upload/q_auto,f_auto,w_400/v1778980849/logo_hugo_alvigini_transparente_jodgue_z1tldp.webp';
+      
+      // Captura correcta de los precios de Google Sheets según las columnas mostradas
+      const precioRegular = course['Precio Total (100%)'] || '$550';
+      const precio50 = course['Precio Total (50% por pago unico)'] || course['Precio Contado'] || '$275';
+      const cuota3 = course['Opción 3 Cuotas (Mensual)'] || course['3 Cuotas'] || '$145';
+      const cuota6 = course['Opción 6 Cuotas (Mensual)'] || course['6 Cuotas'] || '$73';
+      const offerNote = course['offerNote'] || '50% off pagando al contado';
+
       const card=document.createElement('div'); card.className='course-card';
       card.onclick=(e)=>{ if(e.target.closest('.pay-option-btn')||e.target.closest('.checkout-form-container')) return; const b=card.querySelector('.pay-option-btn'); if(b) b.click(); };
       card.innerHTML=`
@@ -129,9 +143,8 @@
           <div class="card-info">
             <h3>${esc(nombre)}</h3>
             ${subtitulo?`<div class="course-subtitle">${esc(subtitulo)}</div>`:''}
-            ${incluye?`<div class="desc"><strong>Incluye:</strong> ${esc(incluye)}</div>`:''}
             <div class="price-display-box">
-              <div><span class="price-old">Valor real: ${esc(precioRegular)}</span></div>
+              <div><span class="price-old">Valor real: ${formatPrice(precioRegular)}</span></div>
               <div><span class="price-contado">⚡ HOY 50% OFF Contado: ${formatPrice(precio50)}</span></div>
               <div class="price-cuotas">O en cuotas: <strong>3x ${formatPrice(cuota3)}</strong> | <strong>6x ${formatPrice(cuota6)}</strong> <span style="color:#00E676;">(aún con 20% OFF sobre valor real)</span></div>
             </div>
@@ -140,9 +153,9 @@
         </div>
         <div class="payment-options-container">
           <div class="payment-options-title">Elegí tu forma de pago:</div>
-          <button class="pay-option-btn" data-index="${index}" data-modalidad="Pago Contado (50% OFF) - ${precio50}"><span>💥 Pago Contado - 50% OFF</span><strong>${formatPrice(precio50)}</strong></button>
-          <button class="pay-option-btn" data-index="${index}" data-modalidad="3 Cuotas de ${cuota3}"><span>📅 En 3 Cuotas</span><strong>${formatPrice(cuota3)} c/u</strong></button>
-          <button class="pay-option-btn" data-index="${index}" data-modalidad="6 Cuotas de ${cuota6}"><span>📅 En 6 Cuotas</span><strong>${formatPrice(cuota6)} c/u</strong></button>
+          <button class="pay-option-btn" data-index="${index}" data-modalidad="Pago Contado (50% OFF) - ${formatPrice(precio50)}"><span>💥 Pago Contado - 50% OFF</span><strong>${formatPrice(precio50)}</strong></button>
+          <button class="pay-option-btn" data-index="${index}" data-modalidad="3 Cuotas de ${formatPrice(cuota3)}"><span>📅 En 3 Cuotas</span><strong>${formatPrice(cuota3)} c/u</strong></button>
+          <button class="pay-option-btn" data-index="${index}" data-modalidad="6 Cuotas de ${formatPrice(cuota6)}"><span>📅 En 6 Cuotas</span><strong>${formatPrice(cuota6)} c/u</strong></button>
           <div class="checkout-form-container">
             <div class="payment-options-title">📝 Completá tus datos:</div>
             <div class="form-group"><label>Nombre y Apellido</label><input type="text" class="input-nombre" placeholder="Tu nombre completo"></div>
@@ -157,7 +170,7 @@
     if(courses.length>0){ 
       const fc=list.querySelector('.course-card'); 
       const fb=fc?fc.querySelector('.pay-option-btn'):null; 
-      const primerNombre = courses[0]['Nombre'] || courses[0]['Titulo'] || courses[0]['Título'] || courses[0]['Pack'] || 'Pack 1';
+      const primerNombre = courses[0]['Pack'] || courses[0]['Nombre'] || 'Pack 1';
       if(fb){ selectModalidad(0, primerNombre, fb.dataset.modalidad); } 
     }
   }
@@ -170,7 +183,7 @@
     }catch(e){ list.innerHTML='Error: '+e.message; }
   }
   document.addEventListener('DOMContentLoaded',loadCourses);
-  function verificarPaisDinamico(sel){ const c=sel.closest('.checkout-form-container'); const g=c.querySelector('.grupo-otro-pais'); const i=c.querySelector('.input-otro-pais'); if(sel.value==="Otro"){ g.style.display="block"; i.focus(); } else { g.style.display="none"; i.value=""; } }
+  function verificarPaisDinamico(sel){ const c=sel.closest('.checkout-file-container') || sel.closest('.checkout-form-container'); const g=c.querySelector('.grupo-otro-pais'); const i=c.querySelector('.input-otro-pais'); if(sel.value==="Otro"){ g.style.display="block"; i.focus(); } else { g.style.display="none"; i.value=""; } }
 </script>
 </body>
 </html>
