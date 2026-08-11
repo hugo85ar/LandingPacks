@@ -1,8 +1,7 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Hugo Alvigini — Packs & Programas Integrales</title>
   <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
@@ -11,113 +10,80 @@
     body { font-family:"Open Sans", sans-serif; margin:0; background:var(--dark-background); color:#fff; line-height:1.6; min-height:100vh; display:flex; flex-direction:column; background-image:radial-gradient(circle at 50% 0%, #131336 0%, var(--dark-background) 70%); }
     h1,h2,h3{ font-family:"Montserrat", sans-serif; }
     header.hero-main{ padding:30px 20px 25px; background:linear-gradient(180deg, rgba(16,16,38,0.95) 0%, rgba(7,7,20,0.8) 100%); text-align:center; border-bottom:1px solid rgba(0,229,255,0.2); }
-    .hero-content-wrapper{ max-width:900px; margin:0 auto; display:flex; flex-direction:column; align-items:center; gap:15px; }
-    .btn-volver{ display:inline-flex; align-items:center; gap:8px; background:rgba(255,255,255,0.05); color:#fff; border:1px solid rgba(0,229,255,0.3); padding:8px 16px; border-radius:8px; font-weight:600; text-decoration:none; }
-    .logo-hero{ width:200px; max-width:70%; }
+   .hero-content-wrapper{ max-width:900px; margin:0 auto; display:flex; flex-direction:column; align-items:center; gap:15px; }
+   .btn-volver{ display:inline-flex; align-items:center; gap:8px; background:rgba(255,255,255,0.05); color:#fff; border:1px solid rgba(0,229,255,0.3); padding:8px 16px; border-radius:8px; font-weight:600; text-decoration:none; }
+   .logo-hero{ width:200px; max-width:70%; }
     #courses-container{ width:100%; padding:30px 20px; max-width:900px; margin:0 auto; flex:1; box-sizing:border-box; }
-    .section-header h2{ font-size:1.15rem; font-weight:700; color:var(--primary-blue); text-transform:uppercase; border-bottom:1px solid rgba(0,229,255,0.2); padding-bottom:8px; margin-bottom:24px; }
-    .course-card{ background:rgba(16,16,38,0.7); border:1px solid rgba(0,229,255,0.2); border-radius:12px; padding:24px; margin-bottom:24px; cursor:pointer; position:relative; }
-    .course-card.selected{ border-color:#00e5ff; box-shadow:0 0 0 2px rgba(0,229,255,0.3); background:rgba(16,30,50,0.9); }
-    .selected-badge{ display:none; position:absolute; top:16px; right:16px; background:#00e5ff; color:#070714; font-size:0.75rem; font-weight:700; padding:4px 12px; border-radius:20px; }
-    .course-card.selected .selected-badge{ display:inline-block; }
-    .card-content-grid{ display:flex; gap:20px; }
-    .card-img{ width:130px; height:130px; object-fit:contain; border-radius:8px; background:#0b0b1e; }
-    .card-info{ flex:1; }
-    .course-card h3{ margin:0 0 6px; font-size:1.2rem; }
-    .course-subtitle{ font-size:0.95rem; color:#00e5ff; font-weight:600; margin-bottom:10px; }
-    .desc{ font-size:0.85rem; color:var(--text-dark); margin-bottom:12px; }
-    .payment-options-container{ display:none; margin-top:24px; padding-top:20px; border-top:1px solid rgba(0,229,255,0.2); }
-    .course-card.selected .payment-options-container{ display:block; }
-    .payment-options-title{ font-size:0.85rem; color:#00e5ff; font-weight:600; margin-bottom:12px; text-transform:uppercase; }
-    .pay-option-btn{ width:100%; background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.12); color:#fff; padding:14px 16px; border-radius:8px; margin-bottom:10px; display:flex; justify-content:space-between; align-items:center; cursor:pointer; }
-    .pay-option-btn.active-option{ background:rgba(0,229,255,0.15); border-color:#00e5ff; color:#00e5ff; font-weight:bold; }
-    .price-display-box{ display:flex; flex-direction:column; gap:6px; margin-bottom:14px; background:rgba(0,229,255,0.05); padding:14px; border-radius:8px; border:1px dashed rgba(0,229,255,0.3); }
-    .price-old{ text-decoration:line-through; color:var(--text-dark); font-size:0.9rem; background:rgba(255,255,255,0.05); padding:2px 8px; border-radius:4px; }
-    .price-contado{ color:#00E676; font-weight:800; font-size:1.15rem; }
-    .price-cuotas{ font-size:0.82rem; color:#a0a0b2; }
-    .price-cuotas strong{ color:#fff; }
-    .checkout-form-container{ display:none; margin-top:20px; padding:20px; background:rgba(7,7,20,0.9); border:1px solid rgba(0,229,255,0.4); border-radius:10px; }
-    .form-group{ margin-bottom:14px; }
-    .form-group label{ display:block; font-size:0.82rem; color:var(--text-dark); margin-bottom:6px; }
-    .form-group input,.form-group select{ width:100%; padding:12px; background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.2); border-radius:6px; color:#fff; box-sizing:border-box; }
-    .sticky-bar{ position:fixed; bottom:0; left:0; width:100%; z-index:100; padding:14px 20px; background:rgba(7,7,20,0.95); border-top:1px solid rgba(0,229,255,0.3); display:flex; justify-content:center; flex-wrap:wrap; box-sizing:border-box; }
-    .selected-label{ font-size:0.85rem; color:var(--text-dark); width:100%; text-align:center; }
-    .selected-label span{ color:#00e5ff; font-weight:600; }
-    .btn-action{ flex:1; min-width:220px; padding:12px 20px; border:none; border-radius:12px; font-family:"Montserrat"; font-weight:700; cursor:pointer; }
-    .btn-lemon{ background:linear-gradient(135deg, #00E676, #00A859); color:#0a1e10; }
+   .section-header h2{ font-size:1.15rem; font-weight:700; color:var(--primary-blue); text-transform:uppercase; border-bottom:1px solid rgba(0,229,255,0.2); padding-bottom:8px; margin-bottom:24px; }
+   .course-card{ background:rgba(16,16,38,0.7); border:1px solid rgba(0,229,255,0.2); border-radius:12px; padding:24px; margin-bottom:24px; cursor:pointer; position:relative; }
+   .course-card.selected{ border-color:#00e5ff; box-shadow:0 0 0 2px rgba(0,229,255,0.3); background:rgba(16,30,50,0.9); }
+   .selected-badge{ display:none; position:absolute; top:16px; right:16px; background:#00e5ff; color:#070714; font-size:0.75rem; font-weight:700; padding:4px 12px; border-radius:20px; }
+    /* FIX CLAVE: CON ESPACIO */
+   .course-card.selected.selected-badge{ display:inline-block; }
+   .card-content-grid{ display:flex; gap:20px; }
+   .card-img{ width:130px; height:130px; object-fit:contain; border-radius:8px; background:#0b0b1e; }
+   .card-info{ flex:1; }
+   .course-card h3{ margin:0 0 6px; font-size:1.2rem; }
+   .desc{ font-size:0.85rem; color:var(--text-dark); margin-bottom:12px; }
+   .payment-options-container{ display:none; margin-top:24px; padding-top:20px; border-top:1px solid rgba(0,229,255,0.2); }
+    /* FIX CLAVE: CON ESPACIO */
+   .course-card.selected.payment-options-container{ display:block; }
+   .payment-options-title{ font-size:0.85rem; color:#00e5ff; font-weight:600; margin-bottom:12px; text-transform:uppercase; }
+   .pay-option-btn{ width:100%; background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.12); color:#fff; padding:14px 16px; border-radius:8px; margin-bottom:10px; display:flex; justify-content:space-between; align-items:center; cursor:pointer; }
+   .pay-option-btn.active-option{ background:rgba(0,229,255,0.15); border-color:#00e5ff; color:#00e5ff; font-weight:bold; }
+   .price-display-box{ display:flex; flex-direction:column; gap:6px; margin-bottom:14px; background:rgba(0,229,255,0.05); padding:14px; border-radius:8px; border:1px dashed rgba(0,229,255,0.3); }
+   .price-old{ text-decoration:line-through; color:var(--text-dark); font-size:0.9rem; background:rgba(255,255,255,0.05); padding:2px 8px; border-radius:4px; }
+   .price-contado{ color:#00E676; font-weight:800; font-size:1.15rem; }
+   .price-cuotas{ font-size:0.82rem; color:#a0a0b2; }
+   .price-cuotas strong{ color:#fff; }
+   .checkout-form-container{ display:none; margin-top:20px; padding:20px; background:rgba(7,7,20,0.9); border:1px solid rgba(0,229,255,0.4); border-radius:10px; }
+   .form-group{ margin-bottom:14px; }
+   .form-group label{ display:block; font-size:0.82rem; color:var(--text-dark); margin-bottom:6px; }
+   .form-group input,.form-group select{ width:100%; padding:12px; background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.2); border-radius:6px; color:#fff; box-sizing:border-box; }
+   .sticky-bar{ position:fixed; bottom:0; left:0; width:100%; z-index:100; padding:14px 20px; background:rgba(7,7,20,0.95); border-top:1px solid rgba(0,229,255,0.3); display:flex; justify-content:center; flex-wrap:wrap; box-sizing:border-box; }
+   .selected-label{ font-size:0.85rem; color:var(--text-dark); width:100%; text-align:center; }
+   .selected-label span{ color:#00e5ff; font-weight:600; }
+   .btn-action{ flex:1; min-width:220px; padding:12px 20px; border:none; border-radius:12px; font-family:"Montserrat"; font-weight:700; cursor:pointer; }
+   .btn-lemon{ background:linear-gradient(135deg, #00E676, #00A859); color:#0a1e10; }
     footer{ padding:30px 0 140px; text-align:center; }
-    .select-pais{ color:#333 !important; background:#fff !important; width:100%; padding:10px; border-radius:4px; }
-    .input-otro-pais{ width:100%; padding:10px; color:#333 !important; background:#fff !important; border-radius:4px; }
+   .select-pais{ color:#333!important; background:#fff!important; width:100%; padding:10px; border-radius:4px; }
+   .input-otro-pais{ width:100%; padding:10px; color:#333!important; background:#fff!important; border-radius:4px; }
   </style>
 </head>
 <body>
-<script>
-// PEGA AQUI TU META PIXEL (copia el que tenes arriba en tu archivo original)
-// !function(f,b,e,v,n,t,s)... etc
-// fbq('init','2189151328193841')...
-</script>
+  <script>
+ !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s);}(window, document,'script','https://connect.facebook.net/en_US/fbevents.js');
+  fbq('init','2189151328193841'); fbq('track','PageView'); fbq('track','ViewContent',{content_name:'Landing Packs',content_type:'product_group'});
+  </script>
 <header class="hero-main">
   <div class="hero-content-wrapper">
     <a href="https://hugo85ar.github.io/catalogo-promociones/" class="btn-volver">← Volver al Inicio</a>
-    <img src="https://res.cloudinary.com/dlnrsadbc/image/upload/q_auto,f_auto,w_400/v1778980849/logo_hugo_alvigini_transparente_jodgue_z1tldp.webp" alt="Hugo Alvigini" class="logo-hero" width="400" height="100">
-    <h1>Packs & Programas Integrales</h1>
-    <p>Sistemas para escalar tu negocio digital al siguiente nivel</p>
+    <img src="https://res.cloudinary.com/dlnrsadbc/image/upload/q_auto,f_auto,w_400/v1778980849/logo_hugo_alvigini_transparente_jodgue_z1tldp.webp" alt="Hugo Alvigini" class="logo-hero">
+    <h1>Packs & Programas Integrales</h1><p>Sistemas para escalar tu negocio digital al siguiente nivel</p>
   </div>
 </header>
-<main id="courses-container">
-  <div class="section-header"><h2>Elegí tu Pack de Cursos</h2></div>
-  <div id="pack-list"><div style="padding:20px;background:rgba(16,16,38,0.7);border-radius:12px;">Cargando packs...</div></div>
-</main>
+<main id="courses-container"><div class="section-header"><h2>Elegí tu Pack de Cursos</h2></div><div id="pack-list">Cargando...</div></main>
 <footer><p>&copy; 2026 Hugo Alvigini.</p></footer>
 <div class="sticky-bar"><div class="selected-label" id="selected-label">Seleccioná un pack y modalidad de pago</div><div style="width:100%;max-width:600px;display:flex;justify-content:center;"><button class="btn-action btn-lemon" id="btn-lemon" disabled>💳 Enviar Datos de Inscripción</button></div></div>
 <script>
-  const APPSCRIPT_BASE = 'https://script.google.com/macros/s/AKfycbxTGQQZWDLXcfMtMbOH9c98PfH5cQgu5lIzK6jw9vBP-9NLR_RlmX28fDSpd92UZbZU/exec';
-  const WA_NUMBER = '5491176529179';
-  let selectedCourse=null, selectedModalidad=null;
-  function selectModalidad(index, nombrePack, modalidad){
-    selectedCourse=nombrePack; selectedModalidad=modalidad;
-    document.querySelectorAll('.course-card').forEach((c,idx)=>{ c.classList.remove('selected'); const f=c.querySelector('.checkout-form-container'); if(f && idx!==index) f.style.display='none'; });
-    const sc=document.querySelectorAll('.course-card')[index];
-    if(sc){ sc.classList.add('selected'); const cf=sc.querySelector('.checkout-form-container'); if(cf) cf.style.display='block'; sc.querySelectorAll('.pay-option-btn').forEach(btn=>{ btn.dataset.modalidad===modalidad ? btn.classList.add('active-option') : btn.classList.remove('active-option'); }); }
-    updateStickyBar();
-  }
-  function updateStickyBar(){
-    const label=document.getElementById('selected-label'); const btn=document.getElementById('btn-lemon');
-    if(!selectedCourse||!selectedModalidad){ label.innerHTML='Seleccioná un pack y modalidad de pago'; btn.disabled=true; return; }
-    label.innerHTML=`Seleccionado: <span>${esc(selectedCourse)}</span> (<span>${esc(selectedModalidad)}</span>)`; btn.disabled=false;
-    btn.onclick=async()=>{
-      const active=document.querySelector('.course-card.selected'); if(!active) return;
-      const nameI=active.querySelector('.input-nombre'); const emailI=active.querySelector('.input-email'); const countryS=active.querySelector('.select-pais'); const otroI=active.querySelector('.input-otro-pais');
-      let userName=nameI.value.trim(); let userEmail=emailI.value.trim(); let userCountry=countryS.value; if(userCountry==="Otro" && otroI.value.trim()) userCountry=otroI.value.trim();
-      if(!userName||!userEmail){ alert('Completá Nombre y Correo'); return; }
-      btn.disabled=true; btn.innerText='Registrando...';
-      try{ await fetch(APPSCRIPT_BASE,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'registrar_pago',nombre:userName,email:userEmail,pais:userCountry,curso:selectedCourse,plan:selectedModalidad})}); }catch(e){}
-      if(typeof fbq!=='undefined') fbq('track','InitiateCheckout',{content_name:selectedCourse,content_category:selectedModalidad});
-      const msg=encodeURIComponent(`Hola Hugo! Ya completé mis datos:\n\n📦 Pack: *${selectedCourse}*\n💳 Modalidad: *${selectedModalidad}*\n👤 Nombre: ${userName}\n📧 Email: ${userEmail}\n🌍 País: ${userCountry}\n\n¿Cómo avanzamos?`);
-      window.open(`https://wa.me/${WA_NUMBER}?text=${msg}`,'_blank');
-      btn.disabled=false; btn.innerText='💳 Enviar Datos de Inscripción';
-    };
-  }
-  function esc(v){ return String(v||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
-  function formatPrice(val){
-    if(!val) return '$--';
-    let s=String(val).trim();
-    if(s.includes('$')) return s;
-    if(/^\d/.test(s)) return '$'+s+' USD';
-    return s;
-  }
+  const APPSCRIPT_BASE='https://script.google.com/macros/s/AKfycbxTGQQZWDLXcfMtMbOH9c98PfH5cQgu5lIzK6jw9vBP-9NLR_RlmX28fDSpd92UZbZU/exec'; const WA_NUMBER='5491176529179'; let selectedCourse=null, selectedModalidad=null;
+  function selectModalidad(index,nombrePack,modalidad){selectedCourse=nombrePack; selectedModalidad=modalidad; document.querySelectorAll('.course-card').forEach((c,idx)=>{c.classList.remove('selected'); const f=c.querySelector('.checkout-form-container'); if(f && idx!==index) f.style.display='none';}); const sc=document.querySelectorAll('.course-card')[index]; if(sc){sc.classList.add('selected'); const cf=sc.querySelector('.checkout-form-container'); if(cf) cf.style.display='block'; sc.querySelectorAll('.pay-option-btn').forEach(btn=>{btn.dataset.modalidad===modalidad?btn.classList.add('active-option'):btn.classList.remove('active-option');});} updateStickyBar();}
+  function updateStickyBar(){const label=document.getElementById('selected-label'); const btn=document.getElementById('btn-lemon'); if(!selectedCourse||!selectedModalidad){label.innerHTML='Seleccioná un pack y modalidad de pago'; btn.disabled=true; return;} label.innerHTML=`Seleccionado: <span>${esc(selectedCourse)}</span> (<span>${esc(selectedModalidad)}</span>)`; btn.disabled=false; btn.onclick=async()=>{const active=document.querySelector('.course-card.selected'); const nameI=active.querySelector('.input-nombre'); const emailI=active.querySelector('.input-email'); const countryS=active.querySelector('.select-pais'); const otroI=active.querySelector('.input-otro-pais'); let userName=nameI.value.trim(); let userEmail=emailI.value.trim(); let userCountry=countryS.value; if(userCountry==="Otro" && otroI.value.trim()) userCountry=otroI.value.trim(); if(!userName||!userEmail){alert('Completá Nombre y Correo'); return;} btn.disabled=true; btn.innerText='Registrando...'; try{await fetch(APPSCRIPT_BASE,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'registrar_pago',nombre:userName,email:userEmail,pais:userCountry,curso:selectedCourse,plan:selectedModalidad})});}catch(e){} fbq('track','InitiateCheckout',{content_name:selectedCourse,content_category:selectedModalidad}); const msg=encodeURIComponent(`Hola Hugo! Ya completé mis datos:\n\n📦 Pack: *${selectedCourse}*\n💳 Modalidad: *${selectedModalidad}*\n👤 Nombre: ${userName}\n📧 Email: ${userEmail}\n🌍 País: ${userCountry}\n\n¿Cómo avanzamos?`); window.open(`https://wa.me/${WA_NUMBER}?text=${msg}`,'_blank'); btn.disabled=false; btn.innerText='💳 Enviar Datos de Inscripción';};}
+  function esc(v){return String(v||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+  function formatPrice(val){if(!val) return '$--'; let s=String(val).trim(); if(s.includes('$')) return s; if(/^\d/.test(s)) return '$'+s+' USD'; return s;}
   function renderCourses(courses){
     const list=document.getElementById('pack-list'); list.innerHTML='';
     courses.forEach((course,index)=>{
-      const nombre=course['Nombre']||course['Pack']||course['Producto / Pack']||'Pack';
-      const subtitulo=course['detail']||course['Subtítulo']||'';
-      const incluye=course['Que cursos incluye?']||course['Qué cursos incluye?']||'';
-      const imgUrl=course['imageUrl']||course['Caratula url']||'https://res.cloudinary.com/dlnrsadbc/image/upload/q_auto,f_auto,w_400/v1778980849/logo_hugo_alvigini_transparente_jodgue_z1tldp.webp';
-      const precioRegular=course['Precio Total (100%)']||course['Precio Total']||'$550';
-      const precio50=course['Precio Total (50% por pago unico)']||course['Precio Contado']||'$275';
-      const cuota3=course['Opción 3 Cuotas (Mensual)']||course['3 Cuotas']||'$145';
-      const cuota6=course['Opción 6 Cuotas (Mensual)']||course['6 Cuotas']||'$73';
-      const offerNote=course['offerNote']||'50% off pagando al contado';
+      const codigoPack = course['Pack'] || `Pack ${index+1}`;
+      const nombrePack = course['Producto / Pack'] || '';
+      const incluye = course['Que cursos incluye?'] || '';
+      const imgUrl = course['imageUrl']||'https://res.cloudinary.com/dlnrsadbc/image/upload/q_auto,f_auto,w_400/v1778980849/logo_hugo_alvigini_transparente_jodgue_z1tldp.webp';
+      const precioRegular = course['Precio Total (100%)'] || '$550';
+      const precio50 = course['Precio Total (50% por pago unico)'] || '$275';
+      const cuota3 = course['Opción 3 Cuotas (Mensual)'] || '$145';
+      const cuota6 = course['Opción 6 Cuotas (Mensual)'] || '$73';
+      const nombre = `${codigoPack}${nombrePack? ' - '+nombrePack : ''}`.trim();
+
       const card=document.createElement('div'); card.className='course-card';
       card.onclick=(e)=>{ if(e.target.closest('.pay-option-btn')||e.target.closest('.checkout-form-container')) return; const b=card.querySelector('.pay-option-btn'); if(b) b.click(); };
       card.innerHTML=`
@@ -126,14 +92,13 @@
           <img src="${esc(imgUrl)}" class="card-img">
           <div class="card-info">
             <h3>${esc(nombre)}</h3>
-            ${subtitulo?`<div class="course-subtitle">${esc(subtitulo)}</div>`:''}
-            ${incluye?`<div class="desc"><strong>Incluye:</strong> ${esc(incluye)}</div>`:''}
+            <div class="desc"><strong>Incluye:</strong> ${esc(incluye)}</div>
             <div class="price-display-box">
               <div><span class="price-old">Valor real: ${esc(precioRegular)}</span></div>
               <div><span class="price-contado">⚡ HOY 50% OFF Contado: ${formatPrice(precio50)}</span></div>
-              <div class="price-cuotas">O en cuotas: <strong>3x ${formatPrice(cuota3)}</strong> | <strong>6x ${formatPrice(cuota6)}</strong> <span style="color:#00E676;">(aún con 20% OFF sobre valor real)</span></div>
+              <div class="price-cuotas">O en cuotas: <strong>3x ${formatPrice(cuota3)}</strong> | <strong>6x ${formatPrice(cuota6)}</strong> <span style="color:#00E676;">(aún con 20% OFF)</span></div>
             </div>
-            <div style="color:#00E676;font-size:0.82rem;">✨ ${esc(offerNote)}</div>
+            <div style="color:#00E676;font-size:0.82rem;">✨ 50% off pagando al contado</div>
           </div>
         </div>
         <div class="payment-options-container">
@@ -152,16 +117,9 @@
       card.querySelectorAll('.pay-option-btn').forEach(b=>{ b.addEventListener('click',function(e){ e.stopPropagation(); selectModalidad(Number(this.dataset.index),nombre,this.dataset.modalidad); }); });
       list.appendChild(card);
     });
-    if(courses.length>0){ const fc=list.querySelector('.course-card'); const fb=fc?fc.querySelector('.pay-option-btn'):null; if(fb){ selectModalidad(0,courses[0]['Nombre']||'Pack 1',fb.dataset.modalidad); } }
+    if(courses.length>0){ const fc=list.querySelector('.course-card'); const fb=fc?fc.querySelector('.pay-option-btn'):null; if(fb){ const firstCourse=courses[0]; const firstName=`${firstCourse['Pack']||'Pack 1'}${firstCourse['Producto / Pack']?' - '+firstCourse['Producto / Pack']:''}`.trim(); selectModalidad(0,firstName,fb.dataset.modalidad); } }
   }
-  async function loadCourses(){
-    const list=document.getElementById('pack-list');
-    try{
-      const r=await fetch(APPSCRIPT_BASE,{method:'GET',cache:'no-store'}); const t=await r.text(); let data=JSON.parse(t); let arr=[];
-      if(Array.isArray(data)) arr=data; else if(data.categories){ const pc=data.categories.find(c=>c.name==="Packs & Programas Integrales"); if(pc) arr=pc.products; }
-      renderCourses(arr);
-    }catch(e){ list.innerHTML='Error: '+e.message; }
-  }
+  async function loadCourses(){ const list=document.getElementById('pack-list'); try{ const r=await fetch(APPSCRIPT_BASE,{method:'GET',cache:'no-store'}); const t=await r.text(); let data=JSON.parse(t); let arr=[]; if(Array.isArray(data)) arr=data; else if(data.categories){ const pc=data.categories.find(c=>c.name==="Packs & Programas Integrales"); if(pc) arr=pc.products; } renderCourses(arr);}catch(e){ list.innerHTML='Error: '+e.message; } }
   document.addEventListener('DOMContentLoaded',loadCourses);
   function verificarPaisDinamico(sel){ const c=sel.closest('.checkout-form-container'); const g=c.querySelector('.grupo-otro-pais'); const i=c.querySelector('.input-otro-pais'); if(sel.value==="Otro"){ g.style.display="block"; i.focus(); } else { g.style.display="none"; i.value=""; } }
 </script>
