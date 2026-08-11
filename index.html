@@ -113,30 +113,27 @@
   function renderCourses(courses){
     const list=document.getElementById('pack-list'); list.innerHTML='';
     courses.forEach((course,index)=>{
-      // CORRECCION CLAVE: Leemos tus columnas exactas
-      const codigoPack = course['Pack'] || `Pack ${index+1}`; // Pack 1, Pack 2...
-      const nombrePack = course['Producto / Pack'] || ''; // EMPRENDEDOR DIGITAL, etc
-      const incluye = course['Que cursos incluye?'] || course['Qué cursos incluye?'] || '';
-      const imgUrl = course['imageUrl']||course['Caratula url']||'https://res.cloudinary.com/dlnrsadbc/image/upload/q_auto,f_auto,w_400/v1778980849/logo_hugo_alvigini_transparente_jodgue_z1tldp.webp';
-
-      const precioRegular = course['Precio Total (100%)'] || '$550';
-      const precio50 = course['Precio Total (50% por pago unico)'] || '$275';
-      const cuota3 = course['Opción 3 Cuotas (Mensual)'] || '$145';
-      const cuota6 = course['Opción 6 Cuotas (Mensual)'] || '$73';
-      const offerNote = course['offerNote']||'50% off pagando al contado';
-
-      // NOMBRE COMPLETO PARA TITULO Y WHATSAPP
-      const nombre = `${codigoPack} - ${nombrePack}`.trim(); // Ej: "Pack 1 - EMPRENDEDOR DIGITAL"
-
+      // Buscamos todas las variantes posibles de la columna del nombre/título
+      const nombre = course['Nombre'] || course['Titulo'] || course['Título'] || course['Pack'] || course['Producto / Pack'] || course['title'] || `Pack ${index + 1}`;
+      const subtitulo = course['detail'] || course['Subtítulo'] || course['Subtitulo'] || '';
+      const incluye = course['Que cursos incluye?'] || course['Qué cursos incluye?'] || course['Incluye'] || '';
+      const imgUrl = course['imageUrl'] || course['Caratula url'] || course['Carátula url'] || 'https://res.cloudinary.com/dlnrsadbc/image/upload/q_auto,f_auto,w_400/v1778980849/logo_hugo_alvigini_transparente_jodgue_z1tldp.webp';
+      const precioRegular = course['Precio Total (100%)'] || course['Precio Total'] || course['Precio Regular'] || '$550';
+      const precio50 = course['Precio Total (50% por pago unico)'] || course['Precio Contado'] || course['Precio Contado (50% OFF)'] || '$275';
+      const cuota3 = course['Opción 3 Cuotas (Mensual)'] || course['3 Cuotas'] || course['Precio 3 Cuotas'] || '$145';
+      const cuota6 = course['Opción 6 Cuotas (Mensual)'] || course['6 Cuotas'] || course['Precio 6 Cuotas'] || '$73';
+      const offerNote = course['offerNote'] || course['Nota Oferta'] || '50% off pagando al contado';
+      
       const card=document.createElement('div'); card.className='course-card';
       card.onclick=(e)=>{ if(e.target.closest('.pay-option-btn')||e.target.closest('.checkout-form-container')) return; const b=card.querySelector('.pay-option-btn'); if(b) b.click(); };
       card.innerHTML=`
         <span class="selected-badge">✓ SELECCIONADO</span>
         <div class="card-content-grid">
-          <img src="${esc(imgUrl)}" class="card-img">
+          <img src="${esc(imgUrl)}" class="card-img" alt="${esc(nombre)}">
           <div class="card-info">
             <h3>${esc(nombre)}</h3>
-            <div class="desc"><strong>Incluye:</strong> ${esc(incluye)}</div>
+            ${subtitulo?`<div class="course-subtitle">${esc(subtitulo)}</div>`:''}
+            ${incluye?`<div class="desc"><strong>Incluye:</strong> ${esc(incluye)}</div>`:''}
             <div class="price-display-box">
               <div><span class="price-old">Valor real: ${esc(precioRegular)}</span></div>
               <div><span class="price-contado">⚡ HOY 50% OFF Contado: ${formatPrice(precio50)}</span></div>
@@ -161,17 +158,14 @@
       card.querySelectorAll('.pay-option-btn').forEach(b=>{ b.addEventListener('click',function(e){ e.stopPropagation(); selectModalidad(Number(this.dataset.index),nombre,this.dataset.modalidad); }); });
       list.appendChild(card);
     });
-    if(courses.length>0){
-      const fc=list.querySelector('.course-card');
-      const fb=fc?fc.querySelector('.pay-option-btn'):null;
-      if(fb){
-        // Usamos el nombre corregido
-        const firstCourse = courses[0];
-        const firstName = `${firstCourse['Pack']||'Pack 1'} - ${firstCourse['Producto / Pack']||''}`.trim();
-        selectModalidad(0,firstName,fb.dataset.modalidad);
-      }
+    if(courses.length>0){ 
+      const fc=list.querySelector('.course-card'); 
+      const fb=fc?fc.querySelector('.pay-option-btn'):null; 
+      const primerNombre = courses[0]['Nombre'] || courses[0]['Titulo'] || courses[0]['Título'] || 'Pack 1';
+      if(fb){ selectModalidad(0, primerNombre, fb.dataset.modalidad); } 
     }
   }
+  
   async function loadCourses(){
     const list=document.getElementById('pack-list');
     try{
