@@ -514,17 +514,29 @@
       }
     }
 
-  /* Esto restaura la apariencia nativa y asegura que sea clickeable */
+  /* Corrección: Añadido color de texto y aseguramiento de visibilidad */
 .select-pais {
-  appearance: auto;      /* Restaura la flechita del navegador */
+  appearance: auto;       /* Restaura la flechita del navegador */
   -webkit-appearance: auto;
   -moz-appearance: auto;
-  display: block;        /* Asegura que ocupe su lugar */
-  width: 100%;           /* O el ancho que quieras */
-  padding: 10px;         /* Espaciado interno para que sea fácil de tocar */
-  cursor: pointer;       /* Cambia el cursor al pasar por encima */
-  z-index: 1000;         /* Asegura que esté por encima de otros elementos */
-  background: white;     /* Fondo blanco para que no sea transparente */
+  display: block;         /* Asegura que ocupe su lugar */
+  width: 100%;            /* Ancho completo */
+  padding: 10px;          /* Espaciado cómodo */
+  cursor: pointer;        /* Cursor de puntero */
+  z-index: 1000;          /* Posicionamiento superior */
+  
+  /* ESTAS SON LAS LÍNEAS QUE CORRIGEN TU PROBLEMA: */
+  color: #333333 !important;      /* Texto gris oscuro para que sea legible */
+  background-color: #ffffff;      /* Fondo blanco sólido */
+  border: 1px solid #cccccc;      /* Un borde suave para que se vea el campo */
+  border-radius: 4px;             /* Bordes redondeados modernos */
+}
+
+/* Opcional: Esto ayuda a que, si algún navegador es rebelde, 
+   las opciones dentro también tengan el color correcto */
+.select-pais option {
+  color: #333333;
+  background-color: #ffffff;
 }
 
 /* Si tenías un contenedor que lo bloqueaba, revisalo también */
