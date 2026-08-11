@@ -51,7 +51,6 @@
   </style>
 </head>
 <body>
-   <!-- META PIXEL -->
   <script>
  !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s);}(window, document,'script','https://connect.facebook.net/en_US/fbevents.js');
   fbq('init', '2189151328193841');
@@ -59,7 +58,7 @@
   fbq('track', 'ViewContent', {content_name: 'Landing Packs - Ruta del Emprendedor', content_type: 'product_group'});
   </script>
   <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=2189151328193841&ev=PageView&noscript=1"/></noscript>
-  <!-- FIN META PIXEL -->
+
 <header class="hero-main">
   <div class="hero-content-wrapper">
     <a href="https://hugo85ar.github.io/catalogo-promociones/" class="btn-volver">← Volver al Inicio</a>
@@ -113,27 +112,26 @@
   function renderCourses(courses){
     const list=document.getElementById('pack-list'); list.innerHTML='';
     courses.forEach((course,index)=>{
-      // Buscamos todas las variantes posibles de la columna del nombre/título
-      const nombre = course['Nombre'] || course['Titulo'] || course['Título'] || course['Pack'] || course['Producto / Pack'] || course['title'] || `Pack ${index + 1}`;
-      const subtitulo = course['detail'] || course['Subtítulo'] || course['Subtitulo'] || '';
-      const incluye = course['Que cursos incluye?'] || course['Qué cursos incluye?'] || course['Incluye'] || '';
-      const imgUrl = course['imageUrl'] || course['Caratula url'] || course['Carátula url'] || 'https://res.cloudinary.com/dlnrsadbc/image/upload/q_auto,f_auto,w_400/v1778980849/logo_hugo_alvigini_transparente_jodgue_z1tldp.webp';
-      const precioRegular = course['Precio Total (100%)'] || course['Precio Total'] || course['Precio Regular'] || '$550';
-      const precio50 = course['Precio Total (50% por pago unico)'] || course['Precio Contado'] || course['Precio Contado (50% OFF)'] || '$275';
-      const cuota3 = course['Opción 3 Cuotas (Mensual)'] || course['3 Cuotas'] || course['Precio 3 Cuotas'] || '$145';
-      const cuota6 = course['Opción 6 Cuotas (Mensual)'] || course['6 Cuotas'] || course['Precio 6 Cuotas'] || '$73';
-      const offerNote = course['offerNote'] || course['Nota Oferta'] || '50% off pagando al contado';
-      
+      const codigoPack = course['Pack'] || `Pack ${index+1}`;
+      const nombrePack = course['Producto / Pack'] || '';
+      const incluye = course['Que cursos incluye?'] || course['Qué cursos incluye?'] || '';
+      const imgUrl = course['imageUrl']||course['Caratula url']||'https://res.cloudinary.com/dlnrsadbc/image/upload/q_auto,f_auto,w_400/v1778980849/logo_hugo_alvigini_transparente_jodgue_z1tldp.webp';
+      const precioRegular = course['Precio Total (100%)'] || '$550';
+      const precio50 = course['Precio Total (50% por pago unico)'] || '$275';
+      const cuota3 = course['Opción 3 Cuotas (Mensual)'] || '$145';
+      const cuota6 = course['Opción 6 Cuotas (Mensual)'] || '$73';
+      const offerNote = course['offerNote']||'50% off pagando al contado';
+      const nombre = `${codigoPack} - ${nombrePack}`.trim();
+
       const card=document.createElement('div'); card.className='course-card';
       card.onclick=(e)=>{ if(e.target.closest('.pay-option-btn')||e.target.closest('.checkout-form-container')) return; const b=card.querySelector('.pay-option-btn'); if(b) b.click(); };
       card.innerHTML=`
         <span class="selected-badge">✓ SELECCIONADO</span>
         <div class="card-content-grid">
-          <img src="${esc(imgUrl)}" class="card-img" alt="${esc(nombre)}">
+          <img src="${esc(imgUrl)}" class="card-img">
           <div class="card-info">
             <h3>${esc(nombre)}</h3>
-            ${subtitulo?`<div class="course-subtitle">${esc(subtitulo)}</div>`:''}
-            ${incluye?`<div class="desc"><strong>Incluye:</strong> ${esc(incluye)}</div>`:''}
+            <div class="desc"><strong>Incluye:</strong> ${esc(incluye)}</div>
             <div class="price-display-box">
               <div><span class="price-old">Valor real: ${esc(precioRegular)}</span></div>
               <div><span class="price-contado">⚡ HOY 50% OFF Contado: ${formatPrice(precio50)}</span></div>
@@ -141,7 +139,6 @@
             </div>
             <div style="color:#00E676;font-size:0.82rem;">✨ ${esc(offerNote)}</div>
           </div>
-        </div>
         <div class="payment-options-container">
           <div class="payment-options-title">Elegí tu forma de pago:</div>
           <button class="pay-option-btn" data-index="${index}" data-modalidad="Pago Contado (50% OFF) - ${precio50}"><span>💥 Pago Contado - 50% OFF</span><strong>${formatPrice(precio50)}</strong></button>
@@ -158,14 +155,16 @@
       card.querySelectorAll('.pay-option-btn').forEach(b=>{ b.addEventListener('click',function(e){ e.stopPropagation(); selectModalidad(Number(this.dataset.index),nombre,this.dataset.modalidad); }); });
       list.appendChild(card);
     });
-    if(courses.length>0){ 
-      const fc=list.querySelector('.course-card'); 
-      const fb=fc?fc.querySelector('.pay-option-btn'):null; 
-      const primerNombre = courses[0]['Nombre'] || courses[0]['Titulo'] || courses[0]['Título'] || 'Pack 1';
-      if(fb){ selectModalidad(0, primerNombre, fb.dataset.modalidad); } 
+    if(courses.length>0){
+      const fc=list.querySelector('.course-card');
+      const fb=fc?fc.querySelector('.pay-option-btn'):null;
+      if(fb){
+        const firstCourse = courses[0];
+        const firstName = `${firstCourse['Pack']||'Pack 1'} - ${firstCourse['Producto / Pack']||''}`.trim();
+        selectModalidad(0,firstName,fb.dataset.modalidad);
+      }
     }
   }
-  
   async function loadCourses(){
     const list=document.getElementById('pack-list');
     try{
