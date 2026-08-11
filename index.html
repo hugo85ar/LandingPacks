@@ -516,27 +516,36 @@
 
   /* Corrección: Añadido color de texto y aseguramiento de visibilidad */
 .select-pais {
-  appearance: auto;       /* Restaura la flechita del navegador */
+  appearance: auto;
   -webkit-appearance: auto;
   -moz-appearance: auto;
-  display: block;         /* Asegura que ocupe su lugar */
-  width: 100%;            /* Ancho completo */
-  padding: 10px;          /* Espaciado cómodo */
-  cursor: pointer;        /* Cursor de puntero */
-  z-index: 1000;          /* Posicionamiento superior */
+  display: block;
+  width: 100%;
+  padding: 10px;
+  cursor: pointer;
+  z-index: 1000;
   
-  /* ESTAS SON LAS LÍNEAS QUE CORRIGEN TU PROBLEMA: */
-  color: #333333 !important;      /* Texto gris oscuro para que sea legible */
-  background-color: #ffffff;      /* Fondo blanco sólido */
-  border: 1px solid #cccccc;      /* Un borde suave para que se vea el campo */
-  border-radius: 4px;             /* Bordes redondeados modernos */
+  /* ESTILOS CLAVE PARA VISIBILIDAD */
+  color: #333333 !important;
+  background-color: #ffffff !important;
+  border: 1px solid #cccccc;
+  border-radius: 4px;
 }
 
-/* Opcional: Esto ayuda a que, si algún navegador es rebelde, 
-   las opciones dentro también tengan el color correcto */
+/* Forzar que las opciones del desplegable también sean legibles */
 .select-pais option {
-  color: #333333;
-  background-color: #ffffff;
+  color: #333333 !important;
+  background-color: #ffffff !important;
+}
+
+/* Estilo para el input de "Otro país" si usas clases similares */
+#inputOtroPais {
+  width: 100%;
+  padding: 10px;
+  color: #333333 !important;
+  background-color: #ffffff !important;
+  border: 1px solid #cccccc;
+  border-radius: 4px;
 }
 
 /* Si tenías un contenedor que lo bloqueaba, revisalo también */
@@ -924,18 +933,25 @@
               <input type="email" class="input-email" placeholder="tucorreo@gmail.com">
             </div>
             <div class="form-group">
-              <label>País de residencia</label>
-              <select class="select-pais">
-                <option value="Argentina">Argentina</option>
-                <option value="Paraguay">Paraguay</option>
-                <option value="Uruguay">Uruguay</option>
-                <option value="Chile">Chile</option>
-                <option value="México">México</option>
-                <option value="Colombia">Colombia</option>
-                <option value="España">España</option>
-                <option value="Otro">Otro</option>
-              </select>
-            </div>
+  <label>País de residencia</label>
+  <select class="select-pais" id="selectPais" onchange="verificarPais(this)">
+    <option value="Paraguay">Paraguay</option>
+    <option value="Uruguay">Uruguay</option>
+    <option value="Chile">Chile</option>
+    <option value="México">México</option>
+    <option value="Colombia">Colombia</option>
+    <option value="Puerto Rico">Puerto Rico</option>
+    <option value="España">España</option>
+    <option value="Argentina">Argentina</option>
+    <option value="Otro">Otro</option>
+  </select>
+</div>
+
+<!-- Campo extra que aparecerá solo si eligen "Otro" -->
+<div class="form-group" id="grupoOtroPais" style="display: none; margin-top: 10px;">
+  <label>Indica tu país</label>
+  <input type="text" id="inputOtroPais" class="form-control" placeholder="Escribe tu país aquí">
+</div>
           </div>
         </div>
       `;
@@ -1016,6 +1032,19 @@
     loadCourses();
   });
 
+  function verificarPais(select) {
+  const grupoOtro = document.getElementById('grupoOtroPais');
+  const inputOtro = document.getElementById('inputOtroPais');
+  
+  if (select.value === "Otro") {
+    grupoOtro.style.display = "block";
+    inputOtro.focus();
+  } else {
+    grupoOtro.style.display = "none";
+    inputOtro.value = ""; // Limpiar si cambia de opinión
+  }
+}
+  
 </script>
 </body>
 </html>
