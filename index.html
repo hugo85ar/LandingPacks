@@ -12,10 +12,7 @@
     h1,h2,h3{ font-family:"Montserrat", sans-serif; }
     header.hero-main{ padding:30px 20px 25px; background:linear-gradient(180deg, rgba(16,16,38,0.95) 0%, rgba(7,7,20,0.8) 100%); border-bottom:1px solid rgba(0,229,255,0.2); }
     .hero-content-wrapper{ max-width:900px; margin:0 auto; display:flex; flex-direction:column; align-items:center; gap:15px; text-align:center; }
-    
-    /* Botón a la izquierda */
     .btn-volver{ display:inline-flex; align-items:center; gap:8px; background:rgba(255,255,255,0.05); color:#fff; border:1px solid rgba(0,229,255,0.3); padding:8px 16px; border-radius:8px; font-weight:600; text-decoration:none; align-self:flex-start; }
-    
     .logo-hero{ width:200px; max-width:70%; }
     #courses-container{ width:100%; padding:30px 20px; max-width:900px; margin:0 auto; flex:1; box-sizing:border-box; }
     .section-header h2{ font-size:1.15rem; font-weight:700; color:var(--primary-blue); text-transform:uppercase; border-bottom:1px solid rgba(0,229,255,0.2); padding-bottom:8px; margin-bottom:24px; }
@@ -58,28 +55,6 @@
     <a href="https://hugo85ar.github.io/catalogo-promociones/" class="btn-volver">← Volver al Inicio</a>
     <img src="https://res.cloudinary.com/dlnrsadbc/image/upload/q_auto,f_auto,w_400/v1778980849/logo_hugo_alvigini_transparente_jodgue_z1tldp.webp" alt="Hugo Alvigini" class="logo-hero" width="400" height="100">
     <h1>Packs & Programas Integrales</h1>
-
-    
-
-    <!--
-    //VIDEO!!
-<div style="max-width:700px; margin:25px auto; border-radius:12px; overflow:hidden; border:1px solid rgba(0,229,255,0.3); box-shadow:0 0 20px rgba(0,229,255,0.15); background:#000;">
-  <div style="position:relative; padding-bottom:56.25%; height:0;">
-    <iframe src="https://drive.google.com/file/d/PEGA_AQUI_TU_ID_DE_DRIVE/preview" 
-            style="position:absolute; top:0; left:0; width:100%; height:100%; border:0;" 
-            allow="autoplay" allowfullscreen>
-    </iframe>
-  </div>
-
-
-  
-      
-  <div style="padding:10px 14px; background:rgba(16,16,38,0.9); font-size:0.8rem; color:#a0a0b2; text-align:center;">
-    🎥 Mirá en 70 segundos qué incluye cada Pack y cuál te conviene
-  </div>
-</div>
--->
-    
     <p>Sistemas para escalar tu negocio digital al siguiente nivel</p>
   </div>
 </header>
@@ -91,16 +66,18 @@
 <div class="sticky-bar">
   <div class="selected-label" id="selected-label">Seleccioná un pack y modalidad de pago</div>
   <div style="width:100%;max-width:600px;display:flex;justify-content:center;">
-    <button class="btn-action btn-lemon" id="btn-lemon" disabled>💬 Hablar con Hugo por WhatsApp</button>
+    <button class="btn-action btn-lemon" id="btn-lemon" disabled>💳 Ir a pagar</button>
   </div>
 </div>
 <script>
   const APPSCRIPT_BASE = 'https://script.google.com/macros/s/AKfycbxTGQQZWDLXcfMtMbOH9c98PfH5cQgu5lIzK6jw9vBP-9NLR_RlmX28fDSpd92UZbZU/exec';
   const WA_NUMBER = '5491176529179';
-  let selectedCourse=null, selectedModalidad=null;
+  let selectedCourse=null, selectedModalidad=null, selectedBuyUrl=null;
 
-  function selectModalidad(index, nombrePack, modalidad){
-    selectedCourse=nombrePack; selectedModalidad=modalidad;
+  function selectModalidad(index, nombrePack, modalidad, buyUrl){
+    selectedCourse=nombrePack; 
+    selectedModalidad=modalidad;
+    selectedBuyUrl=buyUrl;
     document.querySelectorAll('.course-card').forEach((c,idx)=>{ 
       c.classList.remove('selected'); 
       const f=c.querySelector('.checkout-form-container'); 
@@ -119,32 +96,45 @@
   }
 
  function updateStickyBar(){
-    const label=document.getElementById('selected-label'); const btn=document.getElementById('btn-lemon');
-    if(!selectedCourse||!selectedModalidad){ label.innerHTML='Seleccioná un pack y modalidad de pago'; btn.disabled=true; return; }
-    label.innerHTML=`Seleccionado: <span>${esc(selectedCourse)}</span> (<span>${esc(selectedModalidad)}</span>)`; btn.disabled=false;
-    btn.onclick=async()=>{
+    const label=document.getElementById('selected-label'); 
+    const btn=document.getElementById('btn-lemon');
+    if(!selectedCourse||!selectedModalidad||!selectedBuyUrl){ 
+      label.innerHTML='Seleccioná un pack y modalidad de pago'; 
+      btn.disabled=true; 
+      btn.innerText='💳 Ir a pagar';
+      return; 
+    }
+    label.innerHTML=`Seleccionado: <span>${esc(selectedCourse)}</span> (<span>${esc(selectedModalidad)}</span>)`; 
+    btn.disabled=false;
+    
+    const esDodo = selectedBuyUrl.includes('dodopayments.com') || selectedBuyUrl.includes('checkout.dodo');
+    if(esDodo){
+      btn.innerText=`💳 Pagar ${selectedCourse} - ${selectedModalidad}`;
+    } else {
+      btn.innerText=`💬 Consultar ${selectedCourse} por WhatsApp`;
+    }
+
+    btn.onclick=()=>{
       const active=document.querySelector('.course-card.selected'); if(!active) return;
       const nameI=active.querySelector('.input-nombre'); 
       const countryS=active.querySelector('.select-pais'); 
       const otroI=active.querySelector('.input-otro-pais');
 
-      let userName=nameI.value.trim(); 
-      let userCountry=countryS.value; 
-      if(userCountry==="Otro" && otroI.value.trim()) userCountry=otroI.value.trim();
-      if(!userName){ alert('Decime tu nombre para atenderte mejor'); nameI.focus(); return; }
-      let userEmail = 'no-requerido@whatsapp.com'; // para que tu Apps Script no falle
-            
-   btn.disabled=true; 
-      btn.innerText='Abriendo WhatsApp...';
-      try{ 
-        await fetch(APPSCRIPT_BASE,{
+      let userName=nameI ? nameI.value.trim() : '';
+      let userCountry=countryS ? countryS.value : 'Argentina'; 
+      if(userCountry==="Otro" && otroI && otroI.value.trim()) userCountry=otroI.value.trim();
+      if(!userName){ alert('Decime tu nombre para continuar'); if(nameI) nameI.focus(); return; }
+      
+      // Guardar lead opcional (no bloquea el pago)
+      try{
+        fetch(APPSCRIPT_BASE,{
           method:'POST',
           mode:'no-cors',
           headers:{'Content-Type':'application/json'},
           body:JSON.stringify({
             action:'registrar_pago',
             nombre:userName,
-            email:userEmail, // dummy: no-requerido@whatsapp.com
+            email:'checkout-dodo@landing.com',
             pais:userCountry,
             curso:selectedCourse,
             plan:selectedModalidad
@@ -153,33 +143,15 @@
       }catch(e){}
       
       if(typeof fbq!=='undefined') fbq('track','InitiateCheckout',{content_name:selectedCourse,content_category:selectedModalidad});
-      const msg=encodeURIComponent(`Hola Hugo! Me interesa este pack:\n\n*Pack:* ${selectedCourse}\n*Modalidad:* ${selectedModalidad}\n*Nombre:* ${userName}\n*Pais:* ${userCountry}\n\nComo avanzamos?`);
-      window.open(`https://wa.me/${WA_NUMBER}?text=${msg}`,'_blank');
-      
-      btn.disabled=false; 
-      btn.innerText=`💬 Consultar ${selectedCourse} por WhatsApp`;
-    };
-  }
 
-  function esc(v){ return String(v||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
-  
-  function formatPrice(val){
-    if(val === undefined || val === null || val === '') return '$0';
-    let s = String(val).trim();
-    if(s.includes('$')) return s;
-    return '$' + s;
-  }
-
-  // Función auxiliar para buscar propiedades de forma inteligente ignorando espacios/mayúsculas exactas
-  function getVal(obj, keys) {
-    for (let k of keys) {
-      for (let prop in obj) {
-        if (prop.toLowerCase().replace(/\s+/g, '').includes(k.toLowerCase().replace(/\s+/g, ''))) {
-          if (obj[prop] !== undefined && obj[prop] !== '') return obj[prop];
-        }
+      // Si es Dodo, va directo a checkout. Si no, fallback a WhatsApp
+      if(selectedBuyUrl.includes('dodopayments.com') || selectedBuyUrl.includes('lemonsqueezy')){
+        window.open(selectedBuyUrl,'_blank');
+      } else {
+        const msg=encodeURIComponent(`Hola Hugo! Me interesa este pack:\n\n*Pack:* ${selectedCourse}\n*Modalidad:* ${selectedModalidad}\n*Nombre:* ${userName}\n*Pais:* ${userCountry}\n\nComo avanzamos?`);
+        window.open(`https://wa.me/${WA_NUMBER}?text=${msg}`,'_blank');
       }
-    }
-    return '';
+    };
   }
 
   function esc(v){ return String(v||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
@@ -192,7 +164,6 @@
 
   function renderCourses(courses){
     const list=document.getElementById('pack-list'); list.innerHTML='';
-    // Ordenamos para que Pack 1,2,3 queden en orden
     courses.sort((a,b)=>{
       const pa = parseInt((a['Pack']||'').replace(/\D/g,'')) || 0;
       const pb = parseInt((b['Pack']||'').replace(/\D/g,'')) || 0;
@@ -200,17 +171,21 @@
     });
 
     courses.forEach((course,index)=>{
-      // LECTURA EXACTA DE TU HOJA
-      const codigoPack = (course['Pack'] || `Pack ${index+1}`).toString().trim(); // Pack 1, Pack 2, Pack 3
-      const productoPack = (course['Producto / Pack'] || '').toString().trim(); // EMPRENDEDOR DIGITAL, etc
+      const codigoPack = (course['Pack'] || `Pack ${index+1}`).toString().trim();
+      const productoPack = (course['Producto / Pack'] || '').toString().trim();
       const incluye = (course['Que cursos incluye?'] || course['Qué cursos incluye?'] || '').toString();
       const imgUrl = course['imageUrl']||course['Caratula url']||'https://res.cloudinary.com/dlnrsadbc/image/upload/q_auto,f_auto,w_400/v1778980849/logo_hugo_alvigini_transparente_jodgue_z1tldp.webp';
       
-      // PRECIOS REALES DE TU HOJA - con fallback por código de pack
+      // PRECIOS + LINKS DE TU HOJA
       let precioRegular = course['Precio Total (100%)'];
       let precio50 = course['Precio Total (50% por pago unico)'];
       let cuota3 = course['Opción 3 Cuotas (Mensual)'];
       let cuota6 = course['Opción 6 Cuotas (Mensual)'];
+
+      // LINKS DODO - lectura exacta de tus columnas F,G,H
+      const buyContado = course['buyUrlContado'] || course['buyUrlCont'] || '';
+      const buy3 = course['buyUrl3Cuotas'] || course['buyUrl3'] || '';
+      const buy6 = course['buyUrl6Cuotas'] || course['buyUrl6'] || '';
 
       const esPack3 = codigoPack.toLowerCase().includes('3') || productoPack.toLowerCase().includes('transformaci');
       if(esPack3){
@@ -225,9 +200,7 @@
         cuota6 = cuota6 || '$73';
       }
 
-      // NOMBRE COMPLETO PARA TITULO Y WHATSAPP
-      const nombre = `${codigoPack}${productoPack ? ' - ' + productoPack : ''}`.trim(); // Ej: Pack 3 - TRANSFORMACIÓN TOTAL
-      
+      const nombre = `${codigoPack}${productoPack ? ' - ' + productoPack : ''}`.trim();
       const subtitulo = course['detail']||course['Subtítulo']||'';
       const offerNote = course['offerNote']||'50% off pagando al contado';
       const card=document.createElement('div'); card.className='course-card';
@@ -250,9 +223,9 @@
         </div>
         <div class="payment-options-container">
           <div class="payment-options-title">Elegí tu forma de pago:</div>
-          <button class="pay-option-btn" data-index="${index}" data-modalidad="Pago Contado (50% OFF) - ${formatPrice(precio50)}"><span>💥 Pago Contado - 50% OFF</span><strong>${formatPrice(precio50)}</strong></button>
-          <button class="pay-option-btn" data-index="${index}" data-modalidad="3 Cuotas de ${formatPrice(cuota3)}"><span>📅 En 3 Cuotas</span><strong>${formatPrice(cuota3)} c/u</strong></button>
-          <button class="pay-option-btn" data-index="${index}" data-modalidad="6 Cuotas de ${formatPrice(cuota6)}"><span>📅 En 6 Cuotas</span><strong>${formatPrice(cuota6)} c/u</strong></button>
+          <button class="pay-option-btn" data-index="${index}" data-modalidad="Pago Contado (50% OFF) - ${formatPrice(precio50)}" data-buyurl="${esc(buyContado)}"><span>💥 Pago Contado - 50% OFF</span><strong>${formatPrice(precio50)}</strong></button>
+          <button class="pay-option-btn" data-index="${index}" data-modalidad="3 Cuotas de ${formatPrice(cuota3)}" data-buyurl="${esc(buy3)}"><span>📅 En 3 Cuotas</span><strong>${formatPrice(cuota3)} c/u</strong></button>
+          <button class="pay-option-btn" data-index="${index}" data-modalidad="6 Cuotas de ${formatPrice(cuota6)}" data-buyurl="${esc(buy6)}"><span>📅 En 6 Cuotas</span><strong>${formatPrice(cuota6)} c/u</strong></button>
           <div class="checkout-form-container">
             <div class="payment-options-title">📝 Casi listo:</div>
             <div class="form-group"><label>Tu Nombre</label><input type="text" class="input-nombre" placeholder="Ej: Alejandro"></div>
@@ -260,7 +233,12 @@
             <div class="form-group grupo-otro-pais" style="display:none;"><label>Indica tu país</label><input type="text" class="input-otro-pais" placeholder="Escribe tu país"></div>
           </div>
         </div>`;
-      card.querySelectorAll('.pay-option-btn').forEach(b=>{ b.addEventListener('click',function(e){ e.stopPropagation(); selectModalidad(Number(this.dataset.index),nombre,this.dataset.modalidad); }); });
+      card.querySelectorAll('.pay-option-btn').forEach(b=>{ 
+        b.addEventListener('click',function(e){ 
+          e.stopPropagation(); 
+          selectModalidad(Number(this.dataset.index), nombre, this.dataset.modalidad, this.dataset.buyurl); 
+        }); 
+      });
       list.appendChild(card);
     });
     if(courses.length>0){ 
@@ -268,11 +246,10 @@
       const fb=fc?fc.querySelector('.pay-option-btn'):null; 
       const c0 = courses[0];
       const primerNombre = `${c0['Pack']||'Pack 1'}${c0['Producto / Pack']?' - '+c0['Producto / Pack']:''}`.trim();
-      if(fb){ selectModalidad(0, primerNombre, fb.dataset.modalidad); } 
+      if(fb){ selectModalidad(0, primerNombre, fb.dataset.modalidad, fb.dataset.buyurl); } 
     }
   }
 
-  
   async function loadCourses(){
     const list=document.getElementById('pack-list');
     try{
