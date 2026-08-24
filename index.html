@@ -128,7 +128,12 @@
 
     // Botón principal = Dodo directo SIN pedir nombre
     btn.onclick=()=>{
-      if(typeof fbq!=='undefined') fbq('track','InitiateCheckout',{content_name:selectedCourse,content_category:selectedModalidad});
+      if(typeof fbq!=='undefined') 
+        fbq('track','InitiateCheckout',{
+  value: 275, 
+  currency: 'USD',
+  content_name: 'Pack 1 Emprendedor Digital'
+});
       
       if(esDodo || esLemon){
         // Pago directo - sin formulario previo, Dodo ya captura todo
