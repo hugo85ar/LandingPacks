@@ -7,7 +7,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
 *{font-family:'Inter',sans-serif;box-sizing:border-box;margin:0;padding:0}
-body{background:#0A1E1E;color:#fff;min-height:100vh;padding-bottom:96px}
+body{background:#0A1E1E;color:#fff;min-height:100vh;padding-bottom:110px}
 header{position:sticky;top:0;z-index:20;border-bottom:1px solid rgba(255,255,255,.06);background:rgba(10,30,30,.85);backdrop-filter:blur(24px)}
 .header-inner{height:84px;display:flex;align-items:center;justify-content:space-between;padding:0 20px;max-width:1120px;margin:0 auto}
 .btn-volver{font-size:11px;letter-spacing:.14em;text-transform:uppercase;font-weight:600;color:rgba(255,255,255,.5);border:1px solid rgba(255,255,255,.10);border-radius:9999px;padding:0 16px;height:36px;display:inline-flex;align-items:center}
@@ -26,21 +26,22 @@ header{position:sticky;top:0;z-index:20;border-bottom:1px solid rgba(255,255,255
 .section-title{font-size:12px;letter-spacing:.16em;text-transform:uppercase;font-weight:700;color:#4EEED8;border-bottom:1px solid rgba(78,238,216,.20);padding-bottom:8px;margin-bottom:24px}
 .grid-packs{display:grid;gap:20px}
 @media(min-width:900px){.grid-packs.three{grid-template-columns:1fr 1fr 1fr}.grid-packs.one{grid-template-columns:1fr;max-width:800px;margin:0 auto}}
-.card{position:relative;background:#102E2E;border:1px solid rgba(255,255,255,.08);border-radius:20px;padding:20px}
+.card{position:relative;background:#102E2E;border:1px solid rgba(255,255,255,.08);border-radius:20px;padding:20px;display:flex;flex-direction:column}
 .card.recommended{border-color:rgba(78,238,216,.35);box-shadow:0 0 0 1px rgba(78,238,216,.25),0 0 40px rgba(78,238,216,.12)}
 .card-badge{position:absolute;top:-12px;left:20px;padding:4px 12px;border-radius:9999px;background:#4EEED8;color:#0A1E1E;font-size:10px;font-weight:700}
+.card-badge-selected{position:absolute;top:16px;right:16px;padding:4px 12px;border-radius:9999px;background:#4EEED8;color:#0A1E1E;font-size:10px;font-weight:700}
 .card-img{width:100%;aspect-ratio:1/1;object-fit:contain;background:#0A1E1E;border-radius:16px;border:1px solid rgba(255,255,255,.06);margin-bottom:16px}
 .card-title{font-size:16px;font-weight:700}
 .card-desc{font-size:12px;color:rgba(255,255,255,.55);margin-top:6px;min-height:36px;line-height:1.4}
 .price-box{margin-top:12px;border:1px dashed rgba(78,238,216,.30);background:rgba(78,238,216,.06);border-radius:14px;padding:12px}
 .price-real{font-size:11px;text-decoration:line-through;color:rgba(255,255,255,.30)}
 .price-hoy{margin-top:6px;font-size:14px;font-weight:800;color:#4EEED8}
-.btn-pay{width:100%;height:44px;border-radius:9999px;background:#FF5A1F;color:#fff;font-weight:700;font-size:12px;margin-top:12px;display:flex;align-items:center;justify-content:center}
-.pay-opt{width:100%;height:42px;border-radius:9999px;border:1px solid rgba(255,255,255,.10);display:flex;align-items:center;justify-content:space-between;padding:0 16px;font-size:12px;background:rgba(255,255,255,.04);color:rgba(255,255,255,.70);cursor:pointer}
-.pay-opt.active{background:rgba(78,238,216,.15);border-color:#4EEED8;color:#4EEED8;font-weight:700}
+.pay-group{display:flex;flex-direction:column;gap:8px;margin-top:16px}
+.pay-opt{width:100%;height:42px;border-radius:9999px;border:1px solid rgba(255,255,255,.10);display:flex;align-items:center;justify-content:space-between;padding:0 16px;font-size:11px;background:rgba(255,255,255,.04);color:rgba(255,255,255,.70);cursor:pointer;transition:.15s}
+.pay-opt.active{background:rgba(78,238,216,.18);border-color:#4EEED8;color:#4EEED8;font-weight:700;box-shadow:0 0 0 1px rgba(78,238,216,.2)}
 .sticky-bar{position:fixed;bottom:0;left:0;width:100%;z-index:50;padding:12px 16px;background:rgba(10,30,30,.95);backdrop-filter:blur(24px);border-top:1px solid rgba(255,255,255,.10)}
 .sticky-inner{max-width:1120px;margin:0 auto;display:flex;flex-direction:column;align-items:center}
-.cta{width:100%;max-width:560px;height:48px;border-radius:9999px;background:#FF5A1F;color:#fff;font-weight:700;font-size:13px}
+.cta{width:100%;max-width:560px;height:48px;border-radius:9999px;background:#FF5A1F;color:#fff;font-weight:700;font-size:13px;box-shadow:0 0 0 1px rgba(255,90,31,.2),0 8px 24px rgba(255,90,31,.25)}
 .cta:disabled{opacity:.4}
 .hidden{display:none}
 </style>
@@ -48,29 +49,16 @@ header{position:sticky;top:0;z-index:20;border-bottom:1px solid rgba(255,255,255
 <body>
 <script>
 const SHEET_URL = "https://script.google.com/macros/s/AKfycbyxlO60asW5Jc8tHtjtSqk8-tUTSxJwwDZ-i0oN-Jgqn5wsmg7l0a70jFD7rZssUD4IOw/exec";
-const WHATSAPP_NUM = "5491176529179";
 const LOGO_URL = "https://res.cloudinary.com/dlnrsadbc/image/upload/q_auto,f_auto,w_320,c_limit/v1789653853/hugo_logo_transparente_epomls.png";
 const DRIVE_ID = "1NGDJ2pUuDDSM8g9MP6lQaH45KfVe1MPf";
 </script>
-
 <header><div class="header-inner"><a href="https://hugo85ar.github.io/catalogo-promociones/" class="btn-volver">← Volver</a><img id="logo-img" class="logo" /></div></header>
-
 <section class="hero">
-  <div style="flex:1;order:2">
-    <div id="hero-badge" class="badge">50% OFF CONTADO</div>
-    <h1 id="hero-title" class="hero-title">LOS PACKS: COMBINACIONES <span>DE LOS 3 CURSOS</span></h1>
-    <p id="hero-sub" class="hero-sub">Elegí tu sistema. Pago único con 50% OFF.</p>
-  </div>
+  <div style="flex:1;order:2"><div id="hero-badge" class="badge">50% OFF CONTADO</div><h1 id="hero-title" class="hero-title">LOS PACKS: COMBINACIONES <span>DE LOS 3 CURSOS</span></h1><p id="hero-sub" class="hero-sub">Elegí tu sistema. Pago único con 50% OFF.</p></div>
   <div style="order:1"><div class="video-wrap"><iframe id="drive-frame" allowfullscreen></iframe></div></div>
 </section>
-
-<section class="section">
-  <div id="section-title" class="section-title">Packs disponibles</div>
-  <div id="packs-grid" class="grid-packs"></div>
-</section>
-
+<section class="section"><div id="section-title" class="section-title">Packs disponibles</div><div id="packs-grid" class="grid-packs"></div></section>
 <div class="sticky-bar"><div class="sticky-inner"><div id="selected-info" style="font-size:11px;color:rgba(255,255,255,.5);margin-bottom:10px;text-align:center;width:100%">Cargando packs...</div><button id="checkout-btn" disabled class="cta">🔒 Completar mi compra</button></div></div>
-
 <script>
 const logoImg = document.getElementById('logo-img');
 const driveFrame = document.getElementById('drive-frame');
@@ -81,35 +69,61 @@ const heroSub = document.getElementById('hero-sub');
 const sectionTitle = document.getElementById('section-title');
 const selectedInfo = document.getElementById('selected-info');
 const checkoutBtn = document.getElementById('checkout-btn');
-
 logoImg.src = LOGO_URL;
 driveFrame.src = `https://drive.google.com/file/d/${DRIVE_ID}/preview`;
-
+let allPacks = [];
+let selectedPackIndex = 0;
+let selectedPlanType = 'contado';
 let selectedUrl = null;
-
 function formatPrice(v){const s=String(v||"").trim();return s.includes("$")?s:"$"+s}
-
-window.selectPack = function(name, plan, url){
+window.selectPack = function(packIndex, planType){
+  selectedPackIndex = packIndex;
+  selectedPlanType = planType;
+  const pack = allPacks[packIndex];
+  let url = ""; let label = "";
+  if(planType === 'contado'){url = pack.buyUrlContado; label = `Pago Contado (50% OFF) - $448.5`;}
+  else if(planType === '3cuotas'){url = pack.buyUrl3Cuotas; label = `3 Cuotas de $256`;}
+  else if(planType === '6cuotas'){url = pack.buyUrl6Cuotas; label = `6 Cuotas de $128`;}
   selectedUrl = url;
-  selectedInfo.textContent = `Seleccionado: ${name} (${plan})`;
+  const card = document.getElementById(`card-${packIndex}`);
+  if(card){
+    card.querySelectorAll('.pay-opt').forEach(btn => {
+      btn.classList.remove('active');
+      if(btn.dataset.plan === planType){btn.classList.add('active');}
+    });
+  }
+  document.querySelectorAll('.card-badge-selected').forEach(b => b.classList.add('hidden'));
+  const selBadge = document.getElementById(`selected-${packIndex}`);
+  if(selBadge) selBadge.classList.remove('hidden');
+  selectedInfo.textContent = `Seleccionado: ${pack.name} (${label})`;
   checkoutBtn.disabled = false;
-  checkoutBtn.textContent = `🔒 Sí, quiero ${name} por ${plan.match(/\$[\d.]+/)?.[0] || ""}`;
+  checkoutBtn.textContent = `🔒 Sí, quiero ${pack.name} por ${label.match(/\$[\d.]+/)?.[0] || label}`;
   checkoutBtn.onclick = () => window.open(url, "_blank");
 };
-
+function buildCard(p, index, isSingle){
+  const isPack3 = (p.name||"").toLowerCase().includes("pack 3");
+  const isSelected = index === selectedPackIndex;
+  return `<div id="card-${index}" class="card ${isPack3 ? 'recommended' : ''}" style="${isSingle ? 'max-width:800px;margin:0 auto' : ''}">
+      ${isPack3 ? `<span class="card-badge">RECOMENDADO • + SESIÓN 1:1</span>` : ""}
+      <span id="selected-${index}" class="card-badge-selected ${isSelected ? '' : 'hidden'}">✓ SELECCIONADO</span>
+      <img src="${p.imageUrl}" class="card-img" style="${isSingle ? 'width:130px;height:130px' : ''}" />
+      <div class="card-title">${p.name}</div>
+      <div class="card-desc">${p.detail}</div>
+      <div class="price-box"><div class="price-real">Valor real: $897</div><div class="price-hoy">HOY 50% OFF: $448.5</div><div style="font-size:11px;color:rgba(255,255,255,.5);margin-top:4px">3x $256 | 6x $128</div></div>
+      <div class="pay-group">
+        <button data-plan="contado" onclick="selectPack(${index}, 'contado')" class="pay-opt ${isSelected && selectedPlanType==='contado' ? 'active' : ''}"><span>💥 Pago Contado - 50% OFF</span><strong>$448.5</strong></button>
+        <button data-plan="3cuotas" onclick="selectPack(${index}, '3cuotas')" class="pay-opt ${isSelected && selectedPlanType==='3cuotas' ? 'active' : ''}"><span>📅 En 3 Cuotas</span><strong>$256 c/u</strong></button>
+        <button data-plan="6cuotas" onclick="selectPack(${index}, '6cuotas')" class="pay-opt ${isSelected && selectedPlanType==='6cuotas' ? 'active' : ''}"><span>📅 En 6 Cuotas</span><strong>$128 c/u</strong></button>
+      </div>
+    </div>`;
+}
 async function init(){
   const res = await fetch(SHEET_URL, { cache: "no-store" });
   const data = await res.json();
-  // LEE COL O = Landing Packs
   let filtered = data.filter(p => p["Landing Packs"] === true);
-  console.log("Fila Col O - Landing Packs TRUE:", filtered.length);
-
-  if(filtered.length === 0){
-    filtered = data.filter(p => (p.name||"").toLowerCase().includes("pack 3"));
-  }
-
+  if(filtered.length === 0) filtered = data.filter(p => (p.name||"").toLowerCase().includes("pack 3"));
+  allPacks = filtered;
   const isSingle = filtered.length === 1;
-
   if(isSingle){
     heroBadge.textContent = "50% OFF CONTADO - SOLO " + (filtered[0].name||"PACK 3").toUpperCase();
     heroTitle.innerHTML = `PILETA 3: ${filtered[0].name.toUpperCase()} <span>TRANSFORMACIÓN TOTAL</span>`;
@@ -123,20 +137,8 @@ async function init(){
     sectionTitle.textContent = `Packs disponibles (${filtered.length}) - Leído de col O`;
     packsGrid.className = "grid-packs three";
   }
-
-  packsGrid.innerHTML = filtered.map(p => {
-    const isPack3 = (p.name||"").toLowerCase().includes("pack 3");
-    if(isSingle){
-      return `<div class="card recommended" style="max-width:800px;margin:0 auto"><span style="position:absolute;top:-12px;left:24px;background:#4EEED8;color:#0A1E1E;padding:4px 12px;border-radius:9999px;font-size:10px;font-weight:700">RECOMENDADO • + SESIÓN 1:1</span><div style="display:flex;gap:20px;flex-wrap:wrap"><img src="${p.imageUrl}" style="width:130px;height:130px;border-radius:16px;object-fit:contain;background:#0A1E1E" /><div style="flex:1"><h3 style="font-size:18px;font-weight:700">${p.name}</h3><p style="font-size:13px;color:#4EEED8;margin-top:8px">${p.detail}</p><div style="margin-top:16px;border:1px dashed rgba(78,238,216,.3);background:rgba(78,238,216,.06);border-radius:14px;padding:14px"><div style="font-size:11px;text-decoration:line-through;color:rgba(255,255,255,.3)">Valor real: $897</div><div style="font-size:15px;font-weight:800;color:#4EEED8;margin-top:6px">⚡ HOY 50% OFF Contado: $448.5</div></div><div style="margin-top:16px;display:flex;flex-direction:column;gap:8px"><button onclick="selectPack('${p.name}','Pago Contado (50% OFF) - $448.5','${p.buyUrlContado}')" class="pay-opt active"><span>💥 Pago Contado</span><strong>$448.5</strong></button><button onclick="selectPack('${p.name}','3 Cuotas de $256','${p.buyUrl3Cuotas}')" class="pay-opt"><span>📅 En 3 Cuotas</span><strong>$256 c/u</strong></button><button onclick="selectPack('${p.name}','6 Cuotas de $128','${p.buyUrl6Cuotas}')" class="pay-opt"><span>📅 En 6 Cuotas</span><strong>$128 c/u</strong></button></div></div></div></div>`;
-    } else {
-      return `<div class="card ${isPack3?'recommended':''}">${isPack3?'<span class="card-badge">RECOMENDADO • + SESIÓN 1:1</span>':''}<img src="${p.imageUrl}" class="card-img" /><div class="card-title">${p.name}</div><div class="card-desc">${p.detail}</div><div class="price-box"><div class="price-real">Valor real: $897</div><div class="price-hoy">HOY 50% OFF: $448.5</div></div><button onclick="selectPack('${p.name}','Pago Contado - $448.5','${p.buyUrlContado}')" class="btn-pay">🔒 Comprar ${p.name}</button></div>`;
-    }
-  }).join('');
-
-  if(filtered.length>0){
-    const first = filtered[0];
-    selectPack(first.name, "Pago Contado (50% OFF) - $448.5", first.buyUrlContado);
-  }
+  packsGrid.innerHTML = filtered.map((p,i) => buildCard(p,i,isSingle)).join('');
+  if(filtered.length>0) selectPack(0, 'contado');
 }
 init();
 </script>
