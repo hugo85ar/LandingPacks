@@ -1,275 +1,143 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Pileta 3 - Pack 3 Transformación Total | 【entity-Hugo¦canonical_name=Hugo】 Alvigini</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <style>
-    *{font-family:'Inter',sans-serif;box-sizing:border-box;margin:0;padding:0}
-    body{background:#0A1E1E;color:#fff;min-height:100vh;padding-bottom:96px;-webkit-font-smoothing:antialiased}
-    a{color:inherit;text-decoration:none}
-    button{cursor:pointer;border:0;background:none;font-family:inherit}
-    .mx-auto{margin-left:auto;margin-right:auto}
-    .max-w{max-width:1120px}
-    .flex{display:flex}.inline-flex{display:inline-flex}.flex-col{flex-direction:column}.flex-1{flex:1}.shrink-0{flex-shrink:0}
-    .items-start{align-items:flex-start}.items-center{align-items:center}.justify-between{justify-content:space-between}.justify-center{justify-content:center}
-    .gap-2{gap:8px}.gap-3{gap:12px}.gap-5{gap:20px}.gap-8{gap:32px}
-    .w-full{width:100%}.h-full{height:100%}
-    .rounded-full{border-radius:9999px}.rounded-20{border-radius:20px}.rounded-16{border-radius:16px}.rounded-14{border-radius:14px}
-    .bg-dark{background:#0A1E1E}.bg-dark-85{background:rgba(10,30,30,.85)}.bg-dark-95{background:rgba(10,30,30,.95)}.bg-card{background:#102E2E}
-    .text-turq{color:#4EEED8}.bg-turq{background:#4EEED8}.bg-turq-10{background:rgba(78,238,216,.10)}.bg-turq-15{background:rgba(78,238,216,.15)}.bg-orange{background:#FF5A1F}.backdrop{backdrop-filter:blur(24px)}
-    header{position:sticky;top:0;z-index:20;border-bottom:1px solid rgba(255,255,255,.06);background:rgba(10,30,30,.85);backdrop-filter:blur(24px)}
-    .header-inner{height:84px;display:flex;align-items:center;justify-content:space-between;padding:0 20px;max-width:1120px;margin:0 auto}
-    @media(min-width:768px){.header-inner{height:104px;padding:0 24px}}
-    .btn-volver{display:inline-flex;align-items:center;gap:8px;font-size:11px;letter-spacing:.14em;text-transform:uppercase;font-weight:600;color:rgba(255,255,255,.5);border:1px solid rgba(255,255,255,.10);border-radius:9999px;padding:0 16px;height:36px}
-    .logo{height:56px;width:auto;object-fit:contain}
-    @media(min-width:768px){.logo{height:80px}}
-    .hero{max-width:1120px;margin:0 auto;padding:48px 20px 40px;display:flex;flex-direction:column;gap:32px}
-    @media(min-width:900px){.hero{flex-direction:row;justify-content:space-between;align-items:flex-start;gap:40px;padding:64px 24px 40px}}
-    .badge{display:inline-flex;align-items:center;gap:8px;padding:4px 12px;border-radius:9999px;background:rgba(78,238,216,.10);border:1px solid rgba(78,238,216,.20);font-size:11px;letter-spacing:.14em;text-transform:uppercase;font-weight:700;color:#4EEED8;margin-bottom:20px}
-    .dot{width:6px;height:6px;border-radius:50%;background:#4EEED8;animation:pulse 2s infinite}
-    @keyframes pulse{50%{opacity:.5}}
-    .hero-title{font-size:30px;line-height:.95;letter-spacing:-.03em;font-weight:800;text-transform:uppercase;max-width:16ch}
-    @media(min-width:768px){.hero-title{font-size:48px}}
-    .hero-title span{display:block;color:rgba(255,255,255,.40)}
-    .hero-sub{margin-top:16px;font-size:14px;line-height:1.5;color:rgba(255,255,255,.60);max-width:42ch;font-weight:500}
-    .video-wrap{position:relative;width:280px;aspect-ratio:9/16;border-radius:20px;overflow:hidden;background:#0A1E1E;border:1px solid rgba(255,255,255,.10);box-shadow:0 24px 80px rgba(0,0,0,.40);flex-shrink:0;margin:0 auto}
-    @media(min-width:768px){.video-wrap{width:340px}}
-    .video-wrap iframe{width:100%;height:100%;border:0;display:block}
-    .video-link{margin-top:12px;display:inline-flex;gap:6px;font-size:11px;color:rgba(255,255,255,.40);text-decoration:underline;text-underline-offset:4px}
-    .section-title{font-size:12px;letter-spacing:.16em;text-transform:uppercase;font-weight:700;color:#4EEED8;border-bottom:1px solid rgba(78,238,216,.20);padding-bottom:8px;margin-bottom:24px}
-    .card{position:relative;background:#102E2E;border:1px solid rgba(78,238,216,.35);border-radius:20px;padding:20px;box-shadow:0 0 0 1px rgba(78,238,216,.25),0 0 40px rgba(78,238,216,.12)}
-    @media(min-width:768px){.card{padding:24px}}
-    .card-badge-reco{position:absolute;top:-12px;left:24px;padding:4px 12px;border-radius:9999px;background:#4EEED8;color:#0A1E1E;font-size:10px;font-weight:700;text-transform:uppercase}
-    .card-selected{position:absolute;top:16px;right:16px;padding:4px 12px;border-radius:9999px;background:#4EEED8;color:#0A1E1E;font-size:10px;font-weight:700}
-    .card-inner{display:flex;flex-direction:column;gap:20px}
-    @media(min-width:768px){.card-inner{flex-direction:row}}
-    .card-img{width:84px;height:84px;border-radius:16px;object-fit:contain;background:#0A1E1E;border:1px solid rgba(255,255,255,.06);flex-shrink:0}
-    @media(min-width:768px){.card-img{width:130px;height:130px}}
-    .card-h3{font-size:16px;font-weight:700;line-height:1.15}
-    .card-detail{font-size:12px;font-weight:500;color:rgba(255,255,255,.45);margin-top:4px}
-    .card-sub{margin-top:8px;font-size:13px;line-height:1.4;color:#4EEED8;font-weight:600}
-    .card-incluye{margin-top:8px;font-size:12px;color:rgba(255,255,255,.55)}
-    .price-box{margin-top:16px;border:1px dashed rgba(78,238,216,.30);background:rgba(78,238,216,.06);border-radius:14px;padding:14px 16px}
-    .price-real{font-size:11px;text-decoration:line-through;color:rgba(255,255,255,.30);background:rgba(255,255,255,.05);padding:2px 8px;border-radius:4px;display:inline-block}
-    .price-off{font-size:10px;padding:2px 8px;border-radius:9999px;background:rgba(255,90,31,.15);border:1px solid rgba(255,90,31,.20);color:#FF6B35;font-weight:700;text-transform:uppercase;margin-left:8px}
-    .price-hoy{margin-top:8px;font-size:15px;font-weight:800;color:#4EEED8}
-    .price-cuotas{margin-top:4px;font-size:11px;color:rgba(255,255,255,.50)}
-    .pay-section{margin-top:20px;padding-top:20px;border-top:1px solid rgba(255,255,255,.08)}
-    .pay-title{font-size:11px;letter-spacing:.14em;text-transform:uppercase;font-weight:700;color:#4EEED8;margin-bottom:12px}
-    .pay-btn{width:100%;height:46px;border-radius:9999px;border:1px solid rgba(255,255,255,.10);display:flex;align-items:center;justify-content:space-between;padding:0 20px;font-size:12px;background:rgba(255,255,255,.04);color:rgba(255,255,255,.70)}
-    .pay-btn.active{background:rgba(78,238,216,.15);border-color:#4EEED8;color:#4EEED8;font-weight:700}
-    .input-box{margin-top:16px;background:#0A1E1E;border:1px solid rgba(255,255,255,.06);border-radius:14px;padding:16px}
-    .input-label{font-size:11px;text-transform:uppercase;color:rgba(255,255,255,.40);margin-bottom:8px}
-    .input-field{width:100%;height:42px;padding:0 16px;border-radius:9999px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.10);color:#fff;font-size:13px;outline:none}
-    .sticky-bar{position:fixed;bottom:0;left:0;width:100%;z-index:50;padding:12px 16px;background:rgba(10,30,30,.95);backdrop-filter:blur(24px);border-top:1px solid rgba(255,255,255,.10)}
-    .sticky-inner{max-width:1120px;margin:0 auto;display:flex;flex-direction:column;align-items:center}
-    .sticky-status{margin-bottom:10px;width:100%;max-width:560px;padding:8px 16px;border-radius:9999px;background:rgba(78,238,216,.10);border:1px solid rgba(78,238,216,.20);font-size:11px;color:#4EEED8;font-weight:600;text-align:center}
-    .sticky-info{font-size:11px;color:rgba(255,255,255,.50);text-align:center;margin-bottom:10px;width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-    .cta{width:100%;max-width:560px;height:48px;border-radius:9999px;background:#FF5A1F;color:#fff;font-weight:700;font-size:13px;padding:0 24px;box-shadow:0 0 0 1px rgba(255,90,31,.2),0 8px 24px rgba(255,90,31,.25)}
-    .cta:disabled{opacity:.40}
-    .wsp-link{margin-top:10px;font-size:11px;color:rgba(255,255,255,.40);text-decoration:underline;text-underline-offset:4px}
-    .hidden{display:none}
-  </style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Packs - Hugo Alvigini</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*{font-family:'Inter',sans-serif;box-sizing:border-box;margin:0;padding:0}
+body{background:#0A1E1E;color:#fff;min-height:100vh;padding-bottom:96px}
+header{position:sticky;top:0;z-index:20;border-bottom:1px solid rgba(255,255,255,.06);background:rgba(10,30,30,.85);backdrop-filter:blur(24px)}
+.header-inner{height:84px;display:flex;align-items:center;justify-content:space-between;padding:0 20px;max-width:1120px;margin:0 auto}
+.btn-volver{font-size:11px;letter-spacing:.14em;text-transform:uppercase;font-weight:600;color:rgba(255,255,255,.5);border:1px solid rgba(255,255,255,.10);border-radius:9999px;padding:0 16px;height:36px;display:inline-flex;align-items:center}
+.logo{height:56px}
+.hero{max-width:1120px;margin:0 auto;padding:48px 20px 40px;display:flex;flex-direction:column;gap:32px}
+@media(min-width:900px){.hero{flex-direction:row;justify-content:space-between;gap:40px;padding:64px 24px 40px}}
+.badge{display:inline-flex;gap:8px;padding:4px 12px;border-radius:9999px;background:rgba(78,238,216,.10);border:1px solid rgba(78,238,216,.20);font-size:11px;letter-spacing:.14em;text-transform:uppercase;font-weight:700;color:#4EEED8;margin-bottom:20px}
+.hero-title{font-size:30px;line-height:.95;font-weight:800;text-transform:uppercase;max-width:16ch}
+@media(min-width:768px){.hero-title{font-size:48px}}
+.hero-title span{color:rgba(255,255,255,.40)}
+.hero-sub{margin-top:16px;font-size:14px;color:rgba(255,255,255,.60);max-width:42ch;line-height:1.5}
+.video-wrap{width:280px;aspect-ratio:9/16;border-radius:20px;overflow:hidden;border:1px solid rgba(255,255,255,.10);box-shadow:0 24px 80px rgba(0,0,0,.40);margin:0 auto}
+@media(min-width:768px){.video-wrap{width:340px}}
+.video-wrap iframe{width:100%;height:100%;border:0}
+.section{max-width:1120px;margin:0 auto;padding:0 20px 40px}
+.section-title{font-size:12px;letter-spacing:.16em;text-transform:uppercase;font-weight:700;color:#4EEED8;border-bottom:1px solid rgba(78,238,216,.20);padding-bottom:8px;margin-bottom:24px}
+.grid-packs{display:grid;gap:20px}
+@media(min-width:900px){.grid-packs.three{grid-template-columns:1fr 1fr 1fr}.grid-packs.one{grid-template-columns:1fr;max-width:800px;margin:0 auto}}
+.card{position:relative;background:#102E2E;border:1px solid rgba(255,255,255,.08);border-radius:20px;padding:20px}
+.card.recommended{border-color:rgba(78,238,216,.35);box-shadow:0 0 0 1px rgba(78,238,216,.25),0 0 40px rgba(78,238,216,.12)}
+.card-badge{position:absolute;top:-12px;left:20px;padding:4px 12px;border-radius:9999px;background:#4EEED8;color:#0A1E1E;font-size:10px;font-weight:700}
+.card-img{width:100%;aspect-ratio:1/1;object-fit:contain;background:#0A1E1E;border-radius:16px;border:1px solid rgba(255,255,255,.06);margin-bottom:16px}
+.card-title{font-size:16px;font-weight:700}
+.card-desc{font-size:12px;color:rgba(255,255,255,.55);margin-top:6px;min-height:36px;line-height:1.4}
+.price-box{margin-top:12px;border:1px dashed rgba(78,238,216,.30);background:rgba(78,238,216,.06);border-radius:14px;padding:12px}
+.price-real{font-size:11px;text-decoration:line-through;color:rgba(255,255,255,.30)}
+.price-hoy{margin-top:6px;font-size:14px;font-weight:800;color:#4EEED8}
+.btn-pay{width:100%;height:44px;border-radius:9999px;background:#FF5A1F;color:#fff;font-weight:700;font-size:12px;margin-top:12px;display:flex;align-items:center;justify-content:center}
+.pay-opt{width:100%;height:42px;border-radius:9999px;border:1px solid rgba(255,255,255,.10);display:flex;align-items:center;justify-content:space-between;padding:0 16px;font-size:12px;background:rgba(255,255,255,.04);color:rgba(255,255,255,.70);cursor:pointer}
+.pay-opt.active{background:rgba(78,238,216,.15);border-color:#4EEED8;color:#4EEED8;font-weight:700}
+.sticky-bar{position:fixed;bottom:0;left:0;width:100%;z-index:50;padding:12px 16px;background:rgba(10,30,30,.95);backdrop-filter:blur(24px);border-top:1px solid rgba(255,255,255,.10)}
+.sticky-inner{max-width:1120px;margin:0 auto;display:flex;flex-direction:column;align-items:center}
+.cta{width:100%;max-width:560px;height:48px;border-radius:9999px;background:#FF5A1F;color:#fff;font-weight:700;font-size:13px}
+.cta:disabled{opacity:.4}
+.hidden{display:none}
+</style>
 </head>
 <body>
-
 <script>
-const SHEET_URL =
-  "https://script.google.com/macros/s/AKfycbyxlO60asW5Jc8tHtjtSqk8-tUTSxJwwDZ-i0oN-Jgqn5wsmg7l0a70jFD7rZssUD4IOw/exec";
-
-const WHATSAPP_NUM =
-  "5491176529179";
-
-const LOGO_URL =
-  "https://res.cloudinary.com/dlnrsadbc/image/upload/q_auto,f_auto,w_320,c_limit/v1789653853/hugo_logo_transparente_epomls.png";
-
-const DRIVE_ID =
-  "1NGDJ2pUuDDSM8g9MP6lQaH45KfVe1MPf";
-
-const DRIVE_PREVIEW =
-  `https://drive.google.com/file/d/${DRIVE_ID}/preview`;
-
-const DRIVE_VIEW =
-  `https://drive.google.com/file/d/${DRIVE_ID}/view`;
-
-const FALLBACK = {
-  Pack: "Pack 3",
-  "Producto / Pack": "Transformación Total",
-  detail: "Curso 01 + 02 + 03 + Sesión 1:1",
-  "Subtítulo": "El sistema definitivo para validar sin construir de más. Incluye sesión 1:1.",
-  "Que cursos incluye?": "Curso 01 + 02 + 03 + Sesión 1:1",
-  "Precio Total (100%)": 897,
-  "Precio Total (50% por pago unico)": 448.5,
-  "Opción 3 Cuotas (Mensual)": "$256",
-  "Opción 6 Cuotas (Mensual)": "$128",
-  offerNote: "RECOMENDADO • + SESIÓN 1:1 • 50% OFF",
-  imageUrl: LOGO_URL,
-  buyUrlContado: "https://checkout.dodopayments.com/buy/pdt_example3",
-  buyUrl3Cuotas: "https://checkout.dodopayments.com/buy/pdt_example3_3",
-  buyUrl6Cuotas: "https://checkout.dodopayments.com/buy/pdt_example3_6"
-};
+const SHEET_URL = "https://script.google.com/macros/s/AKfycbyxlO60asW5Jc8tHtjtSqk8-tUTSxJwwDZ-i0oN-Jgqn5wsmg7l0a70jFD7rZssUD4IOw/exec";
+const WHATSAPP_NUM = "5491176529179";
+const LOGO_URL = "https://res.cloudinary.com/dlnrsadbc/image/upload/q_auto,f_auto,w_320,c_limit/v1789653853/hugo_logo_transparente_epomls.png";
+const DRIVE_ID = "1NGDJ2pUuDDSM8g9MP6lQaH45KfVe1MPf";
 </script>
 
-<header>
-  <div class="header-inner">
-    <a href="https://hugo85ar.github.io/catalogo-promociones/" class="btn-volver">← Volver</a>
-    <img id="logo-img" alt="Hugo Alvigini" class="logo" />
-  </div>
-</header>
+<header><div class="header-inner"><a href="https://hugo85ar.github.io/catalogo-promociones/" class="btn-volver">← Volver</a><img id="logo-img" class="logo" /></div></header>
 
 <section class="hero">
-  <div class="flex-1" style="order:2">
-    <div class="badge"><span class="dot"></span> 50% OFF CONTADO - SOLO PACK 3</div>
-    <h1 class="hero-title">PILETA 3: PACK 3 <span>TRANSFORMACIÓN TOTAL</span></h1>
-    <p class="hero-sub">Esta landing muestra solo Pack 3 para la pileta de $2500. Pago único con 50% OFF.</p>
+  <div style="flex:1;order:2">
+    <div id="hero-badge" class="badge">50% OFF CONTADO</div>
+    <h1 id="hero-title" class="hero-title">LOS PACKS: COMBINACIONES <span>DE LOS 3 CURSOS</span></h1>
+    <p id="hero-sub" class="hero-sub">Elegí tu sistema. Pago único con 50% OFF.</p>
   </div>
-  <div style="order:1;display:flex;flex-direction:column;align-items:center">
-    <div class="video-wrap"><iframe id="drive-frame" allow="autoplay; fullscreen" allowfullscreen frameborder="0"></iframe></div>
-    <a id="drive-link" target="_blank" rel="noopener noreferrer" class="video-link">Si no carga, ver video →</a>
-  </div>
+  <div style="order:1"><div class="video-wrap"><iframe id="drive-frame" allowfullscreen></iframe></div></div>
 </section>
 
-<section style="max-width:1120px;margin:0 auto;padding:0 20px 40px">
-  <div class="section-title">Pack seleccionado para Pileta 3</div>
-  <div id="packs-container"></div>
+<section class="section">
+  <div id="section-title" class="section-title">Packs disponibles</div>
+  <div id="packs-grid" class="grid-packs"></div>
 </section>
 
-<div class="sticky-bar">
-  <div class="sticky-inner">
-    <div id="status-msg" class="sticky-status hidden"></div>
-    <div id="selected-info" class="sticky-info">Cargando Pack 3...</div>
-    <button id="checkout-btn" disabled class="cta">🔒 Completar mi compra</button>
-    <button id="wsp-btn" class="wsp-link">¿Tenés dudas? Hablar con Hugo por WhatsApp →</button>
-  </div>
-</div>
+<div class="sticky-bar"><div class="sticky-inner"><div id="selected-info" style="font-size:11px;color:rgba(255,255,255,.5);margin-bottom:10px;text-align:center;width:100%">Cargando packs...</div><button id="checkout-btn" disabled class="cta">🔒 Completar mi compra</button></div></div>
 
 <script>
-const packsContainer = document.getElementById('packs-container');
-const selectedInfo = document.getElementById('selected-info');
-const statusMsg = document.getElementById('status-msg');
-const checkoutBtn = document.getElementById('checkout-btn');
-const wspBtn = document.getElementById('wsp-btn');
 const logoImg = document.getElementById('logo-img');
 const driveFrame = document.getElementById('drive-frame');
-const driveLink = document.getElementById('drive-link');
-
-let selectedPlan = null;
-let selectedUrl = null;
-let selectedName = null;
-let userName = "";
+const packsGrid = document.getElementById('packs-grid');
+const heroBadge = document.getElementById('hero-badge');
+const heroTitle = document.getElementById('hero-title');
+const heroSub = document.getElementById('hero-sub');
+const sectionTitle = document.getElementById('section-title');
+const selectedInfo = document.getElementById('selected-info');
+const checkoutBtn = document.getElementById('checkout-btn');
 
 logoImg.src = LOGO_URL;
-driveFrame.src = DRIVE_PREVIEW;
-driveLink.href = DRIVE_VIEW;
+driveFrame.src = `https://drive.google.com/file/d/${DRIVE_ID}/preview`;
 
-function formatPrice(v) {
-  if (v == null) return "$--";
-  const s = String(v).trim();
-  return s.includes("$") ? s : "$" + s;
-}
+let selectedUrl = null;
 
-function extractPrice(str) {
-  const m = String(str).match(/\$[\d,.]+/);
-  return m ? m[0] : str;
-}
+function formatPrice(v){const s=String(v||"").trim();return s.includes("$")?s:"$"+s}
 
-function showStatus(text) {
-  statusMsg.textContent = text;
-  statusMsg.classList.remove('hidden');
-  setTimeout(() => statusMsg.classList.add('hidden'), 2500);
-}
-
-function buildData(raw) {
-  return {
-    codigo: (raw.Pack || "Pack 3").trim(),
-    producto: (raw["Producto / Pack"] || "Transformación Total").trim(),
-    detail: raw.detail || "Curso 01 + 02 + 03 + Sesión 1:1",
-    subtitulo: raw["Subtítulo"] || "El sistema definitivo para validar sin construir de más. Incluye sesión 1:1.",
-    incluye: raw["Que cursos incluye?"] || "Curso 01 + 02 + 03 + Sesión 1:1",
-    img: raw.imageUrl || LOGO_URL,
-    regular: raw["Precio Total (100%)"] || 897,
-    promo: raw["Precio Total (50% por pago unico)"] || 448.5,
-    cuota3: raw["Opción 3 Cuotas (Mensual)"] || "$256",
-    cuota6: raw["Opción 6 Cuotas (Mensual)"] || "$128",
-    urlContado: raw.buyUrlContado || "",
-    url3: raw.buyUrl3Cuotas || "",
-    url6: raw.buyUrl6Cuotas || "",
-    nombre: `${(raw.Pack || "Pack 3")} - ${(raw["Producto / Pack"] || "Transformación Total")}`.trim(),
-    offerNote: raw.offerNote || "RECOMENDADO • + SESIÓN 1:1 • 50% OFF"
-  };
-}
-
-function renderPack(p) {
-  return `
-    <div class="card">
-      <span class="card-badge-reco">RECOMENDADO • + SESIÓN 1:1</span>
-      <span class="card-selected">✓ SELECCIONADO</span>
-      <div class="card-inner">
-        <img src="${p.img}" alt="${p.nombre}" class="card-img" />
-        <div class="flex-1">
-          <h3 class="card-h3">${p.codigo} - ${p.producto}<span class="card-detail">${p.detail}</span></h3>
-          <div class="card-sub">${p.subtitulo}</div>
-          <div class="card-incluye"><span>Incluye:</span> ${p.incluye}</div>
-          <div class="price-box">
-            <div><span class="price-real">Valor real: ${formatPrice(p.regular)}</span><span class="price-off">50% OFF</span></div>
-            <div class="price-hoy">⚡ HOY 50% OFF Contado: ${formatPrice(p.promo)}</div>
-            <div class="price-cuotas">O en cuotas: <strong>3x ${formatPrice(p.cuota3)}</strong> | <strong>6x ${formatPrice(p.cuota6)}</strong></div>
-          </div>
-          <div style="margin-top:12px;font-size:11px;color:rgba(78,238,216,.80)">✨ ${p.offerNote}</div>
-          <div class="pay-section">
-            <div class="pay-title">Elegí tu forma de pago:</div>
-            <div style="display:flex;flex-direction:column;gap:10px">
-              <button onclick="selectPlan('Pago Contado (50% OFF) - ${formatPrice(p.promo)}', '${p.urlContado}')" class="pay-btn ${selectedPlan?.includes('Contado') ? 'active' : ''}"><span>💥 Pago Contado - 50% OFF</span><strong>${formatPrice(p.promo)}</strong></button>
-              <button onclick="selectPlan('3 Cuotas de ${formatPrice(p.cuota3)}', '${p.url3}')" class="pay-btn ${selectedPlan?.includes('3 Cuotas') ? 'active' : ''}" style="height:44px"><span>📅 En 3 Cuotas</span><strong>${formatPrice(p.cuota3)} c/u</strong></button>
-              <button onclick="selectPlan('6 Cuotas de ${formatPrice(p.cuota6)}', '${p.url6}')" class="pay-btn ${selectedPlan?.includes('6 Cuotas') ? 'active' : ''}" style="height:44px"><span>📅 En 6 Cuotas</span><strong>${formatPrice(p.cuota6)} c/u</strong></button>
-            </div>
-            <div class="input-box"><div class="input-label">¿Dudas? Nombre (opcional)</div><input type="text" placeholder="Ej: Alejandro" oninput="userName=this.value" class="input-field" /></div>
-          </div>
-        </div>
-      </div>
-    </div>
-  `;
-}
-
-window.selectPlan = function(plan, url) {
-  selectedPlan = plan;
+window.selectPack = function(name, plan, url){
   selectedUrl = url;
-  selectedName = buildData(FALLBACK).nombre;
-  selectedInfo.innerHTML = `Seleccionado: <span style="color:#4EEED8;font-weight:600">${selectedName}</span> <span style="color:rgba(255,255,255,.30)">(${plan})</span>`;
+  selectedInfo.textContent = `Seleccionado: ${name} (${plan})`;
   checkoutBtn.disabled = false;
-  const price = extractPrice(plan);
-  checkoutBtn.textContent = plan.includes('Contado') ? `🔒 Sí, quiero Pack 3 por ${price}` : `🔒 Completar mi compra - ${plan}`;
-  showStatus(`✓ ${selectedName} • ${plan} seleccionado`);
-  loadPack(FALLBACK);
+  checkoutBtn.textContent = `🔒 Sí, quiero ${name} por ${plan.match(/\$[\d.]+/)?.[0] || ""}`;
+  checkoutBtn.onclick = () => window.open(url, "_blank");
 };
 
-function loadPack(raw) {
-  const p = buildData(raw);
-  packsContainer.innerHTML = renderPack(p);
-}
+async function init(){
+  const res = await fetch(SHEET_URL, { cache: "no-store" });
+  const data = await res.json();
+  // LEE COL O = Landing Packs
+  let filtered = data.filter(p => p["Landing Packs"] === true);
+  console.log("Fila Col O - Landing Packs TRUE:", filtered.length);
 
-async function init() {
-  try {
-    const res = await fetch(SHEET_URL, { cache: "no-store" });
-    const txt = await res.text();
-    const data = JSON.parse(txt);
-    let list = Array.isArray(data) ? data : [];
-    let pack3 = list.find(x => (x.Pack || "").toLowerCase().includes("3")) || FALLBACK;
-    loadPack(pack3);
-    selectPlan(`Pago Contado (50% OFF) - ${formatPrice(pack3["Precio Total (50% por pago unico)"] || 448.5)}`, pack3.buyUrlContado || FALLBACK.buyUrlContado);
-  } catch (e) {
-    loadPack(FALLBACK);
-    selectPlan(`Pago Contado (50% OFF) - ${formatPrice(FALLBACK["Precio Total (50% por pago unico)"])}`, FALLBACK.buyUrlContado);
+  if(filtered.length === 0){
+    filtered = data.filter(p => (p.name||"").toLowerCase().includes("pack 3"));
+  }
+
+  const isSingle = filtered.length === 1;
+
+  if(isSingle){
+    heroBadge.textContent = "50% OFF CONTADO - SOLO " + (filtered[0].name||"PACK 3").toUpperCase();
+    heroTitle.innerHTML = `PILETA 3: ${filtered[0].name.toUpperCase()} <span>TRANSFORMACIÓN TOTAL</span>`;
+    heroSub.innerHTML = `${filtered[0].detail}<br><br><span style="color:#4EEED8;font-weight:700">El sistema definitivo para validar sin construir de más. Incluye sesión 1:1.</span>`;
+    sectionTitle.textContent = "Pack seleccionado para Pileta 3";
+    packsGrid.className = "grid-packs one";
+  } else {
+    heroBadge.textContent = `50% OFF CONTADO - ${filtered.length} PACKS DISPONIBLES`;
+    heroTitle.innerHTML = `LOS PACKS: COMBINACIONES <span>DE LOS 3 CURSOS</span>`;
+    heroSub.textContent = "Elegí tu sistema. Pago único con 50% OFF.";
+    sectionTitle.textContent = `Packs disponibles (${filtered.length}) - Leído de col O`;
+    packsGrid.className = "grid-packs three";
+  }
+
+  packsGrid.innerHTML = filtered.map(p => {
+    const isPack3 = (p.name||"").toLowerCase().includes("pack 3");
+    if(isSingle){
+      return `<div class="card recommended" style="max-width:800px;margin:0 auto"><span style="position:absolute;top:-12px;left:24px;background:#4EEED8;color:#0A1E1E;padding:4px 12px;border-radius:9999px;font-size:10px;font-weight:700">RECOMENDADO • + SESIÓN 1:1</span><div style="display:flex;gap:20px;flex-wrap:wrap"><img src="${p.imageUrl}" style="width:130px;height:130px;border-radius:16px;object-fit:contain;background:#0A1E1E" /><div style="flex:1"><h3 style="font-size:18px;font-weight:700">${p.name}</h3><p style="font-size:13px;color:#4EEED8;margin-top:8px">${p.detail}</p><div style="margin-top:16px;border:1px dashed rgba(78,238,216,.3);background:rgba(78,238,216,.06);border-radius:14px;padding:14px"><div style="font-size:11px;text-decoration:line-through;color:rgba(255,255,255,.3)">Valor real: $897</div><div style="font-size:15px;font-weight:800;color:#4EEED8;margin-top:6px">⚡ HOY 50% OFF Contado: $448.5</div></div><div style="margin-top:16px;display:flex;flex-direction:column;gap:8px"><button onclick="selectPack('${p.name}','Pago Contado (50% OFF) - $448.5','${p.buyUrlContado}')" class="pay-opt active"><span>💥 Pago Contado</span><strong>$448.5</strong></button><button onclick="selectPack('${p.name}','3 Cuotas de $256','${p.buyUrl3Cuotas}')" class="pay-opt"><span>📅 En 3 Cuotas</span><strong>$256 c/u</strong></button><button onclick="selectPack('${p.name}','6 Cuotas de $128','${p.buyUrl6Cuotas}')" class="pay-opt"><span>📅 En 6 Cuotas</span><strong>$128 c/u</strong></button></div></div></div></div>`;
+    } else {
+      return `<div class="card ${isPack3?'recommended':''}">${isPack3?'<span class="card-badge">RECOMENDADO • + SESIÓN 1:1</span>':''}<img src="${p.imageUrl}" class="card-img" /><div class="card-title">${p.name}</div><div class="card-desc">${p.detail}</div><div class="price-box"><div class="price-real">Valor real: $897</div><div class="price-hoy">HOY 50% OFF: $448.5</div></div><button onclick="selectPack('${p.name}','Pago Contado - $448.5','${p.buyUrlContado}')" class="btn-pay">🔒 Comprar ${p.name}</button></div>`;
+    }
+  }).join('');
+
+  if(filtered.length>0){
+    const first = filtered[0];
+    selectPack(first.name, "Pago Contado (50% OFF) - $448.5", first.buyUrlContado);
   }
 }
-
-checkoutBtn.addEventListener('click', () => { if (!selectedUrl) return; window.open(selectedUrl, "_blank"); });
-wspBtn.addEventListener('click', () => {
-  let text = !selectedPlan ? "Hola Hugo! Estoy viendo el Pack 3 y tengo una duda, me ayudás?" : `Hola Hugo! Me interesa:\n\n*Pack:* ${selectedName}\n*Modalidad:* ${selectedPlan}\n${userName ? `*Nombre:* ${userName}\n` : ""}\nTengo una duda antes de pagar, me ayudás?`;
-  window.open(`https://wa.me/${WHATSAPP_NUM}?text=${encodeURIComponent(text)}`, "_blank");
-});
 init();
 </script>
 </body>
