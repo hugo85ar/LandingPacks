@@ -3,14 +3,14 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Packs - Hugo Alvigini</title>
+<title>Packs - Hugo Alvigini | 10 Años Emprendiendo</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
 *{font-family:'Inter',sans-serif;box-sizing:border-box;margin:0;padding:0}
 body{background:#0A1E1E;color:#fff;min-height:100vh;padding-bottom:110px}
 header{position:sticky;top:0;z-index:20;border-bottom:1px solid rgba(255,255,255,.06);background:rgba(10,30,30,.85);backdrop-filter:blur(24px)}
 .header-inner{height:84px;display:flex;align-items:center;justify-content:space-between;padding:0 20px;max-width:1120px;margin:0 auto}
-.btn-volver{font-size:11px;letter-spacing:.14em;text-transform:uppercase;font-weight:600;color:rgba(255,255,255,.5);border:1px solid rgba(255,255,255,.10);border-radius:9999px;padding:0 16px;height:36px;display:inline-flex;align-items:center}
+.btn-volver{font-size:11px;letter-spacing:.14em;text-transform:uppercase;font-weight:600;color:rgba(255,255,255,.5);border:1px solid rgba(255,255,255,.10);border-radius:9999px;padding:0 16px;height:36px;display:inline-flex;align-items:center;text-decoration:none}
 .logo{height:56px}
 .hero{max-width:1120px;margin:0 auto;padding:48px 20px 40px;display:flex;flex-direction:column;gap:32px}
 @media(min-width:900px){.hero{flex-direction:row;justify-content:space-between;gap:40px;padding:64px 24px 40px}}
@@ -24,26 +24,47 @@ header{position:sticky;top:0;z-index:20;border-bottom:1px solid rgba(255,255,255
 .video-wrap iframe{width:100%;height:100%;border:0}
 .section{max-width:1120px;margin:0 auto;padding:0 20px 40px}
 .section-title{font-size:12px;letter-spacing:.16em;text-transform:uppercase;font-weight:700;color:#4EEED8;border-bottom:1px solid rgba(78,238,216,.20);padding-bottom:8px;margin-bottom:24px}
+.manifesto{max-width:1120px;margin:0 auto;padding:40px 20px;background:radial-gradient(120% 120% at 0% 0%, rgba(78,238,216,.08) 0%, transparent 50%), #0F2A2A;border-top:1px solid rgba(78,238,216,.12);border-bottom:1px solid rgba(78,238,216,.12)}
+.manifesto-inner{max-width:900px;margin:0 auto;display:flex;flex-direction:column;gap:32px}
+@media(min-width:900px){.manifesto-inner{flex-direction:row;gap:48px}
+.manifesto-kicker{font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:#4EEED8;font-weight:700;display:flex;align-items:center;gap:8px;margin-bottom:12px}
+.manifesto-title{font-size:28px;font-weight:800;line-height:.9;text-transform:uppercase}
+@media(min-width:768px){.manifesto-title{font-size:38px}}
+.manifesto-title span{color:#4EEED8}
+.manifesto-title em{font-style:normal;color:rgba(255,255,255,.35);display:block}
+.manifesto-text{font-size:14px;line-height:1.7;color:rgba(255,255,255,.70);max-width:48ch}
+.manifesto-text b{color:#fff}
+.manifesto-text .highlight{background:rgba(78,238,216,.12);border:1px solid rgba(78,238,216,.20);padding:2px 8px;border-radius:6px;color:#4EEED8;font-weight:700}
+.manifesto-list{margin-top:20px;display:flex;flex-direction:column;gap:12px}
+.manifesto-item{display:flex;gap:12px;font-size:13px;line-height:1.5;color:rgba(255,255,255,.70)}
+.manifesto-item .icon{width:28px;height:28px;border-radius:50%;background:rgba(78,238,216,.12);border:1px solid rgba(78,238,216,.20);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.manifesto-quote{margin-top:24px;padding:16px 20px;background:rgba(10,30,30,.8);border-left:3px solid #4EEED8;border-radius:0 12px 12px 0;font-size:13px;line-height:1.6;color:rgba(255,255,255,.70);font-style:italic}
+.manifesto-quote b{color:#4EEED8;font-style:normal}
 .grid-packs{display:grid;gap:20px}
 @media(min-width:900px){.grid-packs.three{grid-template-columns:1fr 1fr 1fr}.grid-packs.one{grid-template-columns:1fr;max-width:800px;margin:0 auto}}
 .card{position:relative;background:#102E2E;border:1px solid rgba(255,255,255,.08);border-radius:20px;padding:20px;display:flex;flex-direction:column}
 .card.recommended{border-color:rgba(78,238,216,.35);box-shadow:0 0 0 1px rgba(78,238,216,.25),0 0 40px rgba(78,238,216,.12)}
 .card-badge{position:absolute;top:-12px;left:20px;padding:4px 12px;border-radius:9999px;background:#4EEED8;color:#0A1E1E;font-size:10px;font-weight:700}
-.card-badge-selected{position:absolute;top:16px;right:16px;padding:4px 12px;border-radius:9999px;background:#4EEED8;color:#0A1E1E;font-size:10px;font-weight:700}
+.card-badge-selected{position:absolute;top:12px;right:12px;padding:4px 12px;border-radius:9999px;background:#4EEED8;color:#0A1E1E;font-size:10px;font-weight:700;z-index:2}
 .card-img{width:100%;aspect-ratio:1/1;object-fit:contain;background:#0A1E1E;border-radius:16px;border:1px solid rgba(255,255,255,.06);margin-bottom:16px}
-.card-title{font-size:16px;font-weight:700}
-.card-desc{font-size:12px;color:rgba(255,255,255,.55);margin-top:6px;min-height:36px;line-height:1.4}
+.card-title{font-size:16px;font-weight:700;text-transform:uppercase}
+.card-pack{font-size:11px;color:#4EEED8;font-weight:700;letter-spacing:.08em;margin-bottom:4px}
+.card-desc{font-size:12px;color:rgba(255,255,255,.55);margin-top:6px;line-height:1.4}
+.card-sub{font-size:12px;color:rgba(255,255,255,.70);margin-top:8px;line-height:1.4;min-height:54px}
+.beneficios{margin-top:12px;padding:10px 12px;background:rgba(10,30,30,.6);border:1px solid rgba(255,255,255,.06);border-radius:12px}
+.beneficios li{font-size:11px;color:rgba(255,255,255,.60);line-height:1.4;margin-bottom:6px;list-style:none;display:flex;gap:6px}
+.beneficios li:before{content:"✓";color:#4EEED8;font-weight:700}
 .price-box{margin-top:12px;border:1px dashed rgba(78,238,216,.30);background:rgba(78,238,216,.06);border-radius:14px;padding:12px}
 .price-real{font-size:11px;text-decoration:line-through;color:rgba(255,255,255,.30)}
 .price-hoy{margin-top:6px;font-size:14px;font-weight:800;color:#4EEED8}
 .pay-group{display:flex;flex-direction:column;gap:8px;margin-top:16px}
 .pay-opt{width:100%;height:42px;border-radius:9999px;border:1px solid rgba(255,255,255,.10);display:flex;align-items:center;justify-content:space-between;padding:0 16px;font-size:11px;background:rgba(255,255,255,.04);color:rgba(255,255,255,.70);cursor:pointer;transition:.15s}
-.pay-opt.active{background:rgba(78,238,216,.18);border-color:#4EEED8;color:#4EEED8;font-weight:700;box-shadow:0 0 0 1px rgba(78,238,216,.2)}
+.pay-opt.active{background:rgba(78,238,216,.18);border-color:#4EEED8;color:#4EEED8;font-weight:700}
 .sticky-bar{position:fixed;bottom:0;left:0;width:100%;z-index:50;padding:12px 16px;background:rgba(10,30,30,.95);backdrop-filter:blur(24px);border-top:1px solid rgba(255,255,255,.10)}
 .sticky-inner{max-width:1120px;margin:0 auto;display:flex;flex-direction:column;align-items:center}
-.cta{width:100%;max-width:560px;height:48px;border-radius:9999px;background:#FF5A1F;color:#fff;font-weight:700;font-size:13px;box-shadow:0 0 0 1px rgba(255,90,31,.2),0 8px 24px rgba(255,90,31,.25)}
+.cta{width:100%;max-width:560px;height:48px;border-radius:9999px;background:#FF5A1F;color:#fff;font-weight:700;font-size:13px}
 .cta:disabled{opacity:.4}
-.hidden{display:none}
+.hidden{display:none!important}
 </style>
 </head>
 <body>
@@ -51,71 +72,43 @@ header{position:sticky;top:0;z-index:20;border-bottom:1px solid rgba(255,255,255
 const SHEET_URL = "https://script.google.com/macros/s/AKfycbyxlO60asW5Jc8tHtjtSqk8-tUTSxJwwDZ-i0oN-Jgqn5wsmg7l0a70jFD7rZssUD4IOw/exec";
 const LOGO_URL = "https://res.cloudinary.com/dlnrsadbc/image/upload/q_auto,f_auto,w_320,c_limit/v1789653853/hugo_logo_transparente_epomls.png";
 const DRIVE_ID = "1NGDJ2pUuDDSM8g9MP6lQaH45KfVe1MPf";
+const PRECIOS_OFICIALES = {
+  "Pack 1": { nombre: "EMPRENDEDOR DIGITAL", precio100: 550, precio50: 275, cuota3: "$129", cuota6: "$82", incluye: "Curso de Investigación de Mercado Inteligente + Creación de Landing Pages", subtitulo: "Deja de adivinar qué vender: encuentra tu mercado ideal y crea una máquina de captar clientes en piloto automático.", beneficios: ["Validación de rentabilidad antes de invertir un solo peso.", "Tu propia página de ventas profesional lista para convertir.", "Claridad absoluta sobre tu cliente perfecto."] },
+  "Pack 2": { nombre: "EXITO GARANTIZADO", precio100: 550, precio50: 275, cuota3: "$129", cuota6: "$82", incluye: "Curso de Investigación de Mercado Inteligente + Curso de Productividad y Automatización", subtitulo: "Valida una oferta ultra rentable y elimina el caos operativo automatizando tu día a día.", beneficios: ["Descubre un nicho hambriento sin quemar presupuesto.", "Recupera horas delegando lo repetitivo en sistemas.", "Cero errores humanos: la tecnología trabaja por ti."] },
+  "Pack 3": { nombre: "TRANSFORMACIÓN TOTAL", precio100: 897, precio50: 448.5, cuota3: "$256", cuota6: "$128", incluye: "Curso de Investigación de Mercado Inteligente + Creación de Landing Pages + Curso de Productividad y Automatización", subtitulo: "El sistema definitivo: encuentra tu mercado, vende con páginas de alta conversión y escala sin quemarte operativamente.", beneficios: ["El ecosistema completo de punta a punta: desde la idea hasta el cliente pagando.", "Autoridad indiscutible con una estructura comercial profesional.", "Libertad de tiempo absoluta gracias a la automatización avanzada."] }
+};
 </script>
 <header><div class="header-inner"><a href="https://hugo85ar.github.io/catalogo-promociones/" class="btn-volver">← Volver</a><img id="logo-img" class="logo" /></div></header>
-<section class="hero">
-  <div style="flex:1;order:2"><div id="hero-badge" class="badge">50% OFF CONTADO</div><h1 id="hero-title" class="hero-title">LOS PACKS: COMBINACIONES <span>DE LOS 3 CURSOS</span></h1><p id="hero-sub" class="hero-sub">Elegí tu sistema. Pago único con 50% OFF.</p></div>
-  <div style="order:1"><div class="video-wrap"><iframe id="drive-frame" allowfullscreen></iframe></div></div>
-</section>
-<section class="section"><div id="section-title" class="section-title">Packs disponibles</div><div id="packs-grid" class="grid-packs"></div></section>
+<section class="hero"><div style="flex:1;order:2"><div id="hero-badge" class="badge">50% OFF CONTADO</div><h1 id="hero-title" class="hero-title">LOS PACKS: COMBINACIONES <span>DE LOS 3 CURSOS</span></h1><p id="hero-sub" class="hero-sub">Elegí tu sistema. Pago único con 50% OFF.</p></div><div style="order:1"><div class="video-wrap"><iframe id="drive-frame" allowfullscreen></iframe></div></div></section>
+<section class="manifesto"><div class="manifesto-inner"><div style="flex:1"><div class="manifesto-kicker">10 AÑOS EN LA TRINCHERA, NO EN LA TEORÍA</div><h2 class="manifesto-title">NO SON CURSOS.<br><span>ES LA RUTA QUE ME HUBIERA</span><em>GUSTADO QUE ME ENSEÑEN.</em></h2><div class="manifesto-quote">Durante <b>10 años emprendiendo</b> cometí todos los errores que vos estás tratando de evitar: gasté plata en productos que nadie quería, construí webs que no convertían y me quemé la cabeza operando todo a mano. <b>Este Pack 3 es lo que me hubiera ahorrado 5 años y miles de dólares.</b></div></div><div style="flex:1"><p class="manifesto-text">Diseñé estos 3 cursos <b>sin rodeos, sin humo y sin relleno.</b> Fui directo a lo que realmente necesitas para pasar de la idea a la venta. No te enseño 50 herramientas. Te enseño <span class="highlight">el sistema que uso yo</span> para validar, vender y escalar.<br><br>Todo lo que aprendí a los golpes —investigación de mercado que sí paga, landing pages que convierten y automatización que te devuelve el tiempo— está metido, ordenado y masticado dentro de este <b>Pack 3 Transformación Total.</b></p><div class="manifesto-list"><div class="manifesto-item"><div class="icon">🎯</div><div><b>Sin vueltas:</b> Cada módulo va al grano. 0 teoría motivacional, 100% implementación.</div></div><div class="manifesto-item"><div class="icon">⚡</div><div><b>Ruta probada:</b> Es el mismo camino que recorro yo con cada nuevo emprendimiento. Validar → Vender → Automatizar.</div></div><div class="manifesto-item"><div class="icon">🔒</div><div><b>Todo en un lugar:</b> No tenés que comprar 3 formaciones separadas. En Pack 3 tenés el ecosistema completo + sesión 1:1 conmigo para aplicarlo a tu caso.</div></div></div></div></div></section>
+<section class="section"><div id="section-title" class="section-title">Packs disponibles - Leído de col O</div><div id="packs-grid" class="grid-packs"></div></section>
 <div class="sticky-bar"><div class="sticky-inner"><div id="selected-info" style="font-size:11px;color:rgba(255,255,255,.5);margin-bottom:10px;text-align:center;width:100%">Cargando packs...</div><button id="checkout-btn" disabled class="cta">🔒 Completar mi compra</button></div></div>
 <script>
-const logoImg = document.getElementById('logo-img');
-const driveFrame = document.getElementById('drive-frame');
-const packsGrid = document.getElementById('packs-grid');
-const heroBadge = document.getElementById('hero-badge');
-const heroTitle = document.getElementById('hero-title');
-const heroSub = document.getElementById('hero-sub');
-const sectionTitle = document.getElementById('section-title');
-const selectedInfo = document.getElementById('selected-info');
-const checkoutBtn = document.getElementById('checkout-btn');
-logoImg.src = LOGO_URL;
-driveFrame.src = `https://drive.google.com/file/d/${DRIVE_ID}/preview`;
-let allPacks = [];
-let selectedPackIndex = 0;
-let selectedPlanType = 'contado';
-let selectedUrl = null;
+const logoImg = document.getElementById('logo-img'); const driveFrame = document.getElementById('drive-frame'); const packsGrid = document.getElementById('packs-grid'); const heroBadge = document.getElementById('hero-badge'); const heroTitle = document.getElementById('hero-title'); const heroSub = document.getElementById('hero-sub'); const sectionTitle = document.getElementById('section-title'); const selectedInfo = document.getElementById('selected-info'); const checkoutBtn = document.getElementById('checkout-btn');
+logoImg.src = LOGO_URL; driveFrame.src = `https://drive.google.com/file/d/${DRIVE_ID}/preview`;
+let allPacks = []; let selectedPackIndex = 0; let selectedPlanType = 'contado';
+function getOficial(packName){const key = Object.keys(PRECIOS_OFICIALES).find(k => packName.includes(k)) || "Pack 3"; return PRECIOS_OFICIALES[key];}
 function formatPrice(v){const s=String(v||"").trim();return s.includes("$")?s:"$"+s}
 window.selectPack = function(packIndex, planType){
-  selectedPackIndex = packIndex;
-  selectedPlanType = planType;
-  const pack = allPacks[packIndex];
-  let url = ""; let label = "";
-  if(planType === 'contado'){url = pack.buyUrlContado; label = `Pago Contado (50% OFF) - $448.5`;}
-  else if(planType === '3cuotas'){url = pack.buyUrl3Cuotas; label = `3 Cuotas de $256`;}
-  else if(planType === '6cuotas'){url = pack.buyUrl6Cuotas; label = `6 Cuotas de $128`;}
-  selectedUrl = url;
-  const card = document.getElementById(`card-${packIndex}`);
-  if(card){
-    card.querySelectorAll('.pay-opt').forEach(btn => {
-      btn.classList.remove('active');
-      if(btn.dataset.plan === planType){btn.classList.add('active');}
-    });
-  }
+  selectedPackIndex = packIndex; selectedPlanType = planType;
+  document.querySelectorAll('.pay-opt').forEach(btn => btn.classList.remove('active'));
   document.querySelectorAll('.card-badge-selected').forEach(b => b.classList.add('hidden'));
-  const selBadge = document.getElementById(`selected-${packIndex}`);
-  if(selBadge) selBadge.classList.remove('hidden');
-  selectedInfo.textContent = `Seleccionado: ${pack.name} (${label})`;
+  const card = document.getElementById(`card-${packIndex}`);
+  if(card){const btn = card.querySelector(`[data-plan="${planType}"]`); if(btn) btn.classList.add('active');}
+  const selBadge = document.getElementById(`selected-${packIndex}`); if(selBadge) selBadge.classList.remove('hidden');
+  const pack = allPacks[packIndex]; const oficial = getOficial(pack.name);
+  let url = ""; let label = "";
+  if(planType === 'contado'){url = pack.buyUrlContado; label = `Pago Contado (50% OFF) - ${formatPrice(oficial.precio50)}`;}
+  else if(planType === '3cuotas'){url = pack.buyUrl3Cuotas; label = `3 Cuotas de ${oficial.cuota3}`;}
+  else if(planType === '6cuotas'){url = pack.buyUrl6Cuotas; label = `6 Cuotas de ${oficial.cuota6}`;}
+  selectedInfo.textContent = `Seleccionado: ${pack.name} - ${oficial.nombre} (${label})`;
   checkoutBtn.disabled = false;
-  checkoutBtn.textContent = `🔒 Sí, quiero ${pack.name} por ${label.match(/\$[\d.]+/)?.[0] || label}`;
+  checkoutBtn.textContent = `🔒 Sí, quiero ${pack.name} por ${label.match(/\$[\d.,]+/)?.[0] || label}`;
   checkoutBtn.onclick = () => window.open(url, "_blank");
 };
 function buildCard(p, index, isSingle){
-  const isPack3 = (p.name||"").toLowerCase().includes("pack 3");
-  const isSelected = index === selectedPackIndex;
-  return `<div id="card-${index}" class="card ${isPack3 ? 'recommended' : ''}" style="${isSingle ? 'max-width:800px;margin:0 auto' : ''}">
-      ${isPack3 ? `<span class="card-badge">RECOMENDADO • + SESIÓN 1:1</span>` : ""}
-      <span id="selected-${index}" class="card-badge-selected ${isSelected ? '' : 'hidden'}">✓ SELECCIONADO</span>
-      <img src="${p.imageUrl}" class="card-img" style="${isSingle ? 'width:130px;height:130px' : ''}" />
-      <div class="card-title">${p.name}</div>
-      <div class="card-desc">${p.detail}</div>
-      <div class="price-box"><div class="price-real">Valor real: $897</div><div class="price-hoy">HOY 50% OFF: $448.5</div><div style="font-size:11px;color:rgba(255,255,255,.5);margin-top:4px">3x $256 | 6x $128</div></div>
-      <div class="pay-group">
-        <button data-plan="contado" onclick="selectPack(${index}, 'contado')" class="pay-opt ${isSelected && selectedPlanType==='contado' ? 'active' : ''}"><span>💥 Pago Contado - 50% OFF</span><strong>$448.5</strong></button>
-        <button data-plan="3cuotas" onclick="selectPack(${index}, '3cuotas')" class="pay-opt ${isSelected && selectedPlanType==='3cuotas' ? 'active' : ''}"><span>📅 En 3 Cuotas</span><strong>$256 c/u</strong></button>
-        <button data-plan="6cuotas" onclick="selectPack(${index}, '6cuotas')" class="pay-opt ${isSelected && selectedPlanType==='6cuotas' ? 'active' : ''}"><span>📅 En 6 Cuotas</span><strong>$128 c/u</strong></button>
-      </div>
-    </div>`;
+  const oficial = getOficial(p.name); const isPack3 = (p.name||"").toLowerCase().includes("pack 3");
+  return `<div id="card-${index}" class="card ${isPack3 ? 'recommended' : ''}" style="${isSingle ? 'max-width:800px;margin:0 auto' : ''}">${isPack3 ? `<span class="card-badge">RECOMENDADO • + SESIÓN 1:1 • 10 AÑOS DE EXPERIENCIA</span>` : ""}<span id="selected-${index}" class="card-badge-selected ${index===0?'':'hidden'}">✓ SELECCIONADO</span><div class="card-pack">${oficial.nombre}</div><img src="${p.imageUrl}" class="card-img" style="${isSingle ? 'width:130px;height:130px' : ''}" /><div class="card-title">${p.name}</div><div class="card-desc">${oficial.incluye}</div><div class="card-sub">${oficial.subtitulo}</div><div class="beneficios">${oficial.beneficios.map(b => `<li>${b}</li>`).join('')}</div><div class="price-box"><div class="price-real">Valor real: ${formatPrice(oficial.precio100)}</div><div class="price-hoy">HOY 50% OFF: ${formatPrice(oficial.precio50)}</div><div style="font-size:11px;color:rgba(255,255,255,.5);margin-top:4px">3x ${oficial.cuota3} | 6x ${oficial.cuota6}</div></div><div style="display:flex;flex-direction:column;gap:8px;margin-top:16px"><button data-plan="contado" onclick="selectPack(${index}, 'contado')" class="pay-opt ${index===0?'active':''}"><span>💥 Pago Contado - 50% OFF</span><strong>${formatPrice(oficial.precio50)}</strong></button><button data-plan="3cuotas" onclick="selectPack(${index}, '3cuotas')" class="pay-opt"><span>📅 En 3 Cuotas</span><strong>${oficial.cuota3} c/u</strong></button><button data-plan="6cuotas" onclick="selectPack(${index}, '6cuotas')" class="pay-opt"><span>📅 En 6 Cuotas</span><strong>${oficial.cuota6} c/u</strong></button></div></div>`;
 }
 async function init(){
   const res = await fetch(SHEET_URL, { cache: "no-store" });
@@ -127,13 +120,14 @@ async function init(){
   if(isSingle){
     heroBadge.textContent = "50% OFF CONTADO - SOLO " + (filtered[0].name||"PACK 3").toUpperCase();
     heroTitle.innerHTML = `PILETA 3: ${filtered[0].name.toUpperCase()} <span>TRANSFORMACIÓN TOTAL</span>`;
-    heroSub.innerHTML = `${filtered[0].detail}<br><br><span style="color:#4EEED8;font-weight:700">El sistema definitivo para validar sin construir de más. Incluye sesión 1:1.</span>`;
-    sectionTitle.textContent = "Pack seleccionado para Pileta 3";
+    const oficial = getOficial(filtered[0].name);
+    heroSub.innerHTML = `${oficial.incluye}<br><br><span style="color:#4EEED8;font-weight:700">${oficial.subtitulo}</span>`;
+    sectionTitle.textContent = "Pack seleccionado para Pileta 3 - Incluye todo";
     packsGrid.className = "grid-packs one";
   } else {
     heroBadge.textContent = `50% OFF CONTADO - ${filtered.length} PACKS DISPONIBLES`;
     heroTitle.innerHTML = `LOS PACKS: COMBINACIONES <span>DE LOS 3 CURSOS</span>`;
-    heroSub.textContent = "Elegí tu sistema. Pago único con 50% OFF.";
+    heroSub.textContent = "Elegí tu sistema. Pago único con 50% OFF. Precios oficiales diferenciados.";
     sectionTitle.textContent = `Packs disponibles (${filtered.length}) - Leído de col O`;
     packsGrid.className = "grid-packs three";
   }
