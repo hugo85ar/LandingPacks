@@ -41,7 +41,7 @@ input:focus{outline:none;border-color:rgba(78,238,216,.5)!important}
 </div>
 
 <div style="margin-top:32px;background:rgba(255,90,31,.1);border:1px solid rgba(255,90,31,.3);border-radius:14px;padding:16px;display:flex;gap:12px">
-<div style="width:36px;height:36px;border-radius:50%;background:#FF5A1F;display:flex;align-items:center;justify-content:center;flex-shrink:0">⏳</div>
+<div style="width:36px;height:36px;border-radius:50%;background:#FF5A1F;display:flex;align-items:center;justify-content:center;flex-shrink:0"> </div>
 <div><p style="font-size:13px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;color:#FF8A65;margin-bottom:4px">Oferta activa hoy</p><p style="font-size:15px;font-weight:600;color:white;line-height:1.35">50% OFF hoy. Después vuelve a <span style="text-decoration:line-through;opacity:.6">$897</span>. Incluye sesión 1:1 para tu caso.</p></div>
 </div>
 
@@ -122,76 +122,76 @@ let selectedUrl = "https://checkout.dodopayments.com/buy/pdt_0NlpdOU3je2S2RQg45k
 let selectedPrice = "448.5";
 
 document.querySelectorAll('.plan-btn').forEach(btn=>{
-  btn.addEventListener('click', ()=>{
-    document.querySelectorAll('.plan-btn').forEach(b=>{
-      b.classList.remove('active');
-      const icon = b.querySelector('div:last-child');
-      icon.innerHTML='→';
-      icon.style.background='transparent';
-      icon.style.color='rgba(255,255,255,.5)';
-      icon.style.borderColor='rgba(255,255,255,.2)';
-    });
-    btn.classList.add('active');
-    const icon = btn.querySelector('div:last-child');
-    icon.innerHTML='✓';
-    icon.style.background='white';
-    icon.style.color='#FF5A1F';
-    icon.style.borderColor='white';
-    selectedPlan = btn.dataset.plan;
-    selectedUrl = btn.dataset.url;
-    selectedPrice = btn.dataset.price;
-    document.getElementById('priceDisplay').textContent = '$' + selectedPrice;
-    const label = selectedPlan==='contado' ? '$'+selectedPrice : selectedPlan==='3cuotas' ? '3x $'+selectedPrice : '6x $'+selectedPrice;
-    document.getElementById('pagarBtn').textContent = 'PAGAR AHORA • ' + label + ' →';
-    document.getElementById('pagarBtn').href = selectedUrl;
-  });
+  btn.addEventListener('click', ()=>{
+    document.querySelectorAll('.plan-btn').forEach(b=>{
+      b.classList.remove('active');
+      const icon = b.querySelector('div:last-child');
+      icon.innerHTML='→';
+      icon.style.background='transparent';
+      icon.style.color='rgba(255,255,255,.5)';
+      icon.style.borderColor='rgba(255,255,255,.2)';
+    });
+    btn.classList.add('active');
+    const icon = btn.querySelector('div:last-child');
+    icon.innerHTML='✓';
+    icon.style.background='white';
+    icon.style.color='#FF5A1F';
+    icon.style.borderColor='white';
+    selectedPlan = btn.dataset.plan;
+    selectedUrl = btn.dataset.url;
+    selectedPrice = btn.dataset.price;
+    document.getElementById('priceDisplay').textContent = '$' + selectedPrice;
+    const label = selectedPlan==='contado' ? '$'+selectedPrice : selectedPlan==='3cuotas' ? '3x $'+selectedPrice : '6x $'+selectedPrice;
+    document.getElementById('pagarBtn').textContent = 'PAGAR AHORA • ' + label + ' →';
+    document.getElementById('pagarBtn').href = selectedUrl;
+  });
 });
 
 document.getElementById('leadForm').addEventListener('submit', async (e)=>{
-  e.preventDefault();
-  const nombre = document.getElementById('nombreInput').value.trim();
-  const email = document.getElementById('emailInput').value.trim().toLowerCase();
-  const msg = document.getElementById('formMsg');
-  const btn = document.getElementById('guardarBtn');
-  if(!email || !email.includes('@')){
-    msg.style.display='block';
-    msg.style.background='rgba(255,90,31,.15)';
-    msg.style.border='1px solid rgba(255,90,31,.3)';
-    msg.style.color='#FF8A65';
-    msg.textContent='Poné un email válido';
-    return;
-  }
-  btn.textContent='...';btn.disabled=true;
-  try{
-    await fetch(GAS_URL, {
-      method:'POST',
-      mode:'no-cors',
-      body: JSON.stringify({
-        action:'save_lead',
-        nombre: nombre || 'Sin nombre',
-        email: email,
-        packId: 3,
-        plan: selectedPlan,
-        origen: 'landing_pack3_github',
-        fecha: new Date().toISOString()
-      })
-    });
-    msg.style.display='block';
-    msg.style.background='rgba(78,238,216,.1)';
-    msg.style.border='1px solid rgba(78,238,216,.2)';
-    msg.style.color='#4EEED8';
-    msg.textContent='¡Listo! Guardamos tu lugar: Pack 3 • ' + selectedPlan + ' • $' + selectedPrice + '. Revisá tu email: ' + email;
-    document.getElementById('nombreInput').value='';
-    document.getElementById('emailInput').value='';
-  }catch(err){
-    msg.style.display='block';
-    msg.style.background='rgba(255,90,31,.15)';
-    msg.style.border='1px solid rgba(255,90,31,.3)';
-    msg.style.color='#FF8A65';
-    msg.textContent='Error: ' + err.message;
-  }finally{
-    btn.textContent='GUARDAR';btn.disabled=false;
-  }
+  e.preventDefault();
+  const nombre = document.getElementById('nombreInput').value.trim();
+  const email = document.getElementById('emailInput').value.trim().toLowerCase();
+  const msg = document.getElementById('formMsg');
+  const btn = document.getElementById('guardarBtn');
+  if(!email || !email.includes('@')){
+    msg.style.display='block';
+    msg.style.background='rgba(255,90,31,.15)';
+    msg.style.border='1px solid rgba(255,90,31,.3)';
+    msg.style.color='#FF8A65';
+    msg.textContent='Poné un email válido';
+    return;
+  }
+  btn.textContent='...';btn.disabled=true;
+  try{
+    await fetch(GAS_URL, {
+      method:'POST',
+      mode:'no-cors',
+      body: JSON.stringify({
+        action:'save_lead',
+        nombre: nombre || 'Sin nombre',
+        email: email,
+        packId: 3,
+        plan: selectedPlan,
+        origen: 'landing_pack3_github',
+        fecha: new Date().toISOString()
+      })
+    });
+    msg.style.display='block';
+    msg.style.background='rgba(78,238,216,.1)';
+    msg.style.border='1px solid rgba(78,238,216,.2)';
+    msg.style.color='#4EEED8';
+    msg.textContent='¡Listo! Guardamos tu lugar: Pack 3 • ' + selectedPlan + ' • $' + selectedPrice + '. Revisá tu email: ' + email;
+    document.getElementById('nombreInput').value='';
+    document.getElementById('emailInput').value='';
+  }catch(err){
+    msg.style.display='block';
+    msg.style.background='rgba(255,90,31,.15)';
+    msg.style.border='1px solid rgba(255,90,31,.3)';
+    msg.style.color='#FF8A65';
+    msg.textContent='Error: ' + err.message;
+  }finally{
+    btn.textContent='GUARDAR';btn.disabled=false;
+  }
 });
 </script>
 
