@@ -13,11 +13,16 @@ body{background:#0A1E1E;color:#E6FFF9}
 .video-wrap{position:relative;width:100%;aspect-ratio:9/16;background:#000;border-radius:22px;overflow:hidden;border:1px solid rgba(78,238,216,.3)}
 .video-wrap iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
 
-/* Cuando queda un solo pack */
-#packsContainer.single {
-  max-width: 820px;
-  margin: 0 auto;
+#packsContainer.single > div{
+  display:grid;
+  grid-template-columns:1.2fr .9fr;
+  gap:24px;
+  align-items:center;
+  padding:28px
 }
+#packsContainer.single > div img{max-height:520px}
+@media(max-width:768px){#packsContainer.single > div{grid-template-columns:1fr;padding:16px}}
+
   
 </style>
 </head>
@@ -92,7 +97,8 @@ body{background:#0A1E1E;color:#E6FFF9}
 const GAS_URL = "https://script.google.com/macros/s/AKfycbyxlO60asW5Jc8tHtjtSqk8-tUTSxJwwDZ-i0oN-Jgqn5wsmg7l0a70jFD7rZssUD4IOw/exec";
 let selected = {};
 function getPrices(id){ if(String(id)==='1'||String(id)==='2') return {contado:'275','3cuotas':'129','6cuotas':'82',total:550}; return {contado:'448.5','3cuotas':'256','6cuotas':'128',total:897}; }
-function renderPacks(packs){
+
+  function renderPacks(packs){
   const cont=document.getElementById('packsContainer'); cont.innerHTML='';
   const filtrados=packs.filter(p=>{ const v=p['Landing Packs']; if(v===undefined) return true; return String(v).toUpperCase()==='TRUE'||v===true; });
   filtrados.forEach(p=>{
@@ -113,6 +119,13 @@ function renderPacks(packs){
       document.getElementById(`pagar-${pid}`).textContent=`PAGAR AHORA • ${lbl} →`;
     });
   });
+    
+  // si queda 1 solo pack, activa layout destacado
+if(filtrados.length === 1){
+  cont.classList.add('single');
+} else {
+  cont.classList.remove('single');
+}
 }
 fetch(GAS_URL).then(r=>r.json()).then(d=>{renderPacks(Array.isArray(d)?d:[d])}).catch(()=>{renderPacks([
 {id:1,name:'Pack 1 - Emprendedor Digital',detail:'Curso de Investigación de Mercado Inteligente + Creación de Landing Pages',imageUrl:'https://res.cloudinary.com/dlnrsadbc/image/upload/q_auto,f_auto,w_800/v1785263295/mockup_emprendedor_digital_pack1_ofdn04.png',buyUrlContado:'https://checkout.dodopayments.com/buy/pdt_0NlgoWw7hIOubZdZjoTL6?quantity=1',buyUrl3Cuotas:'https://checkout.dodopayments.com/buy/pdt_0NlgzNDU3XTNnNPkGbU2O?quantity=1',buyUrl6Cuotas:'https://checkout.dodopayments.com/buy/pdt_0NlldeoXG6v18dWVqQqe9?quantity=1','Landing Packs':true},
@@ -142,12 +155,6 @@ document.getElementById('leadForm').addEventListener('submit', async function(e)
   document.getElementById('videoWrap').innerHTML = `<iframe src="https://drive.google.com/file/d/1bXodXhbSzXYWcHso4KGEKj0kHhQCqPV_/preview?autoplay=1" allowfullscreen allow="autoplay"></iframe>`;
 }
 
-  // si queda 1 solo pack, activa layout destacado
-if(filtrados.length === 1){
-  cont.classList.add('single');
-} else {
-  cont.classList.remove('single');
-}
   
 </script>
 </body>
