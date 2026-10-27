@@ -97,7 +97,7 @@ function renderPacks(packs){
   });
   document.querySelectorAll('[id^="pagar-"]').forEach(function(a){ a.addEventListener("click",function(){ try{fbq("track","InitiateCheckout");}catch(e){} }); });
 }
-function loadVideo(){ document.getElementById("videoWrap").innerHTML='<iframe src="https://drive.google.com/file/d/1bXodXhbSzXYWcHso4KGEKj0kHhQCqPV_/preview?autoplay=1" allow="autoplay; fullscreen" allowfullscreen></iframe>'; }
+function loadVideo(){ document.getElementById("videoWrap").innerHTML='<iframe src="https://drive.google.com/file/d/1GMFL3b-MkoVEyzkUKTKz8ffHpdVWRs9a/view?usp=drive_link" allow="autoplay; fullscreen" allowfullscreen></iframe>'; }
 document.getElementById("videoWrap").addEventListener("click",loadVideo);
 fetch(GAS_URL).then(function(r){return r.json();}).then(function(d){ if(Array.isArray(d)&&d.length>0) renderPacks(d); else if(d&&!Array.isArray(d)) renderPacks([d]); else renderPacks(fallbackPacks()); }).catch(function(){renderPacks(fallbackPacks());});
 document.getElementById("leadForm").addEventListener("submit",async function(e){
