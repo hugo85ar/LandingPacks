@@ -1064,17 +1064,41 @@ Error generating stack: `+o.message+`
 
 <script>
 document.addEventListener('click', function(e){
-  var a = e.target.closest && e.target.closest('a[href*="checkout.dodopayments.com"]');
-  if(!a || !window.fbq) return;
-  var href = a.href || '';
-  var data = {content_name: 'Pack 1 y 2', value: 275, currency: 'USD'};
-  if(href.indexOf('pdt_0NlgoWw7hIOubZdZjoTL6') > -1) data = {content_name:'Pack 1 Contado', value:275, currency:'USD'};
-  if(href.indexOf('pdt_0NlgzNDU3XTNnNPkGbU2O') > -1) data = {content_name:'Pack 1 3 Cuotas', value:387, currency:'USD'};
-  if(href.indexOf('pdt_0NlldeoXG6v18dWVqQqe9') > -1) data = {content_name:'Pack 1 6 Cuotas', value:492, currency:'USD'};
-  if(href.indexOf('pdt_0NlouaxHjXo84EfNAWbfd') > -1) data = {content_name:'Pack 2 Contado', value:275, currency:'USD'};
-  if(href.indexOf('pdt_0NlpY8LDDsTk7ooMRj3sN3') > -1) data = {content_name:'Pack 2 3 Cuotas', value:387, currency:'USD'};
-  if(href.indexOf('pdt_0NlpZJIpyn1NX1ZNT3sN3') > -1) data = {content_name:'Pack 2 6 Cuotas', value:492, currency:'USD'};
-  fbq('track', 'InitiateCheckout', data);
+  var btn = e.target.closest && e.target.closest('a, button');
+  if(!btn || !window.fbq) return;
+  var texto = (btn.innerText || '').toUpperCase();
+  var href = btn.href || btn.getAttribute('href') || '';
+  // Solo nos interesa el PAGAR AHORA o un link a Dodo
+  var esPagar = texto.indexOf('PAGAR AHORA') > -1;
+  var esDodo = href.indexOf('checkout.dodopayments.com') > -1;
+  if(!esPagar && !esDodo) return;
+  // Detectar qué opción está seleccionada: CONTADO / 3X / 6X
+  // En tu landing la seleccionada es la que tiene el ✓ y fondo naranja
+  var data = {content_name: 'Pack 3 Contado', value: 448.50, currency: 'USD'};
+  // Buscamos en toda la página el elemento que tiene el ✓
+  var candidatos = Array.from(document.querySelectorAll('button, div, a, span'));
+  var activo = null;
+  for(var i=0; i<candidatos.length; i++){
+    var t = candidatos[i].innerText || '';
+    if((t.indexOf('✓') > -1 || t.indexOf('✔') > -1) && (t.toUpperCase().indexOf('3X') > -1 || t.toUpperCase().indexOf('6X') > -1 || t.toUpperCase().indexOf('CONTADO') > -1)){
+      // Nos quedamos con el más chico, el botón de la opción, no un contenedor gigante
+      if(!activo || t.length < activo.innerText.length) activo = candidatos[i];
+    }
+  }
+  if(activo){
+    var ta = (activo.innerText || '').toUpperCase();
+    if(ta.indexOf('3X') > -1) data = {content_name: 'Pack 3 3 Cuotas', value: 768, currency: 'USD'};
+    else if(ta.indexOf('6X') > -1) data = {content_name: 'Pack 3 6 Cuotas', value: 768, currency: 'USD'};
+    else if(ta.indexOf('CONTADO') > -1) data = {content_name: 'Pack 3 Contado', value: 448.50, currency: 'USD'};
+  }
+  // Si el href ya tiene el ID de Dodo, mandamos eso directo (más seguro)
+  if(href.indexOf('checkout.dodopayments.com') > -1){
+    // Acá después ponemos los IDs reales de Dodo de Pack 3 cuando me los pases
+    fbq('track', 'InitiateCheckout', data);
+  } else {
+    fbq('track', 'InitiateCheckout', data);
+  }
+  console.log('InitiateCheckout Pack 3:', data);
 });
 </script>
 
