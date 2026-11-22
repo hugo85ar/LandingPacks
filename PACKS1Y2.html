@@ -2,6 +2,8 @@
 <html lang="en">
 <head>
   <style>
+
+      
 /* Esto es lo que le falta a Packs 1 y 2 */
 .packs-wrap, main, #packsContainer {
   max-width: 1100px;
@@ -1031,6 +1033,20 @@ body {
     font-size: 42px;
   }
 }
+
+
+      #topbar-inner {
+    max-width: 1120px;
+    margin: 0 auto;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+  }
+  @media (min-width: 768px) {
+    #topbar-inner { padding: 0 32px; }
+  }
 </style>
 
 
@@ -1055,12 +1071,14 @@ src="https://www.facebook.com/tr?id=2189151328193841&ev=PageView&noscript=1"
 
 <body>
 
-  <header style="height:72px;background:#0A1E1E;border-bottom:1px solid rgba(78,238,216,.15);display:flex;align-items:center;justify-content:space-between;padding:0 24px;position:sticky;top:0;z-index:10">
-  <a href="https://hugo85ar.github.io/LandingPacks/" style="display:flex;align-items:center;gap:12px;text-decoration:none">
-    <img src="https://res.cloudinary.com/dlnrsadbc/image/upload/q_auto,f_auto,w_200/v1789653853/hugo_logo_transparente_epomls.png" style="height:28px" alt="Hugo Alvigini">
-    <span style="font-size:11px;font-weight:800;letter-spacing:.15em;color:#4EEED8">TRANSFORMACIÓN TOTAL</span>
-  </a>
-  <a href="https://hugo85ar.github.io/LandingPacks/" style="background:#FF5A1F;color:white;padding:10px 18px;border-radius:9999px;font-weight:800;font-size:13px;text-decoration:none">Ver Pack 3 →</a>
+ <header id="topbar" style="height:72px;background:#0A1E1E;border-bottom:1px solid rgba(78,238,216,.15);position:sticky;top:0;z-index:10">
+  <div id="topbar-inner">
+    <a href="https://hugo85ar.github.io/LandingPacks/" style="display:flex;align-items:center;gap:12px;text-decoration:none">
+      <img src="https://res.cloudinary.com/dlnrsadbc/image/upload/q_auto,f_auto,w_200/v1789653853/hugo_logo_transparente_epomls.png" style="height:28px" alt="Hugo Alvigini">
+      <span style="font-size:11px;font-weight:800;letter-spacing:.15em;color:#4EEED8">TRANSFORMACIÓN TOTAL</span>
+    </a>
+    <a href="https://hugo85ar.github.io/LandingPacks/" style="background:#FF5A1F;color:white;padding:10px 18px;border-radius:9999px;font-weight:800;font-size:13px;text-decoration:none">Ver Pack 3 →</a>
+  </div>
 </header>
   
   <div id="root"></div>
